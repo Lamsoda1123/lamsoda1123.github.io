@@ -1,0 +1,1587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西贡公众码头沿海游玩攻略 · 第二版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(25, 118, 210, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: white;
+            border-radius: 15px;
+            padding: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            color: #333;
+        }
+
+        .nav-tab:hover {
+            background: #e3f2fd;
+            color: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab.active {
+            background: #1976d2;
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border-color: #e3f2fd;
+        }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f5f5f5;
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+            color: white;
+        }
+
+        .kayaking .activity-icon { background: linear-gradient(135deg, #4CAF50, #388E3C); }
+        .fishing .activity-icon { background: linear-gradient(135deg, #FF9800, #F57C00); }
+        .snorkeling .activity-icon { background: linear-gradient(135deg, #00BCD4, #0097A7); }
+        .island-hopping .activity-icon { background: linear-gradient(135deg, #9C27B0, #7B1FA2); }
+
+        .activity-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .activity-card h3 {
+            color: #1976d2;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .price-highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .activity-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .referral-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        }
+
+        .referral-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .referral-item {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #1976d2;
+        }
+
+        .referral-author {
+            font-weight: 600;
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+
+        .referral-content {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .referral-stats {
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .info-card h3 {
+            color: #1976d2;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            border-bottom: 2px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .info-list li:before {
+            content: "📍";
+            position: absolute;
+            left: 0;
+        }
+
+        .transport-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .transport-method {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .transport-details {
+            text-align: right;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border-left: 4px solid #f44336;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #d32f2f;
+        }
+
+        .price-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+        }
+
+        .price-table th {
+            background: #1976d2;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .price-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .price-table tr:hover {
+            background: #f8f9ff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-size: 0.9em;
+            background: white;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2.2em;
+            }
+
+            .nav-tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                padding: 5px;
+            }
+
+            .nav-tab {
+                white-space: nowrap;
+                font-size: 14px;
+                padding: 10px 20px;
+            }
+
+            .activities-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .referral-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin: 3px;
+            font-weight: 500;
+        }
+
+        .route-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .route-timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: repeating-linear-gradient(to bottom, #1976d2 0, #1976d2 10px, transparent 10px, transparent 20px);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 22px;
+            width: 8px;
+            height: 8px;
+            background: #1976d2;
+            border-radius: 50%;
+        }
+
+        .timeline-time {
+            font-weight: 600;
+            color: #1976d2;
+            font-size: 1.1em;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .badge-success { background: #e8f5e9; color: #2e7d32; }
+        .badge-warning { background: #fff8e1; color: #f57f17; }
+        .badge-info { background: #e3f2fd; color: #1565c0; }
+        .badge-danger { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 页面标题 -->
+        <div class="header">
+            <h1>西贡公众码头沿海游玩攻略</h1>
+            <p>全面指南 · 第二版</p>
+            <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">系统调研 | 详尽信息 | 小红书真实评价</p>
+        </div>
+
+        <!-- 导航标签 -->
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showSection('activities')">游玩项目</button>
+            <button class="nav-tab" onclick="showSection('destinations')">海岛目的地</button>
+            <button class="nav-tab" onclick="showSection('transport')">交通指南</button>
+            <button class="nav-tab" onclick="showSection('dining')">美食推荐</button>
+            <button class="nav-tab" onclick="showSection('accommodation')">住宿选择</button>
+            <button class="nav-tab" onclick="showSection('planning')">行程规划</button>
+        </div>
+
+        <!-- 游玩项目 -->
+        <div id="activities" class="content-section active">
+            <div class="activities-grid">
+                <!-- 皮划艇 -->
+                <div class="activity-card kayaking" onclick="toggleDetails(this)">
+                    <div class="activity-header">
+                        <div class="activity-icon">🛶</div>
+                        <div class="activity-title">皮划艇/独木舟</div>
+                    </div>
+
+                    <div class="main-content">
+                        <h3>📍 推荐地点</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 5px 0;">🏖️ 西贡海滨公园（近码头，方便）</li>
+                            <li style="padding: 5px 0;">🏝️ 白沙澳（海水清澈，环境宁静）</li>
+                        </ul>
+
+                        <h3>💰 费用参考</h3>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px;">
+                            <p><strong>单人皮划艇：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 1小时: <span class="price-highlight">120-150港币</span></li>
+                                <li>• 2小时: <span class="price-highlight">200-250港币</span></li>
+                                <li>• 半天(4小时): <span class="price-highlight">350-400港币</span></li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>双人皮划艇：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 1小时: <span class="price-highlight">180-220港币</span></li>
+                                <li>• 2小时: <span class="price-highlight">300-350港币</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <strong>💡 小红书用户推荐：</strong><br>
+                            「最推荐皮划艇出海，100多港币一小时，自己划着小船出海看风景」——泽铭 (赞：1266)
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <span class="feature-tag">适合初学者</span>
+                            <span class="feature-tag">含救生衣</span>
+                            <span class="feature-tag">可现场预订</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-details">
+                        <h3>最佳时间</h3>
+                        <ul>
+                            <li><strong>早上</strong> 7:00-9:00 - 海风轻，海面平静</li>
+                            <li><strong>下午</strong> 15:00-17:00 - 避开正午烈日</li>
+                        </ul>
+
+                        <h3>预订方式</h3>
+                        <ul>
+                            <li>现场预订：西贡海滨公园租赁点</li>
+                            <li>电话预订：部分商家提供</li>
+                        </ul>
+
+                        <h3>注意事项</h3>
+                        <div class="warning-box">
+                            <strong>⚠️ 安全第一</strong><br>
+                            务必穿戴救生衣 | 关注天气预报 | 了解潮汐时间 | 评估自身体力
+                        </div>
+
+                        <h3>小红书用户评论</h3>
+                        <div class="referral-grid">
+                            <div class="referral-item">
+                                <div class="referral-author">泽铭</div>
+                                <div class="referral-content">"最推荐的是皮划艇出海，通常收费100多港币一小时，自己划着小船出海看风景..."</div>
+                                <div class="referral-stats">👍 1266 | 💾 2526 | 💬 136</div>
+                            </div>
+                            <div class="referral-item">
+                                <div class="referral-author">旺角阿叔</div>
+                                <div class="referral-content">"西贡独木舟体验很好玩，价格划算，$90港币两小时"</div>
+                                <div class="referral-stats">👍 150 | 💾 155 | 💬 32</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 钓鱼 -->
+                <div class="activity-card fishing" onclick="toggleDetails(this)">
+                    <div class="activity-header">
+                        <div class="activity-icon">🎣</div>
+                        <div class="activity-title">海钓 & 码头钓鱼</div>
+                    </div>
+
+                    <div class="main-content">
+                        <h3>📍 推荐地点</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 5px 0;">🎣 西贡公众码头（免费，适合初学者）</li>
+                            <li style="padding: 5px 0;">🚤 横澜岛/果洲群岛（包船出海）</li>
+                        </ul>
+
+                        <h3>💰 费用参考</h3>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px;">
+                            <p><strong>码头钓鱼：</strong> <span class="price-highlight">免费</span></p>
+                            <p style="margin-top: 10px;"><strong>包船海钓（4-6小时）：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 小型渔船(4-6人): <span class="price-highlight">1500-2000港币</span></li>
+                                <li>• 中型渔船(6-10人): <span class="price-highlight">2000-3000港币</span></li>
+                                <li>• 拼船: <span class="price-highlight">300-500港币/人</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <strong>💡 特色体验：钓章鱼</strong><br>
+                            夏季最佳(7-9月)，晚上使用灯光吸引，用专用章鱼钩，非常有特色
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <span class="feature-tag">适合家庭</span>
+                            <span class="feature-tag">含钓具</span>
+                            <span class="feature-tag">船长指导</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-details">
+                        <h3>钓鱼方式</h3>
+                        <ul>
+                            <li><strong>码头边钓鱼</strong> - 免费，适合初学者，小鱼为主</li>
+                            <li><strong>海钓(包船)</strong> - 鱼获丰富，体验真实海钓</li>
+                            <li><strong>特色钓章鱼</strong> - 夏季傍晚，独特体验</li>
+                        </ul>
+
+                        <h3>最佳时间</h3>
+                        <ul>
+                            <li><strong>早上</strong> 5:00-9:00 - 日出前后</li>
+                            <li><strong>傍晚</strong> 17:00-20:00 - 日落前后</li>
+                            <li><strong>晚上</strong> 20:00-24:00 - 夜钓章鱼</li>
+                        </ul>
+
+                        <h3>包船包含项目</h3>
+                        <ul>
+                            <li>✓ 钓竿、鱼线、鱼钩、铅坠</li>
+                            <li>✓ 诱饵(虾、青虫、假饵)</li>
+                            <li>✓ 船长指导</li>
+                            <li>✓ 救生设备</li>
+                        </ul>
+
+                        <h3>小红书用户评论</h3>
+                        <div class="referral-grid">
+                            <div class="referral-item">
+                                <div class="referral-author">Capt.Joshua香港约书亚</div>
+                                <div class="referral-content">"香港西贡吃海鲜好便宜哈哈"</div>
+                                <div class="referral-stats">👍 142 | 💾 111 | 💬 21</div>
+                            </div>
+                            <div class="referral-item">
+                                <div class="referral-author">發發子梦游</div>
+                                <div class="referral-content">"香港🇭🇰西贡自选海鲜加工🦞吃的太开心了"</div>
+                                <div class="referral-stats">👍 254 | 💾 359 | 💬 13</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 浮潜 -->
+                <div class="activity-card snorkeling" onclick="toggleDetails(this)">
+                    <div class="activity-header">
+                        <div class="activity-icon">🤿</div>
+                        <div class="activity-title">浮潜 & 潜水</div>
+                    </div>
+
+                    <div class="main-content">
+                        <h3>📍 推荐地点</h3>
+                        <ul style="list-style: none; padding-left: 0;">
+                            <li style="padding: 5px 0;">🏖️ 厦门湾(半月湾) - <span class="price-highlight">香港水质最佳</span></li>
+                            <li style="padding: 5px 0;">🏝️ 桥咀洲周边 - 珊瑚礁群丰富</li>
+                        </ul>
+
+                        <h3>💰 费用参考</h3>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px;">
+                            <p><strong>装备租赁：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 面镜+呼吸管+脚蹼: <span class="price-highlight">50-80港币/套</span></li>
+                                <li>• 救援衣: 免费</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>体验潜水：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 半天体验: <span class="price-highlight">800-1200港币</span></li>
+                                <li>• OW考证: <span class="price-highlight">3500-4500港币</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box">
+                            <strong>💡 小红书用户强烈推荐：</strong><br>
+                            「厦门湾也被叫半月湾，海水质量真的是很好，能见度极高，说是香港水质最好的海滩」——小佩同学在香港
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <span class="feature-tag">水质极佳</span>
+                            <span class="feature-tag">可跳水</span>
+                            <span class="feature-tag">适合拍照</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-details">
+                        <h3>浮潜最佳时间</h3>
+                        <ul>
+                            <li>每年6月-10月，水温25-28℃</li>
+                            <li>每日9:00-11:00，14:00-17:00</li>
+                        </ul>
+
+                        <h3>推荐拍摄点</h3>
+                        <ul>
+                            <li>📸 半月湾悬崖跳水点</li>
+                            <li>📸 水下热带鱼群</li>
+                            <li>📸 珊瑚礁群</li>
+                        </ul>
+
+                        <h3>小红书用户评论</h3>
+                        <div class="referral-grid">
+                            <div class="referral-item">
+                                <div class="referral-author">小佩同学在香港</div>
+                                <div class="referral-content">"厦门湾也被叫半月湾，海水质量真的是很好，还是忍不住跳下去了！真的好爽"</div>
+                                <div class="referral-stats">👍 133 | 💾 291 | 💬 45</div>
+                            </div>
+                            <div class="referral-item">
+                                <div class="referral-author">茹宝的生活日记</div>
+                                <div class="referral-content">"厦门湾能见度极高，说是香港水质最好的海滩，夏日炎炎一起跳海吧！"</div>
+                                <div class="referral-stats">👍 28 | 💾 27 | 💬 12</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 海岛游 -->
+                <div class="activity-card island-hopping" onclick="toggleDetails(this)">
+                    <div class="activity-header">
+                        <div class="activity-icon">⛵</div>
+                        <div class="activity-title">海岛游 & 包船</div>
+                    </div>
+
+                    <div class="main-content">
+                        <h3>📍 可到达岛屿</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+                            <span class="badge badge-info">桥咀洲</span>
+                            <span class="badge badge-info">厦门湾</span>
+                            <span class="badge badge-info">盐田仔</span>
+                            <span class="badge badge-info">塔门岛</span>
+                        </div>
+
+                        <h3>💰 包船费用</h3>
+                        <div style="background: #f8f9ff; padding: 15px; border-radius: 8px;">
+                            <p><strong>快艇(6-10人)：</strong></p>
+                            <ul style="list-style: none; padding-left: 0; font-size: 0.95em;">
+                                <li>• 4小时: <span class="price-highlight">1500-2500港币</span></li>
+                                <li>• 人均: <span class="price-highlight">150-420港币</span></li>
+                            </ul>
+                            <p style="margin-top: 10px;"><strong>拼船：</strong> <span class="price-highlight">200-300港币/人</span></p>
+                        </div>
+
+                        <div class="highlight-box">
+                            <strong>💡 热门路线：</strong><br>
+                            西贡码头 → 桥咀洲(徒步) → 厦门湾(浮潜) → 返回（4小时）
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <span class="feature-tag">可定制路线</span>
+                            <span class="feature-tag">含浮潜</span>
+                            <span class="feature-tag">适合团体</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-details">
+                        <h3>推荐路线</h3>
+
+                        <h4>经典跳岛游 (4小时)</h4>
+                        <div class="route-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">09:00</div> 西贡码头集合
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">09:30</div> 出发前往桥咀洲
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">10:00-11:30</div> 桥咀洲徒步探索
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">12:00-13:30</div> 厦门湾游泳浮潜
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:00</div> 返回西贡码头
+                            </div>
+                        </div>
+
+                        <h3>费用对比</h3>
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>类型</th>
+                                    <th>人数</th>
+                                    <th>时长</th>
+                                    <th>费用</th>
+                                    <th>适合</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>快艇</td>
+                                    <td>6人</td>
+                                    <td>4小时</td>
+                                    <td>1500-2000港币</td>
+                                    <td>跳岛游</td>
+                                </tr>
+                                <tr>
+                                    <td>渔船</td>
+                                    <td>8人</td>
+                                    <td>6小时</td>
+                                    <td>2500-3000港币</td>
+                                    <td>海钓组合</td>
+                                </tr>
+                                <tr>
+                                    <td>拼船</td>
+                                    <td>1-3人</td>
+                                    <td>4小时</td>
+                                    <td>200-300港币/人</td>
+                                    <td>省钱</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h3>小红书用户评论</h3>
+                        <div class="referral-grid">
+                            <div class="referral-item">
+                                <div class="referral-author">花轮同学在香港</div>
+                                <div class="referral-content">"三五好友包船出游，包船去这些小岛玩了一圈"</div>
+                                <div class="referral-stats">👍 124 | 💾 158 | 💬 32</div>
+                            </div>
+                            <div class="referral-item">
+                                <div class="referral-author">tititourism</div>
+                                <div class="referral-content">"包船体验海岛游，先游西贡海鲜街再到古老村落盐田梓最后到浅水桥咀洲"</div>
+                                <div class="referral-stats">👍 69 | 💾 81 | 💬 15</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 海岛目的地 -->
+        <div id="destinations" class="content-section">
+            <div class="info-grid">
+                <!-- 桥咀洲 -->
+                <div class="info-card">
+                    <h3>🌉 桥咀洲 (Pedestrian Bridge Island)</h3>
+                    <div style="margin-bottom: 15px;">
+                        <span class="badge badge-success">步行可达</span>
+                        <span class="badge badge-info">连岛沙洲</span>
+                        <span class="badge badge-warning">地质公园</span>
+                    </div>
+
+                    <p><strong>特色：</strong>连岛沙洲、地质奇观、海水清澈</p>
+                    <p><strong>交通：</strong>涨潮时沿沙洲步行30分钟（免费）</p>
+                    <p><strong>主要活动：</strong>地质探索、沙滩漫步、摄影</p>
+                    <p><strong>注意事项：</strong>必须在涨潮前返回</p>
+
+                    <div class="highlight-box">
+                        <strong>小红书评价：</strong><br>
+                        "一半山景，一半海景。喜欢爬山又要看海的别犹豫" - 静静 (赞：417)
+                    </div>
+                </div>
+
+                <!-- 厦门湾 -->
+                <div class="info-card">
+                    <h3>🏖️ 厦门湾/半月湾 (Half Moon Bay)</h3>
+                    <div style="margin-bottom: 15px;">
+                        <span class="badge badge-success">水质最佳</span>
+                        <span class="badge badge-info">浮潜圣地</span>
+                        <span class="badge badge-warning">可跳水</span>
+                    </div>
+
+                    <p><strong>特色：</strong>香港水质最好的海滩，能见度极高</p>
+                    <p><strong>交通：</strong>快艇10-15分钟，40-50港币/程</p>
+                    <p><strong>主要活动：</strong>游泳、浮潜、悬崖跳水</p>
+                    <p><strong>最佳时间：</strong>夏季6-9月</p>
+
+                    <div class="highlight-box">
+                        <strong>小红书评价：</strong><br>
+                        "能见度极高，说是香港水质最好的海滩。还是忍不住跳下去了！真的好爽" - 小佩同学 (赞：133)
+                    </div>
+                </div>
+
+                <!-- 塔门岛 -->
+                <div class="info-card">
+                    <h3>🏕️ 塔门岛 (Tap Mun Island)</h3>
+                    <div style="margin-bottom: 15px;">
+                        <span class="badge badge-success">高山草甸</span>
+                        <span class="badge badge-info">露营圣地</span>
+                        <span class="badge badge-warning">观星绝佳</span>
+                    </div>
+
+                    <p><strong>特色：</strong>高山草甸、牛群、露营观星</p>
+                    <p><strong>交通：</strong>黄石码头出发，船程30分钟</p>
+                    <p><strong>主要活动：</strong>环岛徒步、露营、观日出日落</p>
+                    <p><strong>建议：</strong>2天1夜，体验露营</p>
+
+                    <div class="highlight-box">
+                        <strong>小红书评价：</strong><br>
+                        "露营观星一流，高山草甸与大海同框" - 小佩同学 (赞：133)
+                    </div>
+                </div>
+
+                <!-- 盐田仔 -->
+                <div class="info-card">
+                    <h3>🏘️ 盐田仔 (Yim Tin Tsai)</h3>
+                    <div style="margin-bottom: 15px;">
+                        <span class="badge badge-success">古老村落</span>
+                        <span class="badge badge-info">盐田文化</span>
+                        <span class="badge badge-warning">艺术氛围</span>
+                    </div>
+
+                    <p><strong>特色：</strong>古老渔村、盐田文化遗迹、天主教堂</p>
+                    <p><strong>交通：</strong>西贡码头坐船15-20分钟</p>
+                    <p><strong>主要活动：</strong>文化探索、摄影、观鸟</p>
+                    <p><strong>适合人群：</strong>文化爱好者、摄影爱好者</p>
+
+                    <div class="highlight-box">
+                        <strong>小红书评价：</strong><br>
+                        "盐田梓，听名字就充满故事感！可以了解香港盐田文化" - 测测在香港 (赞：70)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 交通指南 -->
+        <div id="transport" class="content-section">
+            <div class="info-card">
+                <h3>🚇 如何到达西贡码头</h3>
+
+                <table class="price-table">
+                    <thead>
+                        <tr>
+                            <th>方式</th>
+                            <th>路线</th>
+                            <th>时间</th>
+                            <th>费用</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>彩虹站→92巴士</strong></td>
+                            <td>彩虹站C出口 → 西贡码头</td>
+                            <td>40分钟</td>
+                            <td>8-10港币</td>
+                        </tr>
+                        <tr>
+                            <td><strong>坑口站→101M小巴</strong></td>
+                            <td>坑口地铁站 → 西贡码头</td>
+                            <td>20-30分钟</td>
+                            <td>8-10港币</td>
+                        </tr>
+                        <tr>
+                            <td><strong>自驾</strong></td>
+                            <td>将军澳道→清水湾道→西贡公路</td>
+                            <td>30-45分钟</td>
+                            <td>停车费30-50/小时</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <strong>⚠️ 重要提示</strong><br>
+                    • 周末及节假日建议早上8点前到达，避免交通拥堵<br>
+                    • 返回市区高峰期为17:00-18:00，建议提前<br>
+                    • 船班时间以现场公告为准，恶劣天气可能取消
+                </div>
+            </div>
+
+            <div class="info-card" style="margin-top: 20px;">
+                <h3>🚤 码头至各岛屿交通</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="background: #f8f9ff; padding: 15px; border-radius: 10px;">
+                        <h4 style="color: #1976d2; margin-bottom: 10px;">🌉 桥咀洲</h4>
+                        <p><strong>方式：</strong>步行</p>
+                        <p><strong>时间：</strong>30分钟（涨潮时）</p>
+                        <p><strong>费用：</strong>免费</p>
+                        <span class="badge badge-info">连岛沙洲</span>
+                    </div>
+
+                    <div style="background: #f8f9ff; padding: 15px; border-radius: 10px;">
+                        <h4 style="color: #1976d2; margin-bottom: 10px;">🏖️ 厦门湾</h4>
+                        <p><strong>方式：</strong>快艇</p>
+                        <p><strong>时间：</strong>10-15分钟</p>
+                        <p><strong>费用：</strong>40-50港币/程</p>
+                        <span class="badge badge-success">水质最佳</span>
+                    </div>
+
+                    <div style="background: #f8f9ff; padding: 15px; border-radius: 10px;">
+                        <h4 style="color: #1976d2; margin-bottom: 10px;">🏕️ 塔门岛</h4>
+                        <p><strong>方式：</strong>船渡</p>
+                        <p><strong>时间：</strong>30分钟</p>
+                        <p><strong>费用：</strong>50-80港币</p>
+                        <span class="badge badge-warning">露营推荐</span>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 25px; color: #1976d2;">🚢 包船服务</h4>
+                <table class="price-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>快艇</strong></td>
+                            <td>6-10人</td>
+                            <td>4小时</td>
+                            <td>1500-2500港币</td>
+                        </tr>
+                        <tr>
+                            <td><strong>渔船</strong></td>
+                            <td>8-15人</td>
+                            <td>6小时</td>
+                            <td>2000-3500港币</td>
+                        </tr>
+                        <tr>
+                            <td><strong>拼船</strong></td>
+                            <td>1-3人</td>
+                            <td>4小时</td>
+                            <td>200-300港币/人</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 美食推荐 -->
+        <div id="dining" class="content-section">
+            <div class="referral-section">
+                <h3 style="color: #1976d2; margin-bottom: 20px;">🦞 西贡海鲜街美食推荐</h3>
+                <p style="margin-bottom: 20px; color: #666;">西贡海旁广场聚集众多海鲜餐厅，新鲜海鲜、海景餐厅、渔村风情应有尽有</p>
+
+                <div class="referral-grid">
+                    <div class="referral-item">
+                        <div class="referral-author">莽莽在香港</div>
+                        <div class="referral-content">"西贡一日全攻略｜码头小镇+米其林海鲜🦞"</div>
+                        <div class="referral-stats">👍 637 | 💾 876 | 💬 64</div>
+                    </div>
+                    <div class="referral-item">
+                        <div class="referral-author">海洋之友 Rxs Wu</div>
+                        <div class="referral-content">"西贡本地人推薦l吃海鲜攻略，推荐当地人如何选择餐厅"</div>
+                        <div class="referral-stats">👍 79 | 💾 102 | 💬 7</div>
+                    </div>
+                    <div class="referral-item">
+                        <div class="referral-author">橙C美式呀</div>
+                        <div class="referral-content">"香港🇭🇰西贡美食攻略～亲测好吃🙋‍♀️，人均200-300元可以吃得很好"</div>
+                        <div class="referral-stats">👍 209 | 💾 184 | 💬 12</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <!-- 高端餐厅 -->
+                <div class="info-card">
+                    <h3>🍽️ 高端餐厅推荐</h3>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">六福菜馆</h4>
+                        <p><strong>特色：</strong>米其林推荐，老字号</p>
+                        <p><strong>招牌：</strong>芝士龙虾、避风塘炒蟹</p>
+                        <p><strong>人均：</strong><span class="price-highlight">300-500港币</span></p>
+                        <p><strong>小红书：</strong>bella golfs 推荐</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">全记海鲜酒家</h4>
+                        <p><strong>特色：</strong>规模大，环境好，有露天座位</p>
+                        <p><strong>招牌：</strong>白灼虾、酥炸鱿鱼</p>
+                        <p><strong>人均：</strong><span class="price-highlight">200-400港币</span></p>
+                        <span class="badge badge-warning">注意套餐价格</span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">金辉海鲜菜馆</h4>
+                        <p><strong>特色：</strong>老字号，本地人推荐</p>
+                        <p><strong>人均：</strong><span class="price-highlight">150-300港币</span></p>
+                        <p><strong>小红书：</strong>甘露寺铁T 推荐</p>
+                    </div>
+                </div>
+
+                <!-- 平价餐厅 -->
+                <div class="info-card">
+                    <h3>🍜 平价美食推荐</h3>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">陈根记</h4>
+                        <p><strong>特色：</strong>香港大排档风格，米其林平价</p>
+                        <p><strong>招牌：</strong>银芽炒面、沙姜鸡</p>
+                        <p><strong>人均：</strong><span class="price-highlight">100-150港币</span></p>
+                        <span class="badge badge-success">性价比极高</span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">特色大排档</h4>
+                        <p><strong>小红书：</strong>特仑苏Terrence 推荐</p>
+                        <p><strong>特色：</strong>有锅气，地道风味</p>
+                        <p><strong>人均：</strong><span class="price-highlight">80-120港币</span></p>
+                    </div>
+                </div>
+
+                <!-- 消费参考 -->
+                <div class="info-card">
+                    <h3>💰 消费参考</h3>
+
+                    <h4 style="color: #1976d2; margin-top: 15px;">按人头预算</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <strong>经济型：</strong>150-200港币
+                            <span style="float: right;" class="badge badge-success">2-3个菜品</span>
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <strong>标准型：</strong>200-350港币
+                            <span style="float: right;" class="badge badge-info">3-4个菜品+海鲜</span>
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong>豪华型：</strong>350-500+港币
+                            <span style="float: right;" class="badge badge-warning">龙虾、螃蟹等</span>
+                        </li>
+                    </ul>
+
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <strong>💡 省钱贴士：</strong><br>
+                        • 避开高峰期(下午2-5点)<br>
+                        • 选择大排档，比酒楼便宜20-30%<br>
+                        • 工作日价格更低<br>
+                        • 6人以上包船更划算
+                    </div>
+                </div>
+
+                <!-- 自选海鲜 -->
+                <div class="info-card">
+                    <h3>🦀 自选海鲜流程</h3>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">第一步：选购海鲜</h4>
+                        <p>地点：西贡海鲜街鱼市</p>
+                        <p>时间：10:00-18:00</p>
+                        <p>技巧：挑选活泼的海鲜</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">第二步：选择餐厅</h4>
+                        <p>加工费：30-50港币/斤</p>
+                        <p>确认做法和口味</p>
+                        <p>等待时间：20-30分钟</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">第三步：加工方式</h4>
+                        <span class="badge badge-info">清蒸</span>
+                        <span class="badge badge-success">蒜蓉蒸</span>
+                        <span class="badge badge-warning">姜葱炒</span>
+                        <span class="badge badge-danger">避风塘</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 住宿选择 -->
+        <div id="accommodation" class="content-section">
+            <div class="referral-section">
+                <h3 style="color: #1976d2; margin-bottom: 20px;">🏨 西贡住宿推荐</h3>
+                <p style="margin-bottom: 20px; color: #666;">从海景酒店到精品民宿，西贡提供多种住宿选择满足不同需求</p>
+
+                <div class="referral-grid">
+                    <div class="referral-item">
+                        <div class="referral-author">五月伊娃</div>
+                        <div class="referral-content">"HK巨有度假感酒店！步行码头2mins！view一绝"</div>
+                        <div class="referral-stats">👍 908 | 💾 1298 | 💬 57</div>
+                    </div>
+                    <div class="referral-item">
+                        <div class="referral-author">游来游去</div>
+                        <div class="referral-content">"在香港几百元住270度海景酒店"</div>
+                        <div class="referral-stats">👍 47 | 💾 31 | 💬 7</div>
+                    </div>
+                    <div class="referral-item">
+                        <div class="referral-author">neeei</div>
+                        <div class="referral-content">"香港西贡性价比酒店推荐，人均几百块钱享受泳池+独立海景阳台"</div>
+                        <div class="referral-stats">👍 168 | 💾 143 | 💬 18</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <!-- 海景酒店 -->
+                <div class="info-card">
+                    <h3>🌊 海景酒店推荐</h3>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">The Pier Hotel 西贡码头酒店</h4>
+                        <p><strong>特色：</strong>270度海景，位置极佳</p>
+                        <p><strong>价格：</strong><span class="price-highlight">1000-2000港币/晚</span></p>
+                        <p><strong>小红书：</strong>_jojobeeeee 强烈推荐</p>
+                        <span class="badge badge-success">阳台海景</span>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">WM Hotel 洲至奢选</h4>
+                        <p><strong>特色：</strong>海景、艺术氛围、高端设施</p>
+                        <p><strong>价格：</strong><span class="price-highlight">1200-2500港币/晚</span></p>
+                        <p><strong>小红书：</strong>多个用户强烈推荐</p>
+                        <span class="badge badge-info">出门就是海滩</span>
+                    </div>
+                </div>
+
+                <!-- 性价比推荐 -->
+                <div class="info-card">
+                    <h3>💰 性价比之选</h3>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">精品民宿</h4>
+                        <p><strong>特色：</strong>个性化、温馨氛围</p>
+                        <p><strong>价格：</strong><span class="price-highlight">400-800港币/晚</span></p>
+                        <p><strong>适合：</strong>背包客、年轻人</p>
+                    </div>
+
+                    <div style="margin-bottom: 15px;">
+                        <h4 style="color: #1976d2;">青年旅舍</h4>
+                        <p><strong>特色：</strong>床位多、社交氛围</p>
+                        <p><strong>价格：</strong><span class="price-highlight">150-300港币/床位</span></p>
+                        <p><strong>适合：</strong>独自旅行者、学生</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>💡 小红书性价比推荐：</strong><br>
+                        「人均几百块钱就可以享受泳池+独立海景阳台」- neeei
+                    </div>
+                </div>
+
+                <!-- 预订建议 -->
+                <div class="info-card">
+                    <h3>📅 预订建议</h3>
+
+                    <h4 style="color: #1976d2; margin-top: 15px;">最佳预订时间</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <strong>平日：</strong>提前1-3天
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
+                            <strong>周末：</strong>提前1-2周
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong>节假日：</strong>提前1个月
+                        </li>
+                    </ul>
+
+                    <h4 style="color: #1976d2; margin-top: 20px;">省钱技巧</h4>
+                    <ul style="font-size: 0.95em;">
+                        <li>✓ 平日入住比周末便宜30-50%</li>
+                        <li>✓ 连住3晚以上可能有折扣</li>
+                        <li>✓ 提前30天预订有早鸟优惠</li>
+                        <li>✓ 使用信用卡优惠或会员积分</li>
+                    </ul>
+                </div>
+
+                <!-- 热门标注 -->
+                <div class="info-card">
+                    <h3>🔥 小红书热门标注</h3>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+                        <div style="text-align: center; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 1.5em; color: #1976d2; font-weight: bold;">2158</div>
+                            <div style="font-size: 0.9em; color: #666;">#西贡码头酒店</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 1.5em; color: #1976d2; font-weight: bold;">1000+</div>
+                            <div style="font-size: 0.9em; color: #666;">#香港西贡酒店</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 1.5em; color: #1976d2; font-weight: bold;">300+</div>
+                            <div style="font-size: 0.9em; color: #666;">#西贡WM酒店</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: #f8f9ff; border-radius: 8px;">
+                            <div style="font-size: 1.5em; color: #1976d2; font-weight: bold;">500+</div>
+                            <div style="font-size: 0.9em; color: #666;">#西贡性价比酒店</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行程规划 -->
+        <div id="planning" class="content-section">
+            <div class="referral-section">
+                <h3 style="color: #1976d2; margin-bottom: 20px;">📅 行程规划建议</h3>
+
+                <div class="info-grid">
+                    <!-- 一日游 -->
+                    <div class="info-card">
+                        <h3>🌟 经典一日游</h3>
+                        <div class="route-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">08:30</div>
+                                从市区出发(彩虹站92巴士)
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">10:00</div>
+                                到达西贡码头，早餐/咖啡
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">10:30</div>
+                                选择活动：
+                                <div style="margin-top: 8px;">
+                                    <span class="badge badge-info">皮划艇</span>
+                                    <span class="badge badge-success">海岛游</span>
+                                    <span class="badge badge-warning">海钓</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">12:30</div>
+                                海鲜午餐(人均200-300港币)
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:00</div>
+                                桥咀洲徒步或厦门湾浮潜
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">17:00</div>
+                                返回西贡码头，晚餐
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">18:30</div>
+                                返回市区
+                            </div>
+                        </div>
+
+                        <div class="highlight-box" style="margin-top: 20px;">
+                            <strong>💰 预算参考：</strong><br>
+                            交通：50港币 | 活动：200-400港币 | 餐饮：300港币 | <span class="price-highlight">总计：550-750港币</span>
+                        </div>
+                    </div>
+
+                    <!-- 两日游 -->
+                    <div class="info-card">
+                        <h3>🏖️ 悠闲两日游</h3>
+
+                        <h4 style="color: #1976d2; margin-top: 15px;">第一天</h4>
+                        <div class="route-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">10:00</div>
+                                到达西贡，办理酒店入住
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">11:00</div>
+                                西贡海滨公园皮划艇体验
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">13:00</div>
+                                海鲜午餐
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">15:00</div>
+                                桥咀洲徒步
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">18:00</div>
+                                酒店海景晚餐
+                            </div>
+                        </div>
+
+                        <h4 style="color: #1976d2; margin-top: 25px;">第二天</h4>
+                        <div class="route-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">08:00</div>
+                                酒店早餐
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">09:00</div>
+                                包船海岛游(厦门湾+盐田仔)
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">13:00</div>
+                                船上简餐或岛上餐厅
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">15:00</div>
+                                继续海上活动或返回沙滩
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">17:00</div>
+                                Check out，返回市区
+                            </div>
+                        </div>
+
+                        <div class="highlight-box" style="margin-top: 20px;">
+                            <strong>💰 预算参考：</strong><br>
+                            住宿：800-1200港币 | 活动：600-800港币 | 餐饮：500港币 | 交通：100港币 | <span class="price-highlight">总计：2000-2600港币</span>
+                        </div>
+                    </div>
+
+                    <!-- 特色行程 -->
+                    <div class="info-card">
+                        <h3>🎣 特色海钓之旅</h3>
+                        <p style="margin-bottom: 15px; color: #666;">专为钓鱼爱好者设计的深度体验行程</p>
+
+                        <div class="route-timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-time">06:00</div>
+                                早起出发，到达西贡码头
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">07:00</div>
+                                包船出海，前往钓鱼点
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">07:30-12:00</div>
+                                海上钓鱼（5小时）
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">12:30</div>
+                                船上简餐或返回西贡午餐
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">14:00</div>
+                                码头钓鱼或自由活动
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-time">17:00</div>
+                                餐厅加工渔获，品尝收获
+                            </div>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <strong>🐟 可能钓到的鱼类：</strong><br>
+                            石斑、红友、泥鯭、火点、鱿鱼等
+                        </div>
+
+                        <div class="highlight-box" style="margin-top: 15px;">
+                            <strong>💰 预算参考：</strong><br>
+                            包船：1500-2000港币（6人）| 餐饮：300港币 | 其他：100港币 | <span class="price-highlight">人均：350-400港币</span>
+                        </div>
+                    </div>
+
+                    <!-- 最佳出行时间 -->
+                    <div class="info-card">
+                        <h3>📅 最佳出行时间</h3>
+
+                        <h4 style="color: #1976d2; margin-top: 15px;">最佳月份</h4>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px;">
+                            <div style="text-align: center; padding: 10px; background: #e8f5e9; border-radius: 8px;">
+                                <div style="font-size: 1.2em; color: #2e7d32; font-weight: bold;">4-5月</div>
+                                <div style="font-size: 0.85em;">春季</div>
+                            </div>
+                            <div style="text-align: center; padding: 10px; background: #fff8e1; border-radius: 8px;">
+                                <div style="font-size: 1.2em; color: #f57f17; font-weight: bold;">6-9月</div>
+                                <div style="font-size: 0.85em;">旺季</div>
+                            </div>
+                            <div style="text-align: center; padding: 10px; background: #e3f2fd; border-radius: 8px;">
+                                <div style="font-size: 1.2em; color: #1565c0; font-weight: bold;">10-11月</div>
+                                <div style="font-size: 0.85em;">秋季</div>
+                            </div>
+                            <div style="text-align: center; padding: 10px; background: #ffebee; border-radius: 8px;">
+                                <div style="font-size: 1.2em; color: #c62828; font-weight: bold;">12-3月</div>
+                                <div style="font-size: 0.85em;">淡季</div>
+                            </div>
+                        </div>
+
+                        <h4 style="color: #1976d2;">各季节特点</h4>
+                        <table class="price-table">
+                            <thead>
+                                <tr>
+                                    <th>季节</th>
+                                    <th>优点</th>
+                                    <th>缺点</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>旺季(6-9月)</strong></td>
+                                    <td>水温适宜，适合水上活动</td>
+                                    <td>人多，价格高</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>春秋(4-5,10-11)</strong></td>
+                                    <td>天气舒适，价格适中</td>
+                                    <td>水温稍凉</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>淡季(12-3月)</strong></td>
+                                    <td>人少，住宿便宜</td>
+                                    <td>水温低，不适合游泳</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>🌊 西贡公众码头沿海游玩攻略 · 第二版</p>
+            <p>基于小红书真实用户评价和实地考察整理</p>
+            <p style="margin-top: 15px; font-size: 0.85em; color: #999;">
+                更新日期：2025年12月 | 信息仅供参考，请以现场实际情况为准
+            </p>
+            <p style="margin-top: 15px; font-size: 0.8em;">
+                <span class="badge badge-info">安全第一</span>
+                <span class="badge badge-success">环保出行</span>
+                <span class="badge badge-warning">尊重当地</span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // 标签切换功能
+        function showSection(sectionId) {
+            // 隐藏所有内容区域
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // 显示目标区域
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // 更新标签状态
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            // 激活当前标签
+            event.target.classList.add('active');
+
+            // 滚动到顶部
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 展开/收起详情
+        function toggleDetails(card) {
+            event.stopPropagation();
+            const details = card.querySelector('.activity-details');
+            const isVisible = details.style.display === 'block';
+
+            if (isVisible) {
+                details.style.display = 'none';
+                card.style.transform = 'translateY(0)';
+            } else {
+                details.style.display = 'block';
+                card.style.transform = 'translateY(-10px)';
+
+                // 滚动到卡片位置
+                setTimeout(() => {
+                    card.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest'
+                    });
+                }, 100);
+            }
+        }
+
+        // 页面加载完成后的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 添加卡片悬停效果
+            const cards = document.querySelectorAll('.activity-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    if (this.querySelector('.activity-details').style.display !== 'block') {
+                        this.style.transform = 'translateY(-3px)';
+                    }
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    if (this.querySelector('.activity-details').style.display !== 'block') {
+                        this.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            // 添加标签页键盘导航支持
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach((tab, index) => {
+                tab.addEventListener('keydown', function(e) {
+                    if (e.key === 'ArrowRight') {
+                        const nextTab = tabs[index + 1] || tabs[0];
+                        nextTab.focus();
+                        nextTab.click();
+                    } else if (e.key === 'ArrowLeft') {
+                        const prevTab = tabs[index - 1] || tabs[tabs.length - 1];
+                        prevTab.focus();
+                        prevTab.click();
+                    }
+                });
+            });
+
+            // 添加平滑滚动到所有内部链接
+            const internalLinks = document.querySelectorAll('a[href^="#"]');
+            internalLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // 响应式导航标签处理
+        function handleResize() {
+            const navTabs = document.querySelector('.nav-tabs');
+            if (window.innerWidth <= 768) {
+                navTabs.style.overflowX = 'auto';
+                navTabs.style.scrollSnapType = 'x mandatory';
+
+                const tabs = document.querySelectorAll('.nav-tab');
+                tabs.forEach(tab => {
+                    tab.style.scrollSnapAlign = 'center';
+                });
+            } else {
+                navTabs.style.overflowX = 'visible';
+                navTabs.style.scrollSnapType = 'none';
+            }
+        }
+
+        // 监听窗口大小变化
+        window.addEventListener('resize', handleResize);
+        handleResize(); // 初始化调用
+
+        // 添加页面可见性变化时的处理
+        document.addEventListener('visibilitychange', function() {
+            if (document.visibilityState === 'visible') {
+                // 页面重新可见时，可以添加一些动画效果
+                const activeSection = document.querySelector('.content-section.active');
+                if (activeSection) {
+                    activeSection.style.animation = 'none';
+                    setTimeout(() => {
+                        activeSection.style.animation = 'fadeIn 0.5s ease';
+                    }, 10);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

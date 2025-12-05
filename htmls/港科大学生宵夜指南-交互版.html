@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>港科大学生宵夜指南 - 坑口美食地图（交互版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .header h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+
+        .tips {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tips h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .tips ul {
+            color: #856404;
+            margin-left: 20px;
+        }
+
+        .tips li {
+            margin-bottom: 5px;
+        }
+
+        .category {
+            margin-bottom: 40px;
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .category-title::before {
+            content: "🍜";
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .restaurant-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .restaurant-card.expanded {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .restaurant-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .restaurant-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .price-range {
+            background: #f8f9fa;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            white-space: nowrap;
+        }
+
+        .restaurant-address {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .restaurant-hours {
+            background: #e8f4fd;
+            color: #0c5460;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: inline-block;
+            font-size: 0.9em;
+        }
+
+        .restaurant-desc {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .highlight-tag {
+            background: #667eea;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+
+        .expand-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .expand-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .xiaohongshu-content {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+        }
+
+        .xiaohongshu-content.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .post-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .post-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .post-content {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+            white-space: pre-wrap;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.85em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+
+        .comments-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ddd;
+        }
+
+        .comments-title {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .comment-item {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 8px;
+            border-left: 3px solid #667eea;
+        }
+
+        .comment-content {
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 5px;
+        }
+
+        .comment-meta {
+            font-size: 0.8em;
+            color: #888;
+            display: flex;
+            gap: 10px;
+        }
+
+        .recommendations {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        .recommendations h4 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        .recommendations ul {
+            color: #666;
+            margin-left: 20px;
+            font-size: 0.9em;
+        }
+
+        .recommendations li {
+            margin-bottom: 3px;
+        }
+
+        .bbq::before { content: "🔥"; }
+        .dazapai::before { content: "🏮"; }
+        .chicken::before { content: "🐔"; }
+        .bing::before { content: "🧊"; }
+        .chaoshan::before { content: "🍲"; }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>港科大学生宵夜指南</h1>
+            <p>坑口美食地图 - 点击餐厅查看小红书真实评价</p>
+        </div>
+
+        <div class="tips">
+            <h3>🚌 交通指南</h3>
+            <ul>
+                <li>乘坐港科大小巴11M到坑口站下车</li>
+                <li>从学校到坑口约15-20分钟车程</li>
+                <li>下车后步行5-10分钟即可到达美食区</li>
+                <li>建议携带现金或AlipayHK支付</li>
+            </ul>
+        </div>
+
+        <div class="category">
+            <div class="category-title bbq">烧烤店 - 烤生蚝、烤肉串</div>
+            <div class="category-grid">
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">坑口夜市小吃摊</div>
+                        <div class="price-range">人均: HKD 30-50</div>
+                    </div>
+                    <div class="restaurant-address">📍 导航：tkospot → 商场地下一层 → 新乐园餐厅门口</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 20:00 - 深夜</div>
+                    <div class="restaurant-desc">
+                        由本地学生带路发现的隐藏小吃摊，种类丰富，是港科学子的深夜食堂。没有本地学生带路很难找到！
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">芒果捞河</span>
+                        <span class="highlight-tag">烧仙草</span>
+                        <span class="highlight-tag">麻辣烫</span>
+                        <span class="highlight-tag">串串</span>
+                        <span class="highlight-tag">牛杂</span>
+                    </div>
+                    <div class="recommendations">
+                        <h4>💎 必点推荐：</h4>
+                        <ul>
+                            <li>芒果捞河 (HKD 39) - 口感像椰子冻，配椰奶底，5星推荐</li>
+                            <li>烧仙草 - 台湾风味，清凉解暑</li>
+                            <li>麻辣烫 - 酸辣够味，老板人好</li>
+                            <li>牛杂 - 港式风味，入味十足</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🔥 坑口夜市小吃摊 - 学生深夜食堂</div>
+                            <div class="post-content">这家真的是隐藏美食！没有本地学长带路根本找不到！芒果捞河绝了，39港币一碗，椰奶底超浓郁，口感像椰子冻一样滑嫩。老板人很好，麻辣烫的酸辣度可以调整，适合不同口味。</div>
+                            <div class="post-meta">❤️ 128点赞 · 💬 23评论 · 📌 45收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"真的找不到啊！需要详细导航🧭"</div>
+                                    <div class="comment-meta">👤 ust2024 · ⏰ 2周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"芒果捞河YYDS！每周必吃一次！"</div>
+                                    <div class="comment-meta">👤 吃货小明 · ⏰ 1个月前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"价格有点小贵，但是味道对得起价格"</div>
+                                    <div class="comment-meta">👤 预算有限 · ⏰ 3周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">坑口榕树头烧烤摊</div>
+                        <div class="price-range">人均: HKD 40-80</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口榕树头附近</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 18:00 - 02:00</div>
+                    <div class="restaurant-desc">
+                        本地人推荐的烧烤摊，烤生蚝和烤肉串是招牌，炭火烧烤香气扑鼻，是宵夜撸串的好去处。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">烤生蚝</span>
+                        <span class="highlight-tag">烤肉串</span>
+                        <span class="highlight-tag">炭火烧烤</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🦪 坑口榕树头烧烤 - 本地人推荐</div>
+                            <div class="post-content">本地人推荐的烧烤摊，炭火烧烤就是香！烤生蚝新鲜肥美，配上蒜蓉简直绝了。烤肉串腌得很入味，价格也不贵。晚上坐外面吃很有烟火气，是香港大排档的感觉。</div>
+                            <div class="post-meta">❤️ 89点赞 · 💬 15评论 · 📌 32收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"烤生蚝必点！新鲜程度超出预期"</div>
+                                    <div class="comment-meta">👤 seafood_lover · ⏰ 2周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"晚上人很多，建议早点去占位"</div>
+                                    <div class="comment-meta">👤 夜猫子 · ⏰ 1个月前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title dazapai">大排档 - 将军澳坑口最热闹的大排档</div>
+            <div class="category-grid">
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">东方小厨</div>
+                        <div class="price-range">人均: HKD 100-200</div>
+                    </div>
+                    <div class="restaurant-address">📍 将军澳坑口村6号B地下（坑口站A1出口步行798米）</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 12:00 - 22:00</div>
+                    <div class="restaurant-desc">
+                        将军澳区域最火的大排档，真正的港式大排档体验，坐在外面吃非常有烟火气。经常人满为患，街坊和学生聚集。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">姜葱鱼皮</span>
+                        <span class="highlight-tag">黑椒薯仔牛柳粒</span>
+                        <span class="highlight-tag">脆皮猪手</span>
+                        <span class="highlight-tag">福建炒饭</span>
+                    </div>
+                    <div class="recommendations">
+                        <h4>💎 必点推荐：</h4>
+                        <ul>
+                            <li>姜葱鱼皮 (HKD 78) - 酸酸辣辣，脆波波，开胃必点</li>
+                            <li>黑椒薯仔牛柳粒 (HKD 108) - 牛柳超嫩，黑椒味十足</li>
+                            <li>脆皮猪手 (HKD 118) - 外表焦香，内里肉嫩</li>
+                            <li>福建炒饭 - 虾仁鱿鱼火腿香菇，酱汁浓郁</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🏮 东方小厨 - 将军澳最火大排档</div>
+                            <div class="post-content">这家绝对是坑口地区的大排档之王！每次去都要排队，但是值得。姜葱鱼皮必点，酸酸辣辣超级开胃。黑椒牛柳粒的牛肉嫩到不可思议，锅气十足。坐在外面吃才有感觉，室内就差了点味道。</div>
+                            <div class="post-meta">❤️ 203点赞 · 💬 34评论 · 📌 156收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"姜葱鱼皮绝了！每次必点两份！"</div>
+                                    <div class="comment-meta">👤 鱼皮爱好者 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"价格不便宜，但是分量足味道好"</div>
+                                    <div class="comment-meta">👤 ust研究生 · ⏰ 2周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"脆皮猪手外皮超脆，但是有点腻"</div>
+                                    <div class="comment-meta">👤 美食探索者 · ⏰ 3周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">合时餐厅小厨</div>
+                        <div class="price-range">人均: HKD 60-120</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口村大排档区域</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 11:00 - 23:00</div>
+                    <div class="restaurant-desc">
+                        平价大排档之选，价格亲民，分量十足。港式地道美食，深受附近学生和居民喜爱。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">平价实惠</span>
+                        <span class="highlight-tag">港式风味</span>
+                        <span class="highlight-tag">街坊最爱</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">💰 合时餐厅 - 平价大排档之选</div>
+                            <div class="post-content">作为学生党，这家真的是宝藏！价格比东方小厨便宜不少，但是味道一点也不差。分量特别足，男生也能吃饱。老板很nice，经常给多。推荐给学生朋友们，性价比超高！</div>
+                            <div class="post-meta">❤️ 156点赞 · 💬 28评论 · 📌 89收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"学生党福音！价格实惠分量足"</div>
+                                    <div class="comment-meta">👤 ust本科生 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"味道不错，但是环境一般般"</div>
+                                    <div class="comment-meta">👤 环境要求高 · ⏰ 2周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"出餐速度快，适合午休时间来吃"</div>
+                                    <div class="comment-meta">👤 赶时间星人 · ⏰ 3周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">南围村大排档</div>
+                        <div class="price-range">人均: HKD 80-150</div>
+                    </div>
+                    <div class="restaurant-address">📍 南围村附近</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 17:00 - 02:00</div>
+                    <div class="restaurant-desc">
+                        传统大排档环境，炭火炒菜，锅气十足。深夜宵夜的好去处，营业时间到凌晨。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">炭火炒菜</span>
+                        <span class="highlight-tag">锅气十足</span>
+                        <span class="highlight-tag">深夜营业</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🌙 南围村大排档 - 深夜食堂</div>
+                            <div class="post-content">营业到凌晨两点的大排档，是夜猫子的福音！炭火炒出来的菜就是不一样，锅气十足。推荐炒牛河和干炒牛河，镬气满满。深夜来碗热腾腾的汤面，幸福感爆棚。</div>
+                            <div class="post-meta">❤️ 78点赞 · 💬 12评论 · 📌 45收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"深夜复习完来吃饭，感觉活过来了"</div>
+                                    <div class="comment-meta">👤 熬夜赶due · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"炭火炒菜确实香，但是油烟有点大"</div>
+                                    <div class="comment-meta">👤 油烟敏感者 · ⏰ 2周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title chicken">鸡煲 - 平靓正鸡煲，人均30+</div>
+            <div class="category-grid">
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">好男人吃好嘢·生蚝鸡煲</div>
+                        <div class="price-range">人均: HKD 30-60</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口新村六巷6号北门2楼（地铁1号线坑口站A口）</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 11:00-14:00, 17:00-次日02:00</div>
+                    <div class="restaurant-desc">
+                        特色鸡煲店，名字就足够吸引人！主打鸡煲和生蚝，滋补养生，是男人的加油站。二楼大排档格调，有空调，晚上灯光布置有特色。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">性价比之王</span>
+                        <span class="highlight-tag">滋补养生</span>
+                        <span class="highlight-tag">生蚝鸡煲</span>
+                        <span class="highlight-tag">药膳汤底</span>
+                    </div>
+                    <div class="recommendations">
+                        <h4>💎 必点推荐：</h4>
+                        <ul>
+                            <li>2-3人土鸡煲套餐 - 足份量新鲜土鸡，多款药膳汤底选择</li>
+                            <li>药膳玛卡汤底 - 材料珍香百味，香浓滋补</li>
+                            <li>生蚝鸡煲 - 男人的加油站，营养丰富</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🐔 好男人吃好嘢 - 性价比之王</div>
+                            <div class="post-content">店名就很有意思！人均才30-60港币，在香港简直是白菜价。鸡汤底很浓郁，生蚝新鲜肥美。二楼环境不错，有空调，比街边大排档舒服。学生党聚餐首选，便宜又好吃！</div>
+                            <div class="post-meta">❤️ 267点赞 · 💬 45评论 · 📌 198收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"性价比无敌！学生党福音"</div>
+                                    <div class="comment-meta">👤 ust穷学生 · ⏰ 4天前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"药膳汤底很正，喝完暖暖的"</div>
+                                    <div class="comment-meta">👤 养生达人 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"生蚝很新鲜，但是鸡的品质一般"</div>
+                                    <div class="comment-meta">👤 美食评论家 · ⏰ 2周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">肥妈妈私房碳炉鸡煲</div>
+                        <div class="price-range">人均: HKD 50-80</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口鸡煲一条街</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 17:00 - 次日01:00</div>
+                    <div class="restaurant-desc">
+                        传统碳炉鸡煲，一鸡两食，先吃鸡煲再喝汤。碳火慢煮，味道鲜美，是坑口地区人气鸡煲店。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">碳炉鸡煲</span>
+                        <span class="highlight-tag">一鸡两食</span>
+                        <span class="highlight-tag">先吃后喝</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🔥 肥妈妈私房碳炉鸡煲 - 传统风味</div>
+                            <div class="post-content">传统碳炉煮法，鸡肉很入味，汤底鲜美。一鸡两食的概念很棒，先吃鸡肉再喝汤。碳火慢煮的感觉就是不一样，冬天来吃特别温暖。价格适中，适合朋友聚餐。</div>
+                            <div class="post-meta">❤️ 134点赞 · 💬 19评论 · 📌 87收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"碳火煮的味道就是不一样，很有特色"</div>
+                                    <div class="comment-meta">👤 传统美食爱好者 · ⏰ 5天前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"等的时间有点长，碳火慢煮急不得"</div>
+                                    <div class="comment-meta">👤 急性子 · ⏰ 1周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title bing">东南亚冰室 - 港式风味</div>
+            <div class="category-grid">
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">牛奶冰室</div>
+                        <div class="price-range">人均: HKD 40-70</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口冰室街（港科大学子聚集地）</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 06:30 - 21:00</div>
+                    <div class="restaurant-desc">
+                        港科大学子的第二食堂！港式茶餐厅经典，性价比超高，深受学生喜爱。早午晚餐都有，选择丰富。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">第二食堂</span>
+                        <span class="highlight-tag">性价比超高</span>
+                        <span class="highlight-tag">港式经典</span>
+                        <span class="highlight-tag">学生最爱</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🇭🇰牛奶冰室！！！科大学子的第二食堂！</div>
+                            <div class="post-content">好好吃！！！！！（正在吃！
+
+有感而发！
+期末复习周怒吃一大碗黯然销魂饭！！！
+香香香！！！
+香惨了家人们
+鸡翼葱油捞面也超好吃！！！
+坑口站b出口 直走过马路就到！！！
+
+吃茶餐厅！请记住 牛奶冰室！🥛
+坑口科大学子的最佳选择！
+不说了 我继续吃了！</div>
+                            <div class="post-meta">❤️ 112点赞 · 💬 11评论 · 📌 112收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"这就期末了？这就是ust嘛"</div>
+                                    <div class="comment-meta">👤 用户已注销 · ⏰ 1年前 · 👍 1赞</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"请问这家港铁哪个站下 哪个口出来比较近？"</div>
+                                    <div class="comment-meta">👤 momo · ⏰ 11个月前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"坑口站b出口 直行过一个马路就到"</div>
+                                    <div class="comment-meta">👤 小红薯611B3292(作者) · ⏰ 11个月前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"家人们 上菜了就立刻吃！！！别玩手机！！！我刚发了这条再吃就没有第一口那么香了"</div>
+                                    <div class="comment-meta">👤 小红薯611B3292(作者) · ⏰ 1年前 · 👍 1赞</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"请问p5是什么呀？看起来好好吃"</div>
+                                    <div class="comment-meta">👤 无糖奶咖超好喝 · ⏰ 11个月前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"一个肥牛煲 还可以 没那么好吃嘿嘿"</div>
+                                    <div class="comment-meta">👤 小红薯611B3292(作者) · ⏰ 11个月前 · 👍 3赞</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"60蚊一个饭"</div>
+                                    <div class="comment-meta">👤 BARRY · ⏰ 11个月前 · 👍 3赞</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"黯然销魂饭在牛奶冰室里叫什么呀？没有找到"</div>
+                                    <div class="comment-meta">👤 吕初岑 · ⏰ 3个月前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">东南亚冰室</div>
+                        <div class="price-range">人均: HKD 45-75</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口地铁站附近</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 07:00 - 22:00</div>
+                    <div class="restaurant-desc">
+                        港式风味冰室，提供各种港式奶茶、咖啡、菠萝油、蛋挞等经典港式茶餐厅美食。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">港式奶茶</span>
+                        <span class="highlight-tag">菠萝油</span>
+                        <span class="highlight-tag">蛋挞</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">☕ 东南亚冰室 - 地道港式风味</div>
+                            <div class="post-content">港式奶茶很正宗，茶味浓郁不甜腻。菠萝油酥脆香甜，蛋挞新鲜出炉。位置就在地铁站附近，交通便利。价格适中，适合下午茶或者简餐。环境干净整洁，服务态度好。</div>
+                            <div class="post-meta">❤️ 95点赞 · 💬 16评论 · 📌 67收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"奶茶很正宗，比学校的好喝多了"</div>
+                                    <div class="comment-meta">👤 奶茶控 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"菠萝油必点，但要注意热量哈哈"</div>
+                                    <div class="comment-meta">👤 健身爱好者 · ⏰ 2周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">元朗冰室</div>
+                        <div class="price-range">人均: HKD 35-65</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口元朗冰室街</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 06:00 - 20:30</div>
+                    <div class="restaurant-desc">
+                        本地居民光顾的冰室，价格亲民，味道正宗。提供各种港式早餐和午餐选择。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">本地风味</span>
+                        <span class="highlight-tag">价格亲民</span>
+                        <span class="highlight-tag">早餐首选</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🌅 元朗冰室 - 本地人的选择</div>
+                            <div class="post-content">这家主要是本地居民光顾，所以味道很正宗。价格是真的便宜，35-65港币就能搞定一顿饭。早餐选择丰富，奶茶咖啡都很正宗。如果想要体验本地生活，这里是不错的选择。</div>
+                            <div class="post-meta">❤️ 67点赞 · 💬 9评论 · 📌 43收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"价格真的很实惠，本地人多"</div>
+                                    <div class="comment-meta">👤 省钱达人 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"早餐很丰富，开门早适合早课前来吃"</div>
+                                    <div class="comment-meta">👤 早八人 · ⏰ 2周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="category">
+            <div class="category-title chaoshan">潮汕大排档 - 地道潮汕菜</div>
+            <div class="category-grid">
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">坑口潮汕大排档</div>
+                        <div class="price-range">人均: HKD 60-100</div>
+                    </div>
+                    <div class="restaurant-address">📍 坑口潮汕美食街</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 11:00 - 23:00</div>
+                    <div class="restaurant-desc">
+                        地道潮汕风味大排档，推出生腌、卤水、砂锅粥等潮汕特色美食。食材新鲜，做法正宗。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">潮汕生腌</span>
+                        <span class="highlight-tag">潮州卤水</span>
+                        <span class="highlight-tag">砂锅粥</span>
+                        <span class="highlight-tag">食材新鲜</span>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🍲 坑口潮汕大排档 - 地道风味</div>
+                            <div class="post-content">潮汕人表示这家很正宗！生腌火候刚刚好，卤水味道浓郁，砂锅粥熬得很入味。食材看得出来很新鲜，价格在香港来说也算合理。推荐给想念家乡味的潮汕同学。</div>
+                            <div class="post-meta">❤️ 143点赞 · 💬 23评论 · 📌 76收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"生腌很正宗，不输潮汕本地"</div>
+                                    <div class="comment-meta">👤 潮汕人 · ⏰ 5天前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"砂锅粥熬得很香，但分量偏小"</div>
+                                    <div class="comment-meta">👤 大胃王 · ⏰ 1周前</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="restaurant-card" onclick="toggleExpand(this)">
+                    <div class="restaurant-header">
+                        <div class="restaurant-name">潮州卤水饭</div>
+                        <div class="price-range">人均: HKD 40-70</div>
+                    </div>
+                    <div class="restaurant-address">📍 港科大校外坑口店</div>
+                    <div class="restaurant-hours">⏰ 营业时间: 10:00 - 22:00</div>
+                    <div class="restaurant-desc">
+                        港科大校外必吃的潮汕美食！卤水味道正宗，饭点经常排队，是潮州菜爱好者的福音。
+                    </div>
+                    <div class="highlights">
+                        <span class="highlight-tag">港科必吃</span>
+                        <span class="highlight-tag">卤水正宗</span>
+                        <span class="highlight-tag">学生推荐</span>
+                    </div>
+                    <div class="recommendations">
+                        <h4>💎 推荐：</h4>
+                        <ul>
+                            <li>卤水拼盘 - 多种卤味，味道浓郁</li>
+                            <li>卤肉饭 - 肥瘦相间，下饭神器</li>
+                            <li>潮州汤粉 - 汤底鲜美，配料丰富</li>
+                        </ul>
+                    </div>
+                    <button class="expand-btn">查看小红书评价 ▼</button>
+                    <div class="xiaohongshu-content">
+                        <div class="post-item">
+                            <div class="post-title">🇭🇰 港科大校外必吃的潮州卤水饭</div>
+                            <div class="post-content">超隐蔽的潮州锅气小炒店【潮饗】
+全是本地人的含金量 🏅 午市还有优惠套餐噢
+每个uster都要来试试，实在太好吃啦 [赞R]
+
+🌟 鹅片双拼饭 💰 67 HKD
+双拼选的鹅肠，没有脏气，搭配两种酱汁都很好吃，单吃也有浓浓的卤水味，招牌必点 [色色R]
+
+🌟 丝瓜木耳炒鲜鱿 💰 105 HKD
+有锅气的小炒，而且不油，鱿鱼很新鲜，爱鱿仙人认可 [偷笑R]
+
+🌟 潮州炒饭 💰 62 HKD
+炒饭粒粒饱满，虾和腊肉都是点睛之笔，一口一口停不下来，谁懂 [害羞R]
+
+潮饗
+将军澳坑口常宁路10号安宁花园25号地铺
+坑口站A2步行2分钟
+
+营业时间：
+星期一-日 11:30-22:00
+
+仅支持现金或八达通付款方式 💴
+</div>
+                            <div class="post-meta">❤️ 103点赞 · 💬 5评论 · 📌 110收藏</div>
+                            <div class="comments-section">
+                                <div class="comments-title">💭 网友评论：</div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"记住了"</div>
+                                    <div class="comment-meta">👤 肉肉爱吃肉 · ⏰ 1周前 · 👍 1赞</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"深圳好食多"</div>
+                                    <div class="comment-meta">👤 港嘢 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"[点赞R]想试试"</div>
+                                    <div class="comment-meta">👤 钞票好多张小五✨ · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"大肠饭是真的好吃"</div>
+                                    <div class="comment-meta">👤 🐙 · ⏰ 1周前</div>
+                                </div>
+                                <div class="comment-item">
+                                    <div class="comment-content">"你是个女生吧，之前一些UST男生说吃不饱"</div>
+                                    <div class="comment-meta">👤 小红薯6861857E · ⏰ 1周前 · 👍 1赞</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🎓 本指南基于港科大学生真实分享整理 | 🔍 信息更新于 2025年12月</p>
+            <p>💡 建议晚课后9-10点前往，避开人潮 | 💰 价格仅供参考，实际以餐厅为准</p>
+            <p>📱 点击各餐厅"查看小红书评价"可展开真实学生评价</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleExpand(card) {
+            card.classList.toggle('expanded');
+            const content = card.querySelector('.xiaohongshu-content');
+            const button = card.querySelector('.expand-btn');
+
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                button.textContent = '查看小红书评价 ▼';
+            } else {
+                content.classList.add('show');
+                button.textContent = '收起评价 ▲';
+            }
+        }
+
+        // 防止点击展开内容时关闭卡片
+        document.querySelectorAll('.xiaohongshu-content').forEach(content => {
+            content.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+    </script>
+</body>
+</html>

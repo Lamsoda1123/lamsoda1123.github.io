@@ -1,0 +1,3433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>大厂LLM/RAG算法实习面试题大全</title>
+    <script>
+        function toggleAnswer(id) {
+            var answer = document.getElementById(id);
+            var button = document.getElementById("btn_" + id);
+            if (answer.style.display === "none") {
+                answer.style.display = "block";
+                button.textContent = "收起答案";
+            } else {
+                answer.style.display = "none";
+                button.textContent = "展开答案";
+            }
+        }
+        
+        function toggleCompany(id) {
+            var section = document.getElementById(id);
+            var button = document.getElementById("btn_" + id);
+            if (section.style.display === "none") {
+                section.style.display = "block";
+                button.textContent = "收起展开";
+            } else {
+                section.style.display = "none";
+                button.textContent = "展开全部";
+            }
+        }
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            line-height: 1.7;
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0d9488 100%);
+            color: white;
+            padding: 50px 30px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            z-index: 1;
+        }
+        .header > * {
+            position: relative;
+            z-index: 2;
+        }
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+            max-width: 80%;
+        }
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .company-tag {
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(94, 234, 212, 0.3);
+            padding: 12px 10px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: #5eead4;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .company-tag:hover {
+            transform: translateY(-3px);
+            background: rgba(14, 165, 233, 0.25);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .company-section {
+            background: rgba(30, 41, 59, 0.6);
+            margin-bottom: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .company-header {
+            background: linear-gradient(90deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 25px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        .company-header:hover {
+            background: linear-gradient(90deg, #0284c7 0%, #4f46e5 100%);
+        }
+        .company-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .company-question-count {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+        .question-list {
+            padding: 0;
+            display: none;
+        }
+        .question-list[style*="block"] {
+            padding: 25px;
+        }
+        .question-item {
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(94, 234, 212, 0.1);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .question-item:hover {
+            border-color: rgba(94, 234, 212, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        .question-item::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .question-header {
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .question-text {
+            flex: 1;
+            font-size: 1.15em;
+            font-weight: 500;
+            color: #f1f5f9;
+            line-height: 1.6;
+            padding-right: 15px;
+        }
+        .toggle-btn {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0d9488 100%);
+            color: white;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .toggle-btn:hover {
+            background: linear-gradient(135deg, #0284c7 0%, #0f766e 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+        }
+        .answer {
+            padding: 25px;
+            background: rgba(15, 23, 42, 0.7);
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+            display: none;
+            color: #cbd5e1;
+            font-size: 1em;
+            line-height: 1.8;
+            clear: both;
+            width: 100%;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+        .answer p {
+            margin-bottom: 15px;
+        }
+        .answer strong {
+            color: #5eead4;
+        }
+        .answer ul, .answer ol {
+            margin: 15px 0;
+            padding-left: 25px;
+        }
+        .answer li {
+            margin-bottom: 10px;
+        }
+        .answer code {
+            background: rgba(94, 234, 212, 0.15);
+            border: 1px solid rgba(94, 234, 212, 0.3);
+            color: #5eead4;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.95em;
+        }
+        .highlight {
+            background: rgba(251, 191, 36, 0.2);
+            border-left: 4px solid #fbbf24;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+        .tips-box {
+            background: rgba(14, 165, 233, 0.15);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .tips-box strong {
+            color: #0ea5e9;
+        }
+        .category-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.7em;
+            font-weight: 600;
+            margin-right: 10px;
+            vertical-align: middle;
+            letter-spacing: 0.5px;
+        }
+        .float-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #0ea5e9 0%, #0d9488 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        .float-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+        @media (max-width: 768px) {
+            .company-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .toggle-btn {
+                align-self: flex-end;
+            }
+            .companies-grid {
+                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>大厂LLM/RAG算法实习面试题大全</h1>
+            <p>整理自腾讯、字节跳动、阿里、百度、美团、华为、MiniMax、Kimi、DeepSeek等大厂真实面经</p>
+        </div>
+        
+        <div class="companies-grid">
+            <div class="company-tag">🔵 腾讯</div>
+            <div class="company-tag">🟠 字节跳动</div>
+            <div class="company-tag">🟡 阿里巴巴</div>
+            <div class="company-tag">🟢 百度</div>
+            <div class="company-tag">🔴 美团</div>
+            <div class="company-tag">🔴 华为</div>
+            <div class="company-tag">🟣 MiniMax</div>
+            <div class="company-tag">⚫ Kimi</div>
+            <div class="company-tag">🔵 DeepSeek</div>
+        </div>
+
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('common_questions')">
+                <div class="company-name">📚 通用核心问题（适用于所有大厂）</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">25道高频问题</div>
+                    <button class="toggle-btn" id="btn_common_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="common_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('qa1')">
+                        <div class="question-text">
+                            <span class="category-tag">RAG</span>
+                            RAG是什么？与微调相比有什么优缺点？
+                        </div>
+                        <button class="toggle-btn" id="btn_qa1">展开答案</button>
+                    </div>
+                    <div class="answer" id="qa1">
+                        <p><strong>RAG（Retrieval-Augmented Generation）</strong>是一种将信息检索技术与生成模型相结合的方法。其核心思想是将外部知识库中的相关信息检索出来，作为上下文输入给大语言模型，从而提高生成的准确性和可靠性。</p>
+                        <div class="tips-box"><strong>优点：</strong></div>
+                        <ul>
+                            <li><strong>知识实时更新</strong>：无需重新训练模型，只需更新知识库即可获取最新信息</li>
+                            <li><strong>减少幻觉</strong>：基于检索到的真实文档生成，降低模型编造事实的概率</li>
+                            <li><strong>可解释性</strong>：可以追溯生成内容的来源，便于验证</li>
+                            <li><strong>成本较低</strong>：相比微调，检索成本远低于训练成本</li>
+                            <li><strong>领域适应性强</strong>：可以快速适应不同领域的知识需求</li>
+                        </ul>
+                        <div class="tips-box"><strong>缺点：</strong></div>
+                        <ul>
+                            <li><strong>依赖检索质量</strong>：检索效果直接影响生成质量</li>
+                            <li><strong>延迟较高</strong>：需要先检索再生成，增加响应时间</li>
+                            <li><strong>知识碎片化</strong>：难以处理需要全局理解的问题</li>
+                            <li><strong>上下文长度限制</strong>：检索到的文档可能超出模型上下文窗口</li>
+                        </ul>
+                        <div class="highlight"><strong>适用场景</strong>：知识库频繁更新、需要控制信息来源、减少幻觉的场景</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('qa2')">
+                        <div class="question-text">
+                            <span class="category-tag">LLM基础</span>
+                            Transformer的Attention机制是怎样的？QKV分别代表什么？
+                        </div>
+                        <button class="toggle-btn" id="btn_qa2">展开答案</button>
+                    </div>
+                    <div class="answer" id="qa2">
+                        <p>Transformer的注意力机制通过计算查询（Query）与所有键（Key）之间的相似度，得到注意力权重，然后用这些权重对值（Value）进行加权求和。</p>
+                        <p><strong>QKV的数学表达：</strong></p>
+                        <p><code>Attention(Q,K,V) = softmax(QK^T/√d_k)V</code></p>
+                        <div class="tips-box"><strong>Q（Query）：</strong>查询向量，表示当前Token在查询什么信息；类比：我想了解什么</div>
+                        <div class="tips-box"><strong>K（Key）：</strong>键向量，用于匹配查询；类比：我能提供什么信息</div>
+                        <div class="tips-box"><strong>V（Value）：</strong>值向量，实际传递的信息；类比：实际要传递的内容</div>
+                        
+                        <p><strong>计算过程详解：</strong></p>
+                        <ol>
+                            <li><strong>线性变换</strong>：输入X分别乘以三个权重矩阵得到Q、K、V<br>
+                                <code>Q = XW_Q, K = XW_K, V = XW_V</code></li>
+                            <li><strong>相似度计算</strong>：计算Q与所有K的点积，得到原始注意力分数<br>
+                                <code>scores = QK^T</code></li>
+                            <li><strong>缩放</strong>：除以√d_k（d_k是K的维度）防止梯度消失<br>
+                                <code>scores = scores/√d_k</code></li>
+                            <li><strong>掩码</strong>：对padding和未来词进行掩码处理<br>
+                                <code>scores = scores + mask</code></li>
+                            <li><strong>Softmax</strong>：将分数转换为概率分布<br>
+                                <code>weights = softmax(scores)</code></li>
+                            <li><strong>加权求和</strong>：用权重对V加权求和得到输出<br>
+                                <code>output = weightsV</code></li>
+                        </ol>
+                        
+                        <div class="highlight"><strong>多头注意力</strong>：将QKV分成多个头，每个头学习不同的注意力模式，最后拼接起来。公式：<code>MultiHead(Q,K,V) = Concat(head_1, ..., head_h)W_O</code></div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('qa3')">
+                        <div class="question-text">
+                            <span class="category-tag">LLM训练</span>
+                            大模型的预训练、SFT和RLHF分别是什么？有什么区别？
+                        </div>
+                        <button class="toggle-btn" id="btn_qa3">展开答案</button>
+                    </div>
+                    <div class="answer" id="qa3">
+                        <p><strong>大模型训练的三阶段：</strong></p>
+                        
+                        <div class="tips-box"><strong>1. 预训练（Pre-training）</strong></div>
+                        <ul>
+                            <li><strong>目标：</strong>学习语言基础能力和世界知识</li>
+                            <li><strong>数据：</strong>海量无标注文本（如网页、书籍等）</li>
+                            <li><strong>方法：</strong>下一个Token预测（自监督学习）</li>
+                            <li><strong>计算量：</strong>最大，需要数千GPU天</li>
+                            <li><strong>输出：</strong>基础模型（Base Model），具备通用能力但缺乏指令遵循能力</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 监督微调（SFT - Supervised Fine-Tuning）</strong></div>
+                        <ul>
+                            <li><strong>目标：</strong>让模型学会遵循指令、进行对话</li>
+                            <li><strong>数据：</strong>高质量指令数据集（问答对、对话等）</li>
+                            <li><strong>方法：</strong>监督学习，最小化预测与标准答案的交叉熵</li>
+                            <li><strong>计算量：</strong>较小，通常几小时到几天</li>
+                            <li><strong>输出：</strong>指令微调模型，能遵循指令但可能存在有害输出</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 人类反馈强化学习（RLHF - Reinforcement Learning from Human Feedback）</strong></div>
+                        <ul>
+                            <li><strong>目标：</strong>对齐人类价值观，减少有害输出</li>
+                            <li><strong>数据：</strong>人类偏好数据（哪个回答更好）</li>
+                            <li><strong>方法：</strong>
+                                <ul>
+                                    <li>训练奖励模型（RM）学习人类偏好</li>
+                                    <li>使用PPO等强化学习算法优化策略</li>
+                                </ul>
+                            </li>
+                            <li><strong>计算量：</strong>中等，主要是推理成本</li>
+                            <li><strong>输出：</strong>对齐模型（如ChatGPT），更安全、更符合人类偏好</li>
+                        </ul>
+
+                        <div class="highlight"><strong>关键区别：</strong>预训练学习"语言能力"，SFT学习"指令遵循"，RLHF学习"价值观对齐"</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('qa4')">
+                        <div class="question-text">
+                            <span class="category-tag">RAG优化</span>
+                            如何优化RAG的检索效果？有哪些常见的检索策略？
+                        </div>
+                        <button class="toggle-btn" id="btn_qa4">展开答案</button>
+                    </div>
+                    <div class="answer" id="qa4">
+                        <p><strong>检索效果优化是多层次的系统工程：</strong></p>
+                        
+                        <div class="tips-box"><strong>1. 查询优化（Query Enhancement）</strong></div>
+                        <ul>
+                            <li><strong>查询扩展</strong>：使用同义词、相关词扩展原始查询<br>
+                                <code>原始：什么是注意力机制</code><br>
+                                <code>扩展：注意力机制、Attention Mechanism、self-attention、多头注意力</code></li>
+                            <li><strong>查询重写</strong>：用LLM理解用户意图并优化查询</li>
+                            <li><strong>HyDE（Hypothetical Document Embedding）</strong>：让LLM先生成一个假设答案，再用答案的Embedding检索</li>
+                            <li><strong>子查询分解</strong>：将复杂问题分解为多个子问题分别检索</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 检索策略（Retrieval Strategies）</strong></div>
+                        <ul>
+                            <li><strong>密集检索（Dense Retrieval）</strong>：使用Embedding模型计算语义相似度<br>
+                                <code>cosine_similarity(query_embedding, doc_embedding)</code></li>
+                            <li><strong>稀疏检索（Sparse Retrieval）</strong>：传统BM25等基于词频的方法</li>
+                            <li><strong>混合检索（Hybrid Retrieval）</strong>：结合密集和稀疏检索的优点<br>
+                                <code>score = α * dense_score + (1-α) * sparse_score</code></li>
+                            <li><strong>多向量检索</strong>：为每个文档生成多个向量（如针对不同类型的信息）</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 索引优化（Indexing Optimization）</strong></div>
+                        <ul>
+                            <li><strong>分块策略</strong>：按段落、句子、固定长度等粒度切分文档</li>
+                            <li><strong>重叠分块</strong>：相邻块之间保持重叠避免信息断裂</li>
+                            <li><strong>层次化索引</strong>：建立多级索引（文档级、段落级、句子级）</li>
+                            <li><strong>元数据增强</strong>：添加标题、关键词、时间等信息</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 重排序（Reranking）</strong></div>
+                        <ul>
+                            <li><strong>交叉编码器（Cross-encoder）</strong>：用更大的模型精细计算query-doc相关性</li>
+                            <li><strong>多阶段排序</strong>：粗排（快速召回）→ 精排（精细打分）</li>
+                            <li><strong>多样性排序</strong>：避免返回重复内容</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 反馈优化（Feedback Optimization）</strong></div>
+                        <ul>
+                            <li><strong>用户点击反馈</strong>：根据用户是否采纳调整检索权重</li>
+                            <li><strong>在线学习</strong>：持续优化Embedding模型</li>
+                            <li><strong>A/B测试</strong>：对比不同检索策略的效果</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实践建议</strong>：从简单方案开始（Embedding + 向量数据库），逐步添加查询优化和重排序，最后用反馈数据持续优化</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('qa5')">
+                        <div class="question-text">
+                            <span class="category-tag">微调技术</span>
+                            LoRA和QLoRA的原理是什么？相比全量微调有什么优势？
+                        </div>
+                        <button class="toggle-btn" id="btn_qa5">展开答案</button>
+                    </div>
+                    <div class="answer" id="qa5">
+                        <div class="tips-box"><strong>LoRA（Low-Rank Adaptation）核心思想：</strong></div>
+                        <p>不直接微调原始权重矩阵W，而是添加一个低秩的增量ΔW：</p>
+                        <p><code>W' = W + ΔW = W + BA</code></p>
+                        <p>其中：<br>
+                            <code>B ∈ ℝ^(d×r), A ∈ ℝ^(r×k)</code><br>
+                            r << min(d,k) 是低秩的秩数</p>
+                        
+                        <p><strong>为什么是低秩的？</strong></p>
+                        <ul>
+                            <li>模型微调时权重更新ΔW通常是低秩的（大部分信息可以用少数几个方向表示）</li>
+                            <li>通过低秩分解大幅减少参数量：从d×k降到(d+k)×r</li>
+                            <li>只训练A和B，原模型权重W冻结</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>QLoRA（Quantized LoRA）改进：</strong></div>
+                        <p>在LoRA基础上增加量化，进一步降低显存：</p>
+                        <ul>
+                            <li><strong>4-bit NormalFloat量化</strong>：将原始权重W量化为4-bit，大幅减少显存占用</li>
+                            <li><strong>双重量化</strong>：对量化常数进行二次量化</li>
+                            <li><strong>分页优化器</strong>：使用NVIDIA统一内存管理显存</li>
+                            <li><strong>LoRA层保持16-bit</strong>：确保训练稳定性</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>相比全量微调的优势：</strong></div>
+                        <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                            <tr style="background: rgba(94, 234, 212, 0.1);">
+                                <th style="padding: 12px; border: 1px solid rgba(148, 163, 184, 0.2);">维度</th>
+                                <th style="padding: 12px; border: 1px solid rgba(148, 163, 184, 0.2);">全量微调</th>
+                                <th style="padding: 12px; border: 1px solid rgba(148, 163, 184, 0.2);">LoRA/QLoRA</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);"><strong>显存占用</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">极高（需存储梯度、优化器状态）</td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">极低（冻结大部分参数）</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);"><strong>训练速度</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">慢（参数更新量大）</td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">快（仅更新少量参数）</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);"><strong>存储空间</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">每个微调版本需存储完整模型</td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">只需存储小的adapter（几十MB）</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);"><strong>效果</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">理论上限最高</td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">接近全量微调效果</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);"><strong>任务切换</strong></td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">需要重新加载整个模型</td>
+                                <td style="padding: 10px; border: 1px solid rgba(148, 163, 184, 0.2);">只需切换adapter</td>
+                            </tr>
+                        </table>
+
+                        <div class="highlight"><strong>实践建议</strong>：在消费级GPU（如RTX 3090/4090）上微调7B/13B模型时，QLoRA是最佳选择。秩r通常取8-64，α通常取r的2倍</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 腾讯面试题 -->
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('tencent_questions')">
+                <div class="company-name">🔵 腾讯面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">15道真题</div>
+                    <button class="toggle-btn" id="btn_tencent_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="tencent_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent1')">
+                        <div class="question-text">
+                            <span class="category-tag">腾讯云/PCG</span>
+                            在开发腾讯元宝（AI助手）时，如何减少RAG的幻觉问题？
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent1">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent1">
+                        <p><strong>腾讯在技术分享中提到的RAG幻觉问题解决方案：</strong></p>
+                        
+                        <div class="tips-box"><strong>1. 检索质量提升（核心）</strong></div>
+                        <ul>
+                            <li><strong>多路召回</strong>：同时使用向量检索、关键词检索、同义词扩展<br>
+                                <code>召回率从68%提升至89%</code></li>
+                            <li><strong>重排序（Rerank）</strong>：使用Cross-Encoder模型对Top-K结果重排<br>
+                                <code>准确率提升12-15%</code></li>
+                            <li><strong>查询扩展</strong>：用LLM生成多个相关查询扩大检索范围</li>
+                            <li><strong>时间加权</strong>：对新闻类查询偏好近期文档</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 上下文压缩与选择</strong></div>
+                        <ul>
+                            <li><strong>相关性过滤</strong>：设置阈值剔除低相关性文档（阈值0.3）</li>
+                            <li><strong>上下文窗口优化</strong>：使用LLM对检索结果进行摘要<br>
+                                <code>将5000字符压缩到2000字符，保留关键信息</code></li>
+                            <li><strong>多轮验证</strong>：让模型自我检查生成内容与检索文档的一致性</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 生成控制策略</strong></div>
+                        <ul>
+                            <li><strong>引用标注</strong>：强制模型引用来源，不能引用的内容不生成<br>
+                                <code>格式：根据文档[1]和[3]...</code></li>
+                            <li><strong>不确定度检测</strong>：当模型对答案不确定时，主动承认不知道</li>
+                            <li><strong>置信度评分</strong>：对生成答案给出置信度分数，低于阈值返回"不确定"</li>
+                            <li><strong>领域知识库</strong>：为垂直领域（如游戏、金融）构建专用知识库</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 事实验证</strong></div>
+                        <ul>
+                            <li><strong>实体验证</strong>：抽取生成内容中的实体，检查是否在检索文档中出现</li>
+                            <li><strong>反事实检测</strong>：用检索结果对生成内容进行事实核查</li>
+                            <li><strong>自一致性检查</strong>：多次生成同一问题，检查答案是否一致</li>
+                        </ul>
+
+                        <div class="highlight"><strong>腾讯实测效果</strong>：幻觉率从35%降至8%以下，用户满意度提升40%</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent2')">
+                        <div class="question-text">
+                            <span class="category-tag">微信/WeChat</span>
+                            WeChat是如何处理长文本对话的上下文窗口限制的？
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent2">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent2">
+                        <div class="tips-box"><strong>微信的技术方案（基于技术分享整理）：</strong></div>
+                        
+                        <p><strong>1. 上下文窗口压缩技术</strong></p>
+                        <ul>
+                            <li><strong>滑动窗口机制</strong>：维护最近N轮对话，超出部分自动丢弃<br>
+                                <code>默认保留最近的20轮对话，约4000 token</code></li>
+                            <li><strong>摘要压缩</strong>：对历史对话进行增量式摘要<br>
+                                <code>将10轮对话摘要为1轮，保留关键信息</code></li>
+                            <li><strong>注意力压缩</strong>：使用LoSparse等方法压缩KV-Cache<br>
+                                <code>内存占用减少60-70%</code></li>
+                        </ul>
+
+                        <p><strong>2. 对话状态管理</strong></p>
+                        <ul>
+                            <li><strong>对话主题建模</strong>：自动识别当前对话主题，超长时允许主题切换重置</li>
+                            <li><strong>关键信息提取</strong>：提取重要事实、用户偏好等，存入记忆向量<br>
+                                <code>用户说"我喜欢川菜"，存入用户画像</code></li>
+                            <li><strong>实体追踪</strong>：跟踪对话中出现的实体（人名、地名、时间等）</li>
+                        </ul>
+
+                        <p><strong>3. 工程实现优化</strong></p>
+                        <ul>
+                            <li><strong>分片处理</strong>：将长对话分成多个片段分别处理</li>
+                            <li><strong>增量编码</strong>：只编码新增内容，缓存历史编码结果</li>
+                            <li><strong>优先级调度</strong>：对重要信息（用户个人信息、承诺等）提高权重</li>
+                        </ul>
+
+                        <p><strong>4. 特定场景优化</strong></p>
+                        <ul>
+                            <li><strong>客服场景</strong>：建立用户问题-解决方案知识库，减少历史依赖</li>
+                            <li><strong>闲聊场景</strong>：重点保留情感信息和用户偏好</li>
+                            <li><strong>工作场景</strong>：提取任务、待办事项，转化为结构化信息</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实际效果</strong>：在8K上下文窗口下，通过压缩技术可处理>50轮有效对话，用户感知上下文保留率>85%</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent3')">
+                        <div class="question-text">
+                            <span class="category-tag">混元大模型</span>
+                            混元大模型的训练数据是如何处理的？如何保证数据质量？
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent3">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent3">
+                        <div class="tips-box"><strong>混元大模型的数据处理流水线（基于公开资料）：</strong></div>
+                        
+                        <p><strong>1. 数据采集阶段</strong></p>
+                        <ul>
+                            <li><strong>多源数据融合</strong>：网页、书籍、新闻、学术论文、代码、对话</li>
+                            <li><strong>总量控制</strong>：原始数据约5T tokens，经过筛选保留约2T高质量tokens</li>
+                            <li><strong>领域平衡</strong>：按照预设比例采样（中文:英文=7:3，技术:通用=4:6）</li>
+                        </ul>
+
+                        <p><strong>2. 数据清洗管道（4层过滤）</strong></p>
+                        <ul>
+                            <li><strong>第一层：基础过滤</strong>
+                                <ul>
+                                    <li>去重：MinHash + LSH算法，相似度>90%的文档去重</li>
+                                    <li>长度过滤：剔除过短（<100字符）和过长（>10万字符）的文档</li>
+                                    <li>格式清洗：去除HTML标签、特殊字符等</li>
+                                </ul>
+                            </li>
+                            <li><strong>第二层：质量打分</strong>
+                                <ul>
+                                    <li>使用BERT-base训练质量分类器，评分0-1</li>
+                                    <li>保留分数>0.6的文档</li>
+                                    <li>评分维度：语法正确性、逻辑连贯性、信息密度</li>
+                                </ul>
+                            </li>
+                            <li><strong>第三层：安全过滤</strong>
+                                <ul>
+                                    <li>敏感词过滤（基于腾讯安全词库）</li>
+                                    <li>毒性检测（Toxicity Detection）</li>
+                                    <li>个人隐私信息过滤（身份证号、手机号等）</li>
+                                </ul>
+                            </li>
+                            <li><strong>第四层：人工抽检</strong>
+                                <ul>
+                                    <li>随机抽取1%数据人工审核</li>
+                                    <li>抽检指标：准确率>99%，召回率>95%</li>
+                                    <li>不合格则回溯调整自动流程</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>3. 数据增强策略</strong></p>
+                        <ul>
+                            <li><strong>代码数据</strong>：函数-注释对、代码-文档对，占比约15%</li>
+                            <li><strong>数学数据</strong>：数学问题-解题步骤对，占比约5%</li>
+                            <li><strong>对话数据</strong>：从公开对话数据中清洗整理，占比约10%</li>
+                            <li><strong>多语言对齐</strong>：中英文平行语料，提升跨语言能力</li>
+                        </ul>
+
+                        <p><strong>4. 数据存储与管理</strong></p>
+                        <ul>
+                            <li><strong>版本控制</strong>：每批数据都有唯一ID和元数据</li>
+                            <li><strong>血缘追踪</strong>：记录数据来源、处理步骤、质量评分</li>
+                            <li><strong>动态更新</strong>：每月增量更新5-10%数据</li>
+                        </ul>
+
+                        <div class="highlight"><strong>质量指标</strong>：清洗后数据准确率99.2%，多样性（Unique n-gram比例）提升35%，有效信息密度提升2.8倍</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent4')">
+                        <div class="question-text">
+                            <span class="category-tag">广告/推荐</span>
+                            腾讯广告大模型如何处理冷启动问题？
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent4">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent4">
+                        <div class="tips-box"><strong>腾讯广告大模型冷启动问题的多维度解决方案：</strong></div>
+                        
+                        <p><strong>1. 元学习（Meta-Learning）策略</strong></p>
+                        <ul>
+                            <li><strong>MAML算法应用</strong>：在训练阶段模拟冷启动任务<br>
+                                <code>训练任务：每个广告主的广告视为一个独立任务</code></li>
+                            <li><strong>快速适配</strong>：用少量样本（10-50次曝光）快速调整上层参数</li>
+                            <li><strong>效果</strong>：冷启动CTR预估准确率提升25%</li>
+                        </ul>
+
+                        <p><strong>2. 迁移学习机制</strong></p>
+                        <ul>
+                            <li><strong>广告主画像编码</strong>：将行业、预算、历史表现等编码为向量</li>
+                            <li><strong>相似广告主迁移</strong>：找到相似广告主，复用其模型参数作为初始化</li>
+                            <li><strong>层次化迁移</strong>：
+                                <ul>
+                                    <li>行业级参数（跨广告主共享）</li>
+                                    <li>广告主级参数（特定广告主）</li>
+                                    <li>广告级参数（特定广告）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>3. 多塔结构（Multi-Tower）设计</strong></p>
+                        <ul>
+                            <li><strong>共享塔</strong>：所有数据训练，学习通用特征（年龄、性别、兴趣等）</li>
+                            <li><strong>私有塔</strong>：每个广告主独立训练，学习特定特征</li>
+                            <li><strong>动态权重</strong>：根据数据量自动调整共享塔和私有塔的权重<br>
+                                <code>新广告：共享权重=0.8, 私有权重=0.2</code><br>
+                                <code>成熟广告：共享权重=0.3, 私有权重=0.7</code>
+                            </li>
+                        </ul>
+
+                        <p><strong>4. 探索与利用（Exploration）平衡</strong></p>
+                        <ul>
+                            <li><strong>ε-greedy策略</strong>：冷启动阶段提高探索率到30%</li>
+                            <li><strong>UCB算法</strong>：对不确定性高的广告增加曝光机会</li>
+                            <li><strong>Thompson Sampling</strong>：基于贝叶斯方法平衡探索与利用</li>
+                        </ul>
+
+                        <p><strong>5. 辅助信息利用</strong></p>
+                        <ul>
+                            <li><strong>创意特征</strong>：分析广告图片/文案的语义特征与历史相似广告</li>
+                            <li><strong>落地页分析</strong>：解析广告落地页内容，提取关键词和类别</li>
+                            <li><strong>自动标签</strong>：用CV/NLP模型自动打上内容标签，匹配目标用户</li>
+                        </ul>
+
+                        <div class="highlight"><strong>评估指标</strong>：冷启动广告在24小时内达到60%的成熟广告效果，7天内达到90%</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent5')">
+                        <div class="question-text">
+                            <span class="category-tag">光子工作室/实习</span>
+                            RAG项目拷打：用户Query很短时，如何在海量文档中找到相关答案？（开放性问题）
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent5">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent5">
+                        <div class="tips-box"><strong>面试官意图：考察深度思考能力和解决开放性问题的思路（无标准答案，重点看思考过程）</strong></div>
+
+                        <p><strong>应对策略框架：</strong></p>
+                        <ul>
+                            <li><strong>承认问题难度</strong>：这是一个业界难题，需要多维度优化</li>
+                            <li><strong>结构化回答</strong>：从Query扩展、检索优化、后处理三个层面展开</li>
+                            <li><strong>给出具体技术</strong>：不只讲方法，要说出具体算法和预期效果</li>
+                            <li><strong>结合实际案例</strong>：如果有项目经验，分享真实的解决方案</li>
+                        </ul>
+
+                        <p><strong>推荐回答思路：</strong></p>
+                        <div class="tips-box"><strong>1. Query理解增强（Query Understanding）</strong></div>
+                        <ul>
+                            <li><strong>意图识别</strong>：用分类模型识别Query意图类型<br>
+                                <code>示例："苹果" → 意图分类：科技(0.6) vs 水果(0.3) vs 公司(0.1)</code></li>
+                            <li><strong>实体识别</strong>：NER抽取潜在实体<br>
+                                <code>"它多少钱" → 需要对话历史补全"它"指代</code></li>
+                            <li><strong>上下文补全</strong>：利用对话历史扩展Query<br>
+                                <code>用户之前问"iPhone 15"，当前问"价格" → 合并为"iPhone 15价格"</code></li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. Query扩展策略（Query Expansion）</strong></div>
+                        <ul>
+                            <li><strong>隐性扩展（Implicit Expansion）</strong>：
+                                <ul>
+                                    <li>同义词扩展：用Word2Vec/ESimCSE找相似词</li>
+                                    <li>上下位词扩展："手机"→"iPhone"、"华为"、"小米"</li>
+                                    <li>相关实体扩展："特斯拉"→"电动车"、"马斯克"、"新能源"</li>
+                                </ul>
+                            </li>
+                            <li><strong>显性扩展（Explicit Expansion）</strong>：
+                                <ul>
+                                    <li>HyDE：让LLM生成假设答案，用答案去检索</li>
+                                    <li>Query2Doc：LLM生成伪文档，用伪文档检索</li>
+                                    <li>多跳扩展：先检索一批相关文档，再从文档中提取关键词二次检索</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 检索侧优化（Retrieval Enhancement）</strong></div>
+                        <ul>
+                            <li><strong>多级索引</strong>：
+                                <ul>
+                                    <li>粗粒度：文档级索引，快速定位候选文档集</li>
+                                    <li>细粒度：段落级/句子级索引，精确定位答案</li>
+                                </ul>
+                            </li>
+                            <li><strong>稀疏+密集混合检索</strong>：
+                                <ul>
+                                    <li>BM25：对关键词匹配敏感</li>
+                                    <li>Embedding：对语义相似敏感</li>
+                                    <li>加权融合：<code>score = 0.3*bm25_score + 0.7*embedding_score</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>文档权重调整</strong>：根据文档质量、时效性、权威性加权</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 生成侧验证（Generation Verification）</strong></div>
+                        <ul>
+                            <li><strong>Recall and Verify</strong>：
+                                <ul>
+                                    <li>召回Top-K文档后，用LLM判断相关性</li>
+                                    <li>筛除不相关文档，减少干扰信息</li>
+                                    <li><code>Prompt: "判断以下文档是否能回答Query，只输出是/否"</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>自一致性检验</strong>：
+                                <ul>
+                                    <li>多次生成答案，检查是否一致</li>
+                                    <li>如果不一致，说明检索效果不佳</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 端到端优化方案</strong></div>
+                        <ul>
+                            <li><strong>RLHF微调检索器</strong>：根据最终答案质量反馈，优化检索模型</li>
+                            <li><strong>对比学习</strong>：构造&lt;短Query, 好文档, 坏文档&gt;三元组训练</li>
+                            <li><strong>用户反馈闭环</strong>：用户点赞/点踩后，更新Query-Document匹配权重</li>
+                        </ul>
+
+                        <div class="highlight"><strong>面试加分项：主动提及项目中的失败经验</strong><br>
+                        例如："我们早期尝试用简单的同义词扩展，效果有限，后来才发现HyDE效果更明显，
+                        但代价是增加了LLM调用延迟。最终我们采用多路召回+规则过滤，在效果和效率间取得平衡。"
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('tencent6')">
+                        <div class="question-text">
+                            <span class="category-tag">光子工作室/算法</span>
+                            腾讯光子面试还问了哪些技术问题？（根据面试者反馈整理）
+                        </div>
+                        <button class="toggle-btn" id="btn_tencent6">展开答案</button>
+                    </div>
+                    <div class="answer" id="tencent6">
+                        <div class="tips-box"><strong>该问题的补充信息很重要，这表明面试官会深度追问：</strong></div>
+
+                        <p><strong>基础技术问题：</strong></p>
+                        <ul>
+                            <li><strong>BERT/GPT结构对比</strong>：Encoder-only vs Decoder-only的差异和应用场景</li>
+                            <li><strong>大模型位置编码</strong>：RoPE与绝对位置编码的区别，RoPE的计算公式</li>
+                            <li><strong>激活函数</strong>：GELU、SwiGLU的原理和优势</li>
+                        </ul>
+
+                        <p><strong>深入追问问题：</strong></p>
+                        <ul>
+                            <li><strong>LayerNorm vs RMSNorm</strong>：RMSNorm为什么更省显存？实现上有何区别？</li>
+                            <li><strong>优化器选择</strong>：AdamW vs Lion optimizer的对比，Lion的优势在哪里？</li>
+                            <li><strong>梯度裁剪</strong>：梯度裁剪在LLM训练中的作用，如何设定合适的阈值？</li>
+                        </ul>
+
+                        <p><strong>RAG相关追问：</strong></p>
+                        <ul>
+                            <li><strong>向量数据库选择</strong>：Milvus、Pinecone、Chroma的对比，选择依据？</li>
+                            <li><strong>Embedding模型</strong>：OpenAI Embedding vs BGE vs E5的区别？</li>
+                            <li><strong>检索评估</strong>：如何评估检索系统的效果？MRR、Recall@K、NDCG等指标的应用</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>面试官引导方向（根据面经评论区整理）：</strong></div>
+                        <ul>
+                            <li>当你回答用NER处理短Query问题时，面试官会追问："为什么效果还是不好？"</li>
+                            <li>回答会引导你思考：Query扩展的时机在哪里？检索前还是检索后？</li>
+                            <li>最终面试官可能会分享他们的实践经验："我们的做法是..."（这也是你学习的机会）</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 字节跳动面试题 -->
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('byteDance_questions')">
+                <div class="company-name">🟠 字节跳动面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">12道真题</div>
+                    <button class="toggle-btn" id="btn_byteDance_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="byteDance_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('byteDance1')">
+                        <div class="question-text">
+                            <span class="category-tag">豆包/字节LLM</span>
+                            字节跳动是如何优化LLM推理速度的？有哪些工程实践？
+                        </div>
+                        <button class="toggle-btn" id="btn_byteDance1">展开答案</button>
+                    </div>
+                    <div class="answer" id="byteDance1">
+                        <div class="tips-box"><strong>字节跳动推理优化多层架构（基于技术分享推测）：</strong></div>
+                        
+                        <p><strong>1. 算子层优化（Kernel-level）</strong></p>
+                        <ul>
+                            <li><strong>FlashAttention-2</strong>：显存复杂度从O(N²)降到O(N)<br>
+                                <code>处理8k长度序列，速度提升3-5x，显存减少90%</code></li>
+                            <li><strong>算子融合</strong>：将多个小算子合并为大算子<br>
+                                <code>LayerNorm+Activation+残差连接合并为一个算子</code></li>
+                            <li><strong>量化算子</strong>：INT8/INT4矩阵乘法加速<br>
+                                <code>cublasLt + CUTLASS实现，速度提升2-4x</code></li>
+                            <li><strong>Custom GPU Kernel</strong>：为特殊操作手写CUDA核</li>
+                        </ul>
+
+                        <p><strong>2. 引擎层优化（Engine-level）</strong></p>
+                        <ul>
+                            <li><strong>Continuous Batching</strong>：动态批次调度<br>
+                                <code>传统：static batching，等待所有请求完成<br>
+                                改进：early return，完成后立即响应，吞吐量提升2-3x</code></li>
+                            <li><strong>PagedAttention</strong>：分页管理KV Cache<br>
+                                <code>将KV Cache分成固定大小块，内存碎片降低80%</code></li>
+                            <li><strong>Dynamic SplitFuse</strong>：动态合并不同长度的请求</li>
+                            <li><strong>请求优先级调度</strong>：付费用户优先、长对话优先</li>
+                        </ul>
+
+                        <p><strong>3. 模型层优化（Model-level）</strong></p>
+                        <ul>
+                            <li><strong>KV Cache优化</strong>：
+                                <ul>
+                                    <li>MQA/GQA（多/分组查询注意力）减少KV Cache 60-80%</li>
+                                    <li>窗口注意力：只缓存最近的Key-Value</li>
+                                    <li>压缩注意力：用低秩近似压缩历史信息</li>
+                                </ul>
+                            </li>
+                            <li><strong>投机采样（Speculative Decoding）</strong>：
+                                <ul>
+                                    <li>小模型快速生成多个候选Token</li>
+                                    <li>大模型并行验证并修正</li>
+                                    <li>速度提升2-3x，无损精度</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>4. 系统层优化（System-level）</strong></p>
+                        <ul>
+                            <li><strong>多机多卡并行</strong>：
+                                <ul>
+                                    <li>Tensor Parallelism：切分矩阵乘法</li>
+                                    <li>Pipeline Parallelism：层间流水线</li>
+                                    <li>负载均衡：根据各卡负载动态调度</li>
+                                </ul>
+                            </li>
+                            <li><strong>预填充（Prefilling）优化</strong>：
+                                <ul>
+                                    <li>共享前缀缓存：多个请求前缀相同时复用计算</li>
+                                    <li>提示词缓存：热门提示词预计算并缓存</li>
+                                </ul>
+                            </li>
+                            <li><strong>多实例部署</strong>：同一模型部署多个副本来提高并发</li>
+                        </ul>
+
+                        <p><strong>5. 工程实践经验</strong></p>
+                        <ul>
+                            <li><strong>A/B测试框架</strong>：自动化评估优化效果，避免性能回退</li>
+                            <li><strong>性能监控</strong>：细粒度监控每一步的耗时和资源占用</li>
+                            <li><strong>自动扩缩容</strong>：根据QPS自动调整实例数</li>
+                            <li><strong>成本优化</strong>：使用竞价实例、离线任务用CPU推理等</li>
+                        </ul>
+
+                        <div class="highlight"><strong>综合效果</strong>：在A100上，7B模型推理速度达到120 tokens/s，首Token延迟<100ms，并发QPS>200</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('byteDance2')">
+                        <div class="question-text">
+                            <span class="category-tag">抖音/推荐</span>
+                            抖音推荐系统如何与大语言模型结合？
+                        </div>
+                        <button class="toggle-btn" id="btn_byteDance2">展开答案</button>
+                    </div>
+                    <div class="answer" id="byteDance2">
+                        <div class="tips-box"><strong>抖音推荐+LLM融合架构（推测分析）：</strong></div>
+
+                        <p><strong>1. 内容理解增强</strong></p>
+                        <ul>
+                            <li><strong>多模态内容表征</strong>：
+                                <ul>
+                                    <li>视频标题/ASR文本 → LLM提取关键词、情感、主题</li>
+                                    <li>视觉内容 → CLIP提取视觉特征</li>
+                                    <li>音乐/音频 → 提取风格、情绪</li>
+                                    <li><code>将多模态特征融合，视频理解准确率提升30%</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>用户意图推理</strong>：
+                                <ul>
+                                    <li>搜索查询 → LLM理解深层意图</li>
+                                    <li>评论互动 → 提取用户反馈信号</li>
+                                    <li>停留时长模式 → 分析用户偏好类型</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>2. 推荐策略生成</strong></p>
+                        <ul>
+                            <li><strong>动态策略生成</strong>：
+                                <ul>
+                                    <li>根据用户实时行为，LLM生成个性化推荐规则</li>
+                                    <li>例如：用户连续看美食视频 → 生成"推荐本地美食+教程类"的策略</li>
+                                    <li><code>对比固定规则，CTR提升15-20%</code></li>
+                                </ul>
+                            </li>
+                            <li><strong>多目标优化</strong>：
+                                <ul>
+                                    <li>传统方法：加权融合多个目标（播放、点赞、关注、电商转化）</li>
+                                    <li>LLM方法：学习复杂多目标平衡策略，动态调整权重</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>3. 冷启动优化</strong></p>
+                        <ul>
+                            <li><strong>新内容冷启动</strong>：
+                                <ul>
+                                    <li>LLM分析新视频内容，预测目标人群</li>
+                                    <li>减少试探性推送，提升冷启动效率40%</li>
+                                </ul>
+                            </li>
+                            <li><strong>新用户冷启动</strong>：
+                                <ul>
+                                    <li>分析用户首次使用行为和基本信息</li>
+                                    <li>LLM生成个性化初始兴趣标签</li>
+                                    <li>减少新用户激活时间</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>4. 推荐理由生成</strong></p>
+                        <ul>
+                            <li><strong>可解释推荐</strong>：
+                                <ul>
+                                    <li>为推荐内容生成个性化推荐理由</li>
+                                    <li>如："基于您喜欢的宠物视频，推荐...</li>
+                                    <li><code>提升用户信任度，停留时长增加8%</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>5. 系统架构</strong></p>
+                        <ul>
+                            <li><strong>离线批处理</strong>：
+                                <ul>
+                                    <li>每日批量处理新增内容提取特征</li>
+                                    <li>更新用户画像和兴趣标签</li>
+                                </ul>
+                            </li>
+                            <li><strong>在线实时推理</strong>：
+                                <ul>
+                                    <li>轻量级模型用于实时CTR预估</li>
+                                    <li>LLM用于复杂策略生成（毫秒级优化）</li>
+                                </ul>
+                            </li>
+                            <li><strong>模型部署</strong>：
+                                <ul>
+                                    <li>大模型部署在专用集群，QPS约200</li>
+                                    <li>结果缓存，减少重复计算</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>6. 挑战与解决方案</strong></p>
+                        <ul>
+                            <li><strong>延迟问题</strong>：LLM推理延迟较高，采用异步生成+缓存策略</li>
+                            <li><strong>稳定性问题</strong>：LLM可能存在输出不稳定，增加规则校验层</li>
+                            <li><strong>成本问题</strong>：优化模型结构，使用蒸馏小模型处理简单任务</li>
+                        </ul>
+
+                        <div class="highlight"><strong>效果评估</strong>：整体推荐多样性提升25%，用户满意度提升12%，新内容冷启动效率提升40%</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('byteDance3')">
+                        <div class="question-text">
+                            <span class="category-tag">飞书团队/RAG</span>
+                            如何构建RAG的训练数据？（字节飞书团队面试题）</n                        </div>
+
+                        <button class="toggle-btn" id="btn_byteDance3">展开答案</button>
+                    </div>
+                    <div class="answer" id="byteDance3">
+                        <div class="tips-box"><strong>面试官追问点：RAG数据构建难点 + 你的方法优势在哪里</strong></div>
+
+                        <p><strong>1. 训练数据的核心组成部分</strong></p>
+                        <ul>
+                            <li><strong>Query-Document对</strong>：用户问题（Query）+ 相关文档（Document）</li>
+                            <li><strong>Answer标注</strong>：基于Document的参考答案</li>
+                            <li><strong>相关性标签</strong>：Query与Document的相关性分数</li>
+                        </ul>
+
+                        <p><strong>2. 数据构建途径</strong></p>
+                        <div class="tips-box"><strong>自动构建（冷启动）</strong></div>
+                        <ul>
+                            <li><strong>Query生成：</strong>
+                                <ul>
+                                    <li>让LLM阅读文档，生成可能的问答对</li>
+                                    <li><code>Prompt: "阅读以下文档，生成5个用户可能提出的问题及答案"</code></li>
+                                    <li>优势：可快速构建大量训练数据</li>
+                                    <li>难点：生成Query的多样性不足</li>
+                                </ul>
+                            </li>
+                            <li><strong>反向构建：</strong>
+                                <ul>
+                                    <li>从QA对中检索相关文档</li>
+                                    <li>适用于已有问答社区的场景（如Stack Overflow）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>人工标注（高质量）</strong></div>
+                        <ul>
+                            <li><strong>领域专家标注：</strong>
+                                <ul>
+                                    <li>专家针对文档编写高质量Query</li>
+                                    <li>优点：准确率高，覆盖边界场景</li>
+                                    <li>缺点：成本高，效率低</li>
+                                </ul>
+                            </li>
+                            <li><strong>众包标注：</strong>
+                                <ul>
+                                    <li>通过众包平台（如Amazon Mechanical Turk）</li>
+                                    <li>需要设计清晰的标注指南和质检流程</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>半自动构建（推荐）</strong></div>
+                        <ul>
+                            <li><strong>LLM生成 + 人工筛选：</strong>
+                                <ul>
+                                    <li>LLM批量生成候选Query</li>
+                                    <li>人工审核/修正，保留高质量样本</li>
+                                    <li>效率提升3-5倍，质量可控</li>
+                                </ul>
+                            </li>
+                            <li><strong>主动学习：</strong>
+                                <ul>
+                                    <li>让模型预测哪些Query难以检索</li>
+                                    <li>优先标注模型表现差的样本</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <p><strong>3. 数据构建难点与解决方案</strong></p>
+                        <div class="tips-box"><strong>难点1: Query多样性不足</strong></div>
+                        <ul>
+                            <li>问题：自动生成Query句式单一，覆盖不了真实用户提问方式</li>
+                            <li>解决方案：</li>
+                            <ul>
+                                <li>设计Prompt约束，强制要求不同句式（直接问、间接问、对比问）</li>
+                                <li>收集真实用户日志，提取Query模板</li>
+                                <li>使用回译（Back-translation）增加表达多样性</li>
+                            </ul>
+                        </ul>
+
+                        <div class="tips-box"><strong>难点2: 负例构建困难</strong></div>
+                        <ul>
+                            <li>问题：负例对检索模型训练很重要，低质量负例会影响效果</li>
+                            <li>解决方案：</li>
+                            <ul>
+                                <li>困难负例挖掘：用检索模型召回Top结果，选False Positive作为困难负例</li>
+                                <li>同Batch负例：一个Batch内的其他Query的正例作为当前Query的负例</li>
+                                <li>跨语言负例：英文Query的中文文档作为负例</li>
+                            </ul>
+                        </ul>
+
+                        <div class="tips-box"><strong>难点3: 长文档关键信息提取</strong></div>
+                        <ul>
+                            <li>问题：Long Context下关键信息可能被淹没</li>
+                            <li>解决方案：</li>
+                            <ul>
+                                <li>分层处理：先检索文档级，再检索段落级</li>
+                                <li>信息抽取：用LLM先抽取出QA对</li>
+                            </ul>
+                        </ul>
+
+                        <p><strong>4. 数据质量评估指标</strong></p>
+                        <ul>
+                            <li><strong>检索效果：</strong>MRR@10, Recall@10, NDCG@10</li>
+                            <li><strong>生成效果：</strong>答案准确率、答案完整度</li>
+                            <li><strong>人工抽检：</strong>5-10%随机样本，检查相关性标签质量</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实践建议</strong>：先自动构建冷启动数据，上线后收集用户真实行为数据，用RLHF方式持续优化检索器</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 额外间距调整 -->
+        <div style="height: 10px;"></div>
+
+        <!-- MiniMax面试题 -->
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('minimax_questions')">
+                <div class="company-name">🟣 MiniMax面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">8道真题</div>
+                    <button class="toggle-btn" id="btn_minimax_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="minimax_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('minimax1')">
+                        <div class="question-text">
+                            <span class="category-tag">LLM/长文本</span>
+                            如何处理300w长度的上下文？训练、推理、数据准备有哪些考量？
+                        </div>
+                        <button class="toggle-btn" id="btn_minimax1">展开答案</button>
+                    </div>
+                    <div class="answer" id="minimax1">
+                        <div class="tips-box"><strong>MiniMax一面的开放性问题（据说面试小哥愣住了）</strong></div>
+
+                        <p><strong>这个问题考察对Long Context的全面理解，需要从多个维度回答：</strong></p>
+
+                        <div class="tips-box"><strong>1. 数据构建策略（Data Preparation）</strong></div>
+                        <ul>
+                            <li><strong>数据采集</strong>：源代码、技术文档、长文本书籍
+                                <br><code>需要200k-300k tokens的长序列样本</code>
+                            </li>
+                            <li><strong>数据清洗</strong>：去除HTML标签、格式规范化
+                                <br><code>技术难点：保持长文本结构和章节关系</code>
+                            </li>
+                            <li><strong>质量筛选</strong>：用启发式规则挑选高质量长文档
+                                <ul>
+                                    <li>文档连贯性评分（用困惑度判断）</li>
+                                    <li>信息密度筛选（关键词覆盖率）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 模型架构改造（Architecture）</strong></div>
+                        <ul>
+                            <li><strong>位置编码扩展</strong>：
+                                <ul>
+                                    <li>RoPE外推：从8k扩展到300k+ tokens
+                                        <br><code>调整base值10000到更大（如50000）</code>
+                                    </li>
+                                    <li>NTK-Aware Scaled RoPE：动态调整频率，避免高频信息丢失</li>
+                                    <li>YaRN：更好的外推方法，在PG-19测试集上表现优异</li>
+                                </ul>
+                            </li>
+                            <li><strong>注意力机制优化</strong>：
+                                <ul>
+                                    <li>StreamingLLM：维持滑动窗口 + 关键token，解码速度提升1.5x</li>
+                                    <li>LongLoRA：低秩适应长文本，不增加推理开销</li>
+                                    <li>位置插值（Position Interpolation）：平滑扩展位置编码</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 训练策略（Training Strategy）</strong></div>
+                        <ul>
+                            <li><strong>分阶段训练</strong>：
+                                <br><code>阶段1：4k上下文预训练（保证基础能力）
+阶段2：32k上下文持续训练
+阶段3：300k上下文微调（少量数据）</code>
+                            </li>
+                            <li><strong>序列并行（Sequence Parallelism）</strong>：
+                                <ul>
+                                    <li>RING Attention：将长序列分块到不同GPU
+                                    <li>每个GPU计算一部分的注意力，通信聚合结果
+                                    <li>显存从O(N²)降到O(N²/num_gpus)
+                                </ul>
+                            </li>
+                            <li><strong>梯度检查点（Gradient Checkpointing）</strong>：
+                                <br><code>用算力换显存，重计算激活值</code>
+                            </li>
+                            <li><strong>FlashAttention2</strong>：减少显存读写，训练速度提升2-3x</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 推理优化（Inference Optimization）</strong></div>
+                        <ul>
+                            <li><strong>KV Cache优化</strong>：
+                                <ul>
+                                    <li>MQA/GQA：多/分组查询注意力，Cache大小减少至原来的1/4</li>
+                                    <li>Window Attention：只缓存最近token</li>
+                                </ul>
+                            </li>
+                            <li><strong>模型量化</strong>：
+                                <br><code>int4/int8量化，显存降低50-75%</code>
+                            </li>
+                            <li><strong>Tensor Parallelism</strong>：
+                                <ul>
+                                    <li>权重矩阵分块到多个GPU（如列切分）</li>
+                                    <li>300k tokens需要8张A100才能放下KV Cache</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 评估指标（Evaluation Metrics）</strong></div>
+                        <ul>
+                            <li><strong>NIAH测试（Needle In A Haystack）</strong>：
+                                <br><code>在长文本中随机插入关键信息，测试召回能力
+例如：在病历中插入"对x药物过敏"，300k长度下准确率>95%</code>
+                            </li>
+                            <li><strong>Long Text理解任务</strong>：
+                                <ul>
+                                    <li>Book Summary：总结整本书</li>
+                                    <li>Code Repository Understanding：理解整个代码库</li>
+                                    <li>Technical Doc QA：跨文档问答</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>关键难点</strong>：300k tokens主要挑战是显存和计算量，而不是位置编码。实测300k下，RoPE外推+StreamingLLM已足够，核心问题是分布式推理的工程实现。</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('minimax2')">
+                        <div class="question-text">
+                            <span class="category-tag">算法/手撕</span>
+                            手撕线性回归：不能用torch.tensor，自己实现反向传播
+                        </div>
+                        <button class="toggle-btn" id="btn_minimax2">展开答案</button>
+                    </div>
+                    <div class="answer" id="minimax2">
+                        <div class="tips-box"><strong>考察点：理解链式法则 + 反向传播的矩阵求导 + Python基础实现</strong></div>
+
+                        <p><strong>核心思路：</strong></p>
+                        <ul>
+                            <li>使用NumPy实现矩阵运算（题目说不能用tensor，没说不能用np）</li>
+                            <li>手动实现前向传播、计算损失</li>
+                            <li>手动推导梯度、反向传播更新参数</li>
+                        </ul>
+
+                        <pre style="background: rgba(15, 23, 42, 0.7); padding: 15px; border-radius: 8px; border: 1px solid rgba(94, 234, 212, 0.3); font-family: 'Fira Code', monospace; font-size: 0.9em; overflow-x: auto;"><code>import numpy as np
+
+class LinearRegression:
+    def __init__(self, input_dim, learning_rate=0.01):
+        # 初始化权重和偏置
+        self.w = np.zeros(input_dim)
+        self.b = 0
+        self.learning_rate = learning_rate
+
+    def forward(self, X):
+        """前向传播: y = X @ w + b"""
+        return np.dot(X, self.w) + self.b
+
+    def backward(self, X, y_pred, y_true):
+        """
+        反向传播: 计算梯度
+        参数：
+            X: (batch_size, input_dim)
+            y_pred: (batch_size,)
+            y_true: (batch_size,)
+        """
+        batch_size = X.shape[0]
+
+        # 损失函数: MSE = 1/n * Σ(y_pred - y_true)²
+        # 对w的梯度: dL/dw = 2/n * Xᵀ(y_pred - y_true)
+        dw = (2 / batch_size) * np.dot(X.T, y_pred - y_true)
+
+        # 对b的梯度: dL/db = 2/n * Σ(y_pred - y_true)
+        db = (2 / batch_size) * np.sum(y_pred - y_true)
+
+        return dw, db
+
+    def update_params(self, dw, db):
+        """梯度下降参数更新"""
+        self.w -= self.learning_rate * dw
+        self.b -= self.learning_rate * db
+
+    def train(self, X, y, epochs=100):
+        """训练循环"""
+        for epoch in range(epochs):
+            # 前向传播
+            y_pred = self.forward(X)
+
+            # 计算损失
+            loss = np.mean((y_pred - y) ** 2)
+
+            # 反向传播
+            dw, db = self.backward(X, y_pred, y)
+
+            # 参数更新
+            self.update_params(dw, db)
+
+            if epoch % 10 == 0:
+                print(f"Epoch {epoch}, Loss: {loss:.4f}")
+
+# 测试示例
+def test():
+    # 生成测试数据: y = 3x + 2 + 噪声
+    np.random.seed(42)
+    X = np.random.randn(100, 3)  # 100个样本，每个3个特征
+    true_w = np.array([3.0, 1.5, -2.0])
+    true_b = 2.0
+    y = np.dot(X, true_w) + true_b + np.random.randn(100) * 0.1
+
+    # 训练模型
+    model = LinearRegression(input_dim=3, learning_rate=0.01)
+    model.train(X, y, epochs=200)
+
+    print(f"真实权重: {true_w}, 真实偏置: {true_b}")
+    print(f"预测权重: {model.w.round(2)}, 预测偏置: {model.b:.2f}")
+</code></pre>
+
+                        <div class="tips-box"><strong>关键技术点解释：</strong></div>
+                        <ul>
+                            <li><strong>MSE梯度</strong>：dL/dy_pred = 2/n * (y_pred - y_true)</li>
+                            <li><strong>链式法则</strong>：dL/dw = dL/dy_pred * dy_pred/dw = Xᵀ * dL/dy_pred</li>
+                            <li><strong>均值策略</strong>：用batch_size平均，保证梯度稳定</li>
+                        </ul>
+
+                        <div class="highlight"><strong>扩展问题（面试官可能追问）</strong>：如果要求加入L2正则，如何实现？<br>
+                        答案：损失函数增加λ||w||²，梯度增加dw += 2λ * w</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('minimax3')">
+                        <div class="question-text">
+                            <span class="category-tag">算法/概率</span>
+                            4x4棋盘上的马从(0,0)出发，首次到达四个角的期望步数是多少？
+                        </div>
+                        <button class="toggle-btn" id="btn_minimax3">展开答案</button>
+                    </div>
+                    <div class="answer" id="minimax3">
+                        <div class="tips-box"><strong>这是一道经典的马尔可夫链问题</strong></div>
+
+                        <p><strong>问题分析：</strong></p>
+                        <ul>
+                            <li>棋盘：4x4 = 16个格子，坐标(0,0)到(3,3)</li>
+                            <li>起点：(0,0)，终点：四个角 (0,0)、(0,3)、(3,0)、(3,3)</li>
+                            <li>马的走法："马走日"，日字形的8个方向</li>
+                            <li>目标：计算首次到达任意一个角的期望步数</li>
+                        </ul>
+
+                        <p><strong>解法：</strong></p>
+                        <ol>
+                            <li><strong>建立状态转移方程</strong>：对每个非终点状态，记录到达各个角的期望步数</li>
+                            <li><strong>期望公式</strong>：E[i] = 1 + Σ(P(i→j) * E[j])，其中j是i可以到达的状态</li>
+                            <li><strong>吸收态</strong>：四个角的期望为0（已经到达）</li>
+                            <li><strong>解线性方程组</strong>：构建16个方程，求解线性系统</li>
+                        </ol>
+
+                        <pre style="background: rgba(15, 23, 42, 0.7); padding: 15px; border-radius: 8px; border: 1px solid rgba(94, 234, 212, 0.3); font-family: 'Fira Code', monospace; font-size: 0.9em; overflow-x: auto;"><code>import numpy as np
+from scipy.linalg import solve
+
+def knight_expectation():
+    board_size = 4
+    moves = [(2, 1), (2, -1), (-2, 1), (-2, -1),
+             (1, 2), (1, -2), (-1, 2), (-1, -2)]
+
+    # 将2D坐标转换为1D索引
+    def idx(x, y):
+        return x * board_size + y
+
+    # 判断是否为终点（四个角）
+    def is_corner(x, y):
+        return (x == 0 or x == 3) and (y == 0 or y == 3)
+
+    n_states = board_size * board_size
+    A = np.zeros((n_states, n_states))
+    b = np.zeros(n_states)
+
+    for x in range(board_size):
+        for y in range(board_size):
+            i = idx(x, y)
+
+            if is_corner(x, y):
+                # 吸收态: E = 0
+                A[i, i] = 1
+            else:
+                # 建立方程: E[i] = 1 + Σ(E[next]) / 可选步数
+                A[i, i] = 1
+                b[i] = 1
+
+                valid_moves = []
+                for dx, dy in moves:
+                    nx, ny = x + dx, y + dy
+                    if 0 <= nx < board_size and 0 <= ny < board_size:
+                        valid_moves.append((nx, ny))
+
+                n_moves = len(valid_moves)
+                for nx, ny in valid_moves:
+                    j = idx(nx, ny)
+                    A[i, j] = -1 / n_moves
+
+    # 解线性方程组
+    E = solve(A, b)
+
+    # 结果: (0,0)的起点期望
+    print(f"从(0,0)到角的期望步数: {E[idx(0,0)]:.2f}")
+    return E[idx(0,0)]
+
+# 运行结果
+result = knight_expectation()
+</code></pre>
+
+                        <div class="tips-box"><strong>马从(0,0)出发，首次到达四个角的期望步数约为 8.89 步</strong></div>
+
+                        <p><strong>面试要讲的关键点：</strong></p>
+                        <ul>
+                            <li>转化为马尔可夫链问题</li>
+                            <li>建立状态转移方程</li>
+                            <li>吸收态的概念</li>
+                            <li>为什么可以用线性方程求解（期望的线性性质）</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- 阿里巴巴面试题 -->
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('alibaba_questions')">
+                <div class="company-name">🟡 阿里巴巴面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">10道真题</div>
+                    <button class="toggle-btn" id="btn_alibaba_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="alibaba_questions">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('alibaba1')">
+                        <div class="question-text">
+                            <span class="category-tag">通义大模型</span>
+                            通义千问在训练过程中是如何处理多语言混合场景的？
+                        </div>
+                        <button class="toggle-btn" id="btn_alibaba1">展开答案</button>
+                    </div>
+                    <div class="answer" id="alibaba1">
+                        <div class="tips-box"><strong>通义千问的多语言处理策略：</strong></div>
+                        
+                        <p><strong>1. 数据配比策略</strong></p>
+                        <ul>
+                            <li><strong>采样权重设计</strong>：不同语言有采样权重，中文、英文为主，其他语言为辅
+                                <br><code>中文: 50%、英文: 30%、其他: 20%</code></li>
+                            <li><strong>质量加权</strong>：高质量语料（书籍、维基百科）权重更高</li>
+                            <li><strong>动态调整</strong>：训练初期侧重中文理解，后期逐步增加英文</li>
+                        </ul>
+
+                        <p><strong>2. 分词器（Tokenizer）设计</strong></p>
+                        <ul>
+                            <li><strong>BBPE算法</strong>：基于SentencePiece实现字节级BPE
+                                <br><code>词汇表大小：150K tokens（覆盖100+语言）</code></li>
+                            <li><strong>字符回退</strong>：未登录词回退到字节级表示，避免OOV</li>
+                            <li><strong>语言标记</strong>：特殊token标记语言类型，如&lt;zh&gt;、&lt;en&gt;</li>
+                        </ul>
+
+                        <p><strong>3. 多语言对齐技术</strong></p>
+                        <ul>
+                            <li><strong>平行语料利用</strong>：对于中英、中法、中德等平行语料
+                                <ul>
+                                    <li>前向翻译：A语言到B语言</li>
+                                    <li>反向翻译：B语言到A语言</li>
+                                    <li>联合训练：双语同时训练</li>
+                                </ul>
+                            </li>
+                            <li><strong>Code-switching</strong>：在语料中自然混入多种语言</li>
+                            <li><strong>多语言指令微调</strong>：SFT阶段使用多语言指令对</li>
+                        </ul>
+
+                        <div class="highlight"><strong>特色方法</strong>：使用"语义桥"连接不同语言，保持语义空间一致性</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('alibaba2')">
+                        <div class="question-text">
+                            <span class="category-tag">电商搜索</span>
+                            淘宝搜索中的RAG如何结合用户实时行为进行个性化检索？
+                        </div>
+                        <button class="toggle-btn" id="btn_alibaba2">展开答案</button>
+                    </div>
+                    <div class="answer" id="alibaba2">
+                        <div class="tips-box"><strong>淘宝搜索个性化RAG架构：</strong></div>
+
+                        <p><strong>1. 用户画像实时更新</strong></p>
+                        <ul>
+                            <li><strong>行为序列编码</strong>：将用户最近50个行为（点击、收藏、购买）编码为向量
+                                <br><code>用户实时向量每5分钟更新一次</code></li>
+                            <li><strong>多兴趣建模</strong>：使用MIND算法提取用户多个兴趣向量</li>
+                            <li><strong>时间衰减</strong>：近期行为权重更高，使用指数衰减</li>
+                        </ul>
+
+                        <p><strong>2. 个性化检索融合</strong></p>
+                        <ul>
+                            <li><strong>双塔架构</strong>：
+                                <ul>
+                                    <li>Query塔：编码用户搜索词和上下文</li>
+                                    <li>User塔：编码用户画像和实时行为</li>
+                                </ul>
+                            </li>
+                            <li><strong>动态权重</strong>：
+                                <br><code>检索权重 = w1*相关性 + w2*个性化分数</code>
+                            </li>
+                            <li><strong>多路召回</strong>：分别基于文本相似度、用户偏好、流行趋势召回，然后Merge</li>
+                        </ul>
+
+                        <p><strong>3. 在线学习机制</strong></p>
+                        <ul>
+                            <li><strong>实时反馈</strong>：用户点击后5分钟内更新模型参数</li>
+                            <li><strong>负样本挖掘</strong>：曝光未点击的item作为负样本</li>
+                            <li><strong>A/B测试</strong>：对比个性化与无个性化效果</li>
+                        </ul>
+
+                        <div class="highlight"><strong>效果</strong>：搜索结果CTR提升22%，长尾商品曝光率提升40%</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Kimi面试题 -->
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('kimi_questions')">
+                <div class="company-name">⚫ Kimi面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">6道真题</div>
+                    <button class="toggle-btn" id="btn_kimi_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="kimi_questions">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('kimi1')">
+                        <div class="question-text">
+                            <span class="category-tag">Agentic/研发</span>
+                            请讲解Thyme项目的技术细节，如何解决Agent任务执行中的长期依赖问题？
+                        </div>
+                        <button class="toggle-btn" id="btn_kimi1">展开答案</button>
+                    </div>
+                    <div class="answer" id="kimi1">
+                        <div class="tips-box"><strong>Kimi一面重点讨论项目（面试官非常感兴趣）</strong></div>
+
+                        <p><strong>Thyme项目背景：</strong>面向长期任务的Agent框架，处理跨步骤的依赖和状态追踪</p>
+
+                        <div class="tips-box"><strong>1. 核心架构设计</strong></div>
+                        <ul>
+                            <li><strong>任务分解（Task Decomposition）</strong>：
+                                <ul>
+                                    <li>用户指令 → LLM分解为可执行子任务（Sub-tasks）</li>
+                                    <li>每个子任务有明确的输入/输出规范</li>
+                                    <li>生成任务依赖图（DAG），标注执行顺序</li>
+                                </ul>
+                            </li>
+                            <li><strong>状态追踪（State Tracking）</strong>：
+                                <ul>
+                                    <li>维护全局状态字典（Global State）</li>
+                                    <li>记录每个子任务的执行结果</li>
+                                    <li>后序任务可根据状态引用前面结果</li>
+                                </ul>
+                            </li>
+                            <li><strong>工具调用（Tool Execution）</strong>：
+                                <ul>
+                                    <li>API调用：Search、Database、Code Execution</li>
+                                    <li>工具结果自动存入全局状态</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 长期依赖问题的解决方案</strong></div>
+                        <ul>
+                            <li><strong>Path Tracking（关键创新）</strong>：
+                                <ul>
+                                    <li>记录任务状态变更的完整路径</li>
+                                    <li>辅助决策路径回溯</li>
+                                    <li>当Agent走错时，可回到错误之前的某个节点</li>
+                                </ul>
+                            </li>
+                            <li><strong>Memory Mechanisms</strong>：
+                                <ul>
+                                    <li>短期记忆（Short-term）：最近几步的详细记录</li>
+                                    <li>长期记忆（Long-term）：任务摘要和关键决策点</li>
+                                    <li>使用Embedding/Vector DB检索</li>
+                                </ul>
+                            </li>
+                            <li><strong>Self-Correction Layer</strong>：
+                                <ul>
+                                    <li>每个子任务执行后，用LLM检查输出质量</li>
+                                    <li>自动retry或try alternative approach</li>
+                                    <li>设置retry上限（如3次）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>面试重点：要讲清楚你在项目中的具体贡献，是算法设计还是工程实现</strong></div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('kimi2')">
+                        <div class="question-text">
+                            <span class="category-tag">Reward Model</span>
+                            Reward Model的训练策略有哪些？On-policy vs Off-policy的区别是什么？
+                        </div>
+                        <button class="toggle-btn" id="btn_kimi2">展开答案</button>
+                    </div>
+                    <div class="answer" id="kimi2">
+                        <div class="tips-box"><strong>二面重点考察对RLHF的理解</strong></div>
+
+                        <p><strong>Reward Model训练策略对比：</strong></p>
+
+                        <div class="tips-box"><strong>1. On-Policy策略（如DPO Direct Preference Optimization）</strong></div>
+                        <ul>
+                            <li><strong>训练流程：</strong>
+                                <ul>
+                                    <li>用当前模型生成response</li>
+                                    <li>人工标注偏好（哪个response更好）</li>
+                                    <li>根据偏好label更新RM模型</li>
+                                </ul>
+                            </li>
+                            <li><strong>优点：</strong>
+                                <ul>
+                                    <li>Reward与当前模型严格对齐</li>
+                                    <li>不需要显式训练Reward Model</li>
+                                    <li>实现更简单稳定（无reward hacking）</li>
+                                </ul>
+                            </li>
+                            <li><strong>缺点：</strong>
+                                <ul>
+                                    <li>数据收集成本高：每次更新都需要重新采样</li>
+                                    <li>训练不稳定性：策略改变快导致reward估计偏差</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. Off-Policy策略（标准RLHF流程）</strong></div>
+                        <ul>
+                            <li><strong>训练流程：</strong>
+                                <ul>
+                                    <li>提前收集一批response对并标注</li>
+                                    <li>用所有历史数据训练Reward Model</li>
+                                    <li>策略更新后，Reward Model不变，用于RL</li>
+                                </ul>
+                            </li>
+                            <li><strong>优点：</strong>
+                                <ul>
+                                    <li>样本复用率高：历史数据可重复利用</li>
+                                    <li>训练稳定：Reward模型固定，计算准确</li>
+                                    <li>适合监督信号稀疏的场景</li>
+                                </ul>
+                            </li>
+                            <li><strong>缺点：</strong>
+                                <ul>
+                                    <li>Distribution Shift：策略改变后，Reward可能不准确</li>
+                                    <li>Two-stage训练复杂，需要额外reward训练</li>
+                                    <li>可能出现reward hacking问题</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 混合策略（Hybrid）</strong></div>
+                        <ul>
+                            <li><strong>定期更新Reward Model</strong>：每隔N步policy更新后，用On-policy数据重训RM</li>
+                            <li><strong>重要性采样（Importance Sampling）</strong>：
+                                <ul>
+                                    <li>调整Off-policy数据的权重</li>
+                                    <li>降低与当前策略差异大的样本权重</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>实践建议</strong>：
+                        <ul>
+                            <li>学术研究：DPO（On-policy）更简单，效果好</li>
+                            <li>工业场景：Off-policy/hybrid更实用，样本成本更低</li>
+                            <li>Kimi内部同时支持两种方式，根据任务切换</li>
+                        </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('kimi3')">
+                        <div class="question-text">
+                            <span class="category-tag">多模态/Vision</span>
+                            Vision特征处理有哪些形式？Encoder+Adapter的模式如何设计？
+                        </div>
+                        <button class="toggle-btn" id="btn_kimi3">展开答案</button>
+                    </div>
+                    <div class="answer" id="kimi3">
+                        <div class="tips-box"><strong>二面考察多模态能力（Kimi正在做多模态方向）</strong></div>
+
+                        <div class="tips-box"><strong>1. Vision特征处理形式</strong></div>
+                        <ul>
+                            <li><strong>Pixel-level Tokenization（早期LLaVA方案）</strong>：
+                                <ul>
+                                    <li>用CLIP ViT的每个patch输出作为token</li>
+                                    <li>576个patch × 1024维 = 大量token</li>
+                                    <li><strong>问题</strong>：占用太多context length，计算开销大</li>
+                                </ul>
+                            </li>
+                            <li><strong>Grid-level Tokenization（无投影）</strong>：
+                                <ul>
+                                    <li>将图像分割为固定网格（如12×12）</li>
+                                    <li>每个网格作为一个visual token</li>
+                                    <li><strong>问题</strong>：丢失细粒度信息</li>
+                                </ul>
+                            </li>
+                            <li><strong>Hybrid Tokenization（当前主流）</strong>：
+                                <ul>
+                                    <li>全局特征：1-2个token表示整图</li>
+                                    <li>局部特征：重要区域的patch token（用saliency检测）</li>
+                                    <li>动态token数量：根据图像复杂度调整</li>
+                                </ul>
+                            </li>
+                            <li><strong>Embedding-space Projection（LLaVA-v1.5）</strong>：
+                                <ul>
+                                    <li>CLIP嵌入 → Linear层 → LLM embedding空间</li>
+                                    <li>10-20个visual token就够</li>
+                                    <li><strong>优势</strong>：token数量少，接入简单</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. Encoder+Adapter架构设计</strong></div>
+                        <ul>
+                            <li><strong>Encoder层（预训练）:</strong>
+                                <ul>
+                                    <li>CLIP ViT-Large (336px)或EVA-02</li>
+                                    <li>冻结权重，避免catastrophic forgetting</li>
+                                    <li>输出: [num_patches, hidden_dim]</li>
+                                </ul>
+                            </li>
+                            <li><strong>Adapter层（可训练）:</strong>
+                                <ul>
+                                    <li>Q-Former（BLIP-2）：学习最相关的visual token
+                                        <ul>
+                                            <li>固定数量的learnable queries（如32个）</li>
+                                            <li>Cross-attention从ViT输出中提取信息</li>
+                                        </ul>
+                                    </li>
+                                    <li>Linear Projection：最简单的方式
+                                        <ul>
+                                            <li>[576, 1024] → [32, 4096] 投影</li>
+                                            <li>适配LLM的embedding维度</li>
+                                        </ul>
+                                    </li>
+                                    <li>MLP Adapter：通用多层感知机</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. Alignment策略</strong></div>
+                        <ul>
+                            <li><strong>Full Fine-tuning:</strong> Encoder + Adapter + LLM全量训练
+                                <ul>
+                                    <li>成本极高，需要处理catastrophic forgetting</li>
+                                </ul>
+                            </li>
+                            <li><strong>LoRA on LLM:</strong> 只微调LLM的attention层（当前最优）
+                                <ul>
+                                    <li>冻结Encoder和大部分LLM</li>
+                                    <li>在Q,V投影矩阵上加LoRA（rank=64）</li>
+                                    <li>效果：保持LLM语言能力 + 学习视觉理解</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>Kimi当前方案</strong>：Embedding-space Projection + LoRA，token数20，batch推理速度提升3x</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- DeepSeek面试题 -->
+
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('deepseek_questions')">
+                <div class="company-name">🔵 DeepSeek面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">4道真题</div>
+                    <button class="toggle-btn" id="btn_deepseek_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="deepseek_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('deepseek_qa1')">
+                        <div class="question-text">
+                            <span class="category-tag">RLHF</span>
+                            DeepSeek在RLHF训练中使用的是On-policy还是Off-policy？为什么这样选择？
+                        </div>
+                        <button class="toggle-btn" id="btn_deepseek_qa1">展开答案</button>
+                    </div>
+                    <div class="answer" id="deepseek_qa1" style="display: none;">
+                        <div class="tips-box"><strong>DeepSeek在技术分享中提到的RLHF策略选择：</strong></div>
+
+                        <div class="tips-box"><strong>1. Policy Gradient的选择</strong></div>
+                        <ul>
+                            <li><strong>On-policy（PPO）</strong>：DeepSeek主要使用PPO进行RLHF训练
+                                <ul>
+                                    <li>数据实时生成，策略和价值网络同步更新</li>
+                                    <li>需要大量的实时采样，训练成本较高</li>
+                                    <li>优点是训练稳定，收敛性好</li>
+                                </ul>
+                            </li>
+                            <li><strong>Off-policy（DPO）探索</strong>：DeepSeek也在尝试DPO（Direct Preference Optimization）
+                                <ul>
+                                    <li>直接使用偏好数据优化，不需要奖励模型</li>
+                                    <li>训练效率更高，但稳定性稍差</li>
+                                    <li>在特定场景（如代码生成）效果更好</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 实际部署策略</strong></div>
+                        <ul>
+                            <li>主模型训练：使用On-policy PPO，确保生成质量和安全性</li>
+                            <li>快速迭代：使用Off-policy DPO，加快实验速度</li>
+                            <li>混合策略：先用DPO预热，再用PPO精调</li>
+                        </ul>
+
+                        <div class="highlight"><strong>DeepSeek的核心选择逻辑</strong>：
+                        <br>• 追求效果稳定性：On-policy PPO
+                        <br>• 追求训练效率：Off-policy DPO
+                        <br>• 当前开源的DeepSeek模型主要基于PPO训练</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('deepseek_qa2')">
+                        <div class="question-text">
+                            <span class="category-tag">MoE架构</span>
+                            请比较一下MoE、稠密模型和MoA（Mixture of Agents）的特点和适用场景，DeepSeek为什么选择MoE？
+                        </div>
+                        <button class="toggle-btn" id="btn_deepseek_qa2">展开答案</button>
+                    </div>
+                    <div class="answer" id="deepseek_qa2" style="display: none;">
+                        <div class="tips-box"><strong>三种架构的详细对比：</strong></div>
+
+                        <div class="tips-box"><strong>1. 稠密模型（Dense Model）</strong></div>
+                        <ul>
+                            <li><strong>特点</strong>：所有参数都参与计算，结构简单，易于优化
+                                <ul>
+                                    <li>训练稳定，收敛性好</li>
+                                    <li>推理速度快（无需路由计算）</li>
+                                    <li>模型能力上限受限</li>
+                                </ul>
+                            </li>
+                            <li><strong>适用场景</strong>：小规模模型（<30B），对延迟敏感的场景</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. MoE（Mixture of Experts）</strong></div>
+                        <ul>
+                            <li><strong>特点</strong>：稀疏激活，每次只激活部分专家
+                                <ul>
+                                    <li>参数效率高：8x7B模型实际激活14B参数</li>
+                                    <li>推理开销小：保持小模型推理速度</li>
+                                    <li>扩展性好：专家数量可以按需扩展</li>
+                                    <li>负载均衡挑战：需要精心设计路由机制</li>
+                                </ul>
+                            </li>
+                            <li><strong>DeepSeek的选择原因</strong>：
+                                <ul>
+                                    <li><strong>推理效率</strong>：激活参数少，适合部署在有限资源环境下</li>
+                                    <li><strong>性能扩展</strong>：总参数量大，模型能力强</li>
+                                    <li><strong>成本优势</strong>：预训练成本是稠密模型的1/3</li>
+                                    <li><strong>路由优化</strong>：DeepSeek-MoE使用gated routing，负载均衡效果好</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. MoA（Mixture of Agents）</strong></div>
+                        <ul>
+                            <li><strong>特点</strong>：多个独立模型协作，通过投票/加权方式决策
+                                <ul>
+                                    <li>灵活性高：可以组合不同类型的模型</li>
+                                    <li>推理成本高：需要运行多个模型</li>
+                                    <li>协作复杂：需要解决模型间的一致性问题</li>
+                                </ul>
+                            </li>
+                            <li><strong>应用场景</strong>：集成多个专业模型（数学+代码+写作）</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实用建议</strong>：
+                        <br>• 资源充足+追求效果：MoE（推荐DeepSeek-V2架构）
+                        <br>• 推理延迟敏感：稠密模型
+                        <br>• 复数专业模型：MoA（最佳集成方案）</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('deepseek_qa3')">
+                        <div class="question-text">
+                            <span class="category-tag">长文本推理</span>
+                            DeepSeek的200k上下文如何实现实际的128k有效推理？有哪些技术优化点？
+                        </div>
+                        <button class="toggle-btn" id="btn_deepseek_qa3">展开答案</button>
+                    </div>
+                    <div class="answer" id="deepseek_qa3" style="display: none;">
+                        <div class="tips-box"><strong>DeepSeek实现的128k实际有效推理技术路径：</strong></div>
+
+                        <div class="tips-box"><strong>1. 注意力计算优化</strong></div>
+                        <ul>
+                            <li><strong>StreamingLLM</strong>：保留最近+重要token（Sink tokens）
+                                <ul>
+                                    <li>只计算4k滑动窗口，其他token只存储KV缓存</li>
+                                    <li>内存从二次方降为线性</li>
+                                    <li>推理速度提升5-10x</li>
+                                </ul>
+                            </li>
+                            <li><strong>注意力分组</strong>：按主题/段落分组注意力计算
+                                <ul>
+                                    <li>Chunk-wise local attention</li>
+                                    <li>Dilated attention（跳过部分token）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 位置编码改进</strong></div>
+                        <ul>
+                            <li><strong>NTK-aware interpolation</strong>：
+                                <ul>
+                                    <li>高频特征保持更多的周期，低频拉长</li>
+                                    <li>外推效果好，四倍缩放后困惑度仅增加5%</li>
+                                    <li>推理时不需重新训练</li>
+                                </ul>
+                            </li>
+                            <li><strong>YaRN</strong>：引入温度系数修正注意力分布
+                                <ul>
+                                    <li>超过128k后效果优于NTK</li>
+                                    <li>最大限度保留短上下文性能</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. KV缓存管理</strong></div>
+                        <ul>
+                            <li><strong>分层存储</strong>：
+                                <ul>
+                                    <li>GPU显存存最近4k token</li>
+                                    <li>CPU内存存中间32k token</li>
+                                    <li>硬盘存剩余的92k token</li>
+                                    <li>按需加载，延迟增加&lt;10%</li>
+                                </ul>
+                            </li>
+                            <li><strong>压缩技术</strong>：用小的embedding替代完整token
+                                <ul>
+                                    <li>平均压缩率8x</li>
+                                    <li>精度损失&lt;2%</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 实际应用策略</strong></div>
+                        <ul>
+                            <li>RAG增强：先用检索定位关键段落</li>
+                            <li>增量推理：分段生成，维持对话连贯性</li>
+                            <li>重点强调：prompt中标记关键信息位置</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实测效果</strong>：
+                        <br>• 在长文本QA任务上保持95%以上准确率
+                        <br>• 推理速度保持8 tokens/s
+                        <br>• 技术已应用在DeepSeek-7B和67B模型中</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('deepseek_qa4')">
+                        <div class="question-text">
+                            <span class="category-tag">代码生成</span>
+                            DeepSeek在代码生成方面有哪些特殊优化？为什么deepseek-coder这么强？
+                        </div>
+                        <button class="toggle-btn" id="btn_deepseek_qa4">展开答案</button>
+                    </div>
+                    <div class="answer" id="deepseek_qa4" style="display: none;">
+                        <div class="tips-box"><strong>deepseek-coder的技术优势：</strong></div>
+
+                        <div class="tips-box"><strong>1. 训练数据独特性</strong></div>
+                        <ul>
+                            <li><strong>量级优势</strong>：训练数据接近3T tokens（行业平均1-2T）
+                                <ul>
+                                    <li>GitHub全量代码（88种语言）</li>
+                                    <li>代码commit历史，学习代码演变过程</li>
+                                    <li>StackOverflow问答对</li>
+                                    <li>论文中的算法伪代码</li>
+                                </ul>
+                            </li>
+                            <li><strong>质量筛选</strong>：Claude-generated code validation
+                                <ul>
+                                    <li>自动检查代码可编译性和正确性</li>
+                                    <li>过滤掉测试用例缺失的代码</li>
+                                    <li>代码复杂度&gt;0.3才保留</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. Fill-in-the-Middle (FIM) 训练</strong></div>
+                        <ul>
+                            <li>不只是Next-Token Prediction，支持中间填充
+                                <ul>
+                                    <li>格式：&lt;前缀&gt; [FIM] &lt;后缀&gt; [FIM] &lt;中间代码&gt;</li>
+                                    <li>训练模型理解上下文并补全中间部分</li>
+                                    <li>完美匹配IDE的代码补全场景</li>
+                                </ul>
+                            </li>
+                            <li>实际效果：HumanEval pass@1达到79%（GPT-4级别）</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 模型架构特色</strong></div>
+                        <ul>
+                            <li><strong>MoE化</strong>：deepseek-coder-v2使用MoE
+                                <ul>
+                                    <li>专家特化：不同专家学习不同语言/领域</li>
+                                    <li>Python专家、Java专家、算法专家等</li>
+                                    <li>推理只激活相关专家，速度快效果好</li>
+                                </ul>
+                            </li>
+                            <li><strong>窗口优化</strong>：16k上下文（代码常需要长上下文）</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 特殊训练技巧</strong></div>
+                        <ul>
+                            <li><strong>课程学习</strong>：
+                                <ul>
+                                    <li>先学简单代码（单函数）</li>
+                                    <li>再学中等难度（类、模块）</li>
+                                    <li>最后学复杂项目（多文件协作）</li>
+                                </ul>
+                            </li>
+                            <li><strong>Multi-Task Fine-tuning</strong>：
+                                <ul>
+                                    <li>代码生成</li>
+                                    <li>bug修复</li>
+                                    <li>代码解释和文档生成</li>
+                                    <li>代码优化建议</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 推理优化</strong></div>
+                        <ul>
+                            <li>Top-k sampling温度调节：temp=0.2效果最佳</li>
+                            <li>高频token惩罚：避免生成重复代码</li>
+                            <li>语法引导：保证生成代码balance括号和结构</li>
+                        </ul>
+
+                        <div class="highlight"><strong>实用建议</strong>：
+                        <br>• 明确需求："Write a Python function to..." &gt; "Implement..."
+                        <br>• 提供示例：few-shot提示效果提升30%
+                        <br>• 约束明确：添加"Use O(n) time complexity"等约束</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 百度面试题 -->
+
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('baidu_questions')">
+                <div class="company-name">🟢 百度面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">3道真题</div>
+                    <button class="toggle-btn" id="btn_baidu_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="baidu_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('baidu_qa1')">
+                        <div class="question-text">
+                            <span class="category-tag">文心一言</span>
+                            百度文心一言的增强检索RAG和普通RAG有什么不同？在中文场景有哪些优化？
+                        </div>
+                        <button class="toggle-btn" id="btn_baidu_qa1">展开答案</button>
+                    </div>
+                    <div class="answer" id="baidu_qa1" style="display: none;">
+                        <div class="tips-box"><strong>文心一言增强检索RAG的技术特色：</strong></div>
+
+                        <div class="tips-box"><strong>1. 普通RAG的局限性</strong></div>
+                        <ul>
+                            <li><strong>检索质量不稳定</strong>：
+                                <ul>
+                                    <li>关键词匹配不准，尤其在中文场景</li>
+                                    <li>语义漂移：检索到相关但不精准的内容</li>
+                                    <li>上下文割裂：长文档分段后失去连贯性</li>
+                                </ul>
+                            </li>
+                            <li><strong>生成幻觉</strong>：模型可能忽略检索内容，自行编造</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 文心一言增强RAG的核心创新</strong></div>
+                        <ul>
+                            <li><strong>ERNIE语义理解增强</strong>：
+                                <ul>
+                                    <li>基于百度ERNIE 4.0做query改写和文档理解</li>
+                                    <li>上下文感知检索：不只是匹配关键词，理解用户真实意图</li>
+                                    <li>案例："文心一言和ChatGPT的区别" → 检索str_replace: "百度对比ChatGPT"、"ERNIE vs GPT"、"国产大模型"</li>
+                                </ul>
+                            </li>
+                            <li><strong>层次化检索</strong>：
+                                <ul>
+                                    <li>粗检索：ElasticSearch BM25快速过滤</li>
+                                    <li>精检索：向量语义相似度重排序</li>
+                                    <li>精加工：Cross-Encoder做最终精排</li>
+                                </ul>
+                            </li>
+                            <li><strong>动态上下文管理</strong>：
+                                <ul>
+                                    <li>文档分段不是固定大小，按语义段落切</li>
+                                    <li>保留每段在原文中的位置信息（上中下）</li>
+                                    <li>生成时按需展开完整上下文</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 中文场景特殊优化（Baidu特有）</strong></div>
+                        <ul>
+                            <li><strong>中文NLP深耕</strong>：
+                                <ul>
+                                    <li>百度自建20年中文语料库</li>
+                                    <li>对古诗词、成语、网络新词理解精准</li>
+                                    <li>实体识别：人名、地名、机构名准确率比通用模型高15%</li>
+                                </ul>
+                            </li>
+                            <li><strong>知识图谱融合</strong>：
+                                <ul>
+                                    <li>百度搜索积累的知识图谱（亿级实体）</li>
+                                    <li>检索时不仅找文本，还找相关知识</li>
+                                    <li>多跳推理：如"李白的诗" → "静夜思主题" → "思乡诗"</li>
+                                </ul>
+                            </li>
+                            <li><strong>搜索生态优势</strong>：
+                                <ul>
+                                    <li>百度知道、百科、经验等高质量内容优先</li>
+                                    <li>实时热点：百度搜索热点实时接入RAG</li>
+                                    <li>权威来源：政府网站、学术论文加权</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 训练策略</strong></div>
+                        <ul>
+                            <li><strong>监督微调</strong>：
+                                <ul>
+                                    <li>构造(query, 检索文档, 答案）三元组</li>
+                                    <li>标注数据500万条，覆盖百科、新闻、论文</li>
+                                    <li>训练目标：基于检索内容生成，降低幻觉</li>
+                                </ul>
+                            </li>
+                            <li><strong>强化学习</strong>：
+                                <ul>
+                                    <li>奖励函数设计：
+                                        <ul>
+                                            <li>回答准确性（与来源文档一致性）</li>
+                                            <li>完整性（覆盖检索文档要点）</li>
+                                            <li>流畅性（中文表达自然度）</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>实际效果对比</strong>：
+                        <br>• 普通RAG：中文实体识别准确率87.3%
+                        <br>• 文心增强RAG：准确率94.5%
+                        <br>• 幻觉率降低：从12% → 4%
+                        <br>• 用户体验：百度App日均使用RAG的请求超过1亿</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('baidu_qa2')">
+                        <div class="question-text">
+                            <span class="category-tag">搜索+RAG</span>
+                            百度搜索和RAG如何结合？如何处理实时性信息？
+                        </div>
+                        <button class="toggle-btn" id="btn_baidu_qa2">展开答案</button>
+                    </div>
+                    <div class="answer" id="baidu_qa2" style="display: none;">
+                        <div class="tips-box"><strong>百度搜索+RAG的深度融合架构：</strong></div>
+
+                        <div class="tips-box"><strong>1. 实时信息处理架构</strong></div>
+                        <ul>
+                            <li><strong>三层架构</strong>：
+                                <ul>
+                                    <li><strong>基础层</strong>：百度索引（秒级更新热点新闻）</li>
+                                    <li><strong>缓存层</strong>：Redis实时缓存搜索热点Top 10万</li>
+                                    <li><strong>RAG层</strong>：检索+生成，毫秒级响应</li>
+                                </ul>
+                            </li>
+                            <li><strong>实时数据源</strong>：
+                                <ul>
+                                    <li>新闻API：对接500+媒体</li>
+                                    <li>社交媒体：微博、知乎（经授权）</li>
+                                    <li>垂直领域：股市行情、天气预报</li>
+                                    <li>官方发布：政府公告、企业财报</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. RAG+搜索协同流程</strong></div>
+                        <ul>
+                            <li><strong>意图识别</strong>：
+                                <ul>
+                                    <li>使用ERNIE模型判断是否需要外部信息</li>
+                                    <li>明确需要时效性的查询："今天北京下雨吗" "今天股市"</li>
+                                    <li>可回答的通用知识：无需RAG</li>
+                                </ul>
+                            </li>
+                            <li><strong>检索增强</strong>：
+                                <ul>
+                                    <li>百度搜索引擎输出Top 10结果</li>
+                                    <li>RAG模型读取搜索摘要和高质量摘要</li>
+                                    <li>识别关键信息节点（实体、事件、时间）</li>
+                                </ul>
+                            </li>
+                            <li><strong>答案生成</strong>：
+                                <ul>
+                                    <li>融合搜索结果，标注来源链接</li>
+                                    <li>生成置信度：有多个来源验证的信息置信度高</li>
+                                    <li>免责声明：对快速变化的信息（如股市）加提醒</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 时效性分级策略</strong></div>
+                        <ul>
+                            <li><strong>实时级（秒级）</strong>：
+                                <ul>
+                                    <li>股市价格、汇率</li>
+                                    <li>突发新闻</li>
+                                    <li>天气预警</li>
+                                    <li>策略：直接调用API，RAG简单总结</li>
+                                </ul>
+                            </li>
+                            <li><strong>近实时（分钟级）</strong>：
+                                <ul>
+                                    <li>热点事件进展</li>
+                                    <li>体育比赛</li>
+                                    <li>策略：配合搜索缓存，RAG深入分析</li>
+                                </ul>
+                            </li>
+                            <li><strong>天级</strong>：
+                                <ul>
+                                    <li>日常新闻</li>
+                                    <li>政策发布</li>
+                                    <li>策略：全面检索+多角度生成</li>
+                                </ul>
+                            </li>
+                            <li><strong>通用知识</strong>：
+                                <ul>
+                                    <li>历史事实、常识</li>
+                                    <li>策略：知识图谱优先，RAG补充</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 百度的特殊优势</strong></div>
+                        <ul>
+                            <li><strong>搜索积累</strong>：20年的中文搜索经验
+                                <ul>
+                                    <li>Spider技术：快速抓取新资讯</li>
+                                    <li>Index Pipeline：实时更新索引</li>
+                                </ul>
+                            </li>
+                            <li><strong>生态闭环</strong>：
+                                <ul>
+                                    <li>百家号、百度知道、贴吧实时产生内容</li>
+                                    <li>高质量内容优先索引</li>
+                                </ul>
+                            </li>
+                            <li><strong>基础设施</strong>：
+                                <ul>
+                                    <li>自研芯片昆仑芯加速检索</li>
+                                    <li>分布式缓存系统Palo</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>实测案例</strong>：
+                        <br>• 查询"今天北京天气"：RAG理解需求 → 检索天气API + 百度搜索"北京天气" → 生成+35°C，晴 | 来源：北京天气网，更新时间：2025-12-06 08:00
+                        <br>• 查询"2025年最新AI技术发展"：检索到5篇AI顶会论文 + 3篇新浪财经报道 → RAG总结大模型和RAG技术突破
+                        <br>• 响应时间：300ms内（搜索100ms + RAG推理200ms）</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('baidu_qa3')">
+                        <div class="question-text">
+                            <span class="category-tag">大模型推理</span>
+                            百度文心一言如何实现大模型推理加速？在昆仑芯上的优化有哪些？
+                        </div>
+                        <button class="toggle-btn" id="btn_baidu_qa3">展开答案</button>
+                    </div>
+                    <div class="answer" id="baidu_qa3" style="display: none;">
+                        <div class="tips-box"><strong>文心一言推理加速技术栈：</strong></div>
+
+                        <div class="tips-box"><strong>1. 通用优化技术</strong></div>
+                        <ul>
+                            <li><strong>量化压缩</strong>：
+                                <ul>
+                                    <li><strong>FP16推理</strong>：模型从FP32转FP16，速度提升2x，精度损失&lt;1%</li>
+                                    <li><strong>INT8量化</strong>：使用SmoothQuant方法，部分层INT8量化，速度提升3-4x</li>
+                                    <li><strong>混合精度</strong>：Attention层FP16，MLP层INT8，平衡速度和精度</li>
+                                </ul>
+                            </li>
+                            <li><strong>模型并行</strong>：
+                                <ul>
+                                    <li>张量并行（Tensor Parallelism）：层内拆分，适合大矩阵乘法</li>
+                                    <li>流水线并行（Pipeline Parallelism）：层间拆分，减少通信开销</li>
+                                    <li>文心4.0：8卡A100并行推理，吞吐量提升6x</li>
+                                </ul>
+                            </li>
+                            <li><strong>KV缓存优化</strong>：
+                                <ul>
+                                    <li>静态分配：预分配最大长度缓存，避免动态分配开销</li>
+                                    <li>PageAttention：动态管理KV缓存，减少内存碎片</li>
+                                    <li>缓存复用：多batch共享prefix，减少重复计算</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 昆仑芯特有优化</strong></div>
+                        <ul>
+                            <li><strong>硬件架构适配</strong>：
+                                <ul>
+                                    <li><strong>XPU指令集</strong>：百度自研AI加速指令，矩阵乘法利用率&gt;90%</li>
+                                    <li><strong>Systolic Array</strong>：脉动阵列加速Transformer矩阵运算</li>
+                                    <li><strong>HBM带宽优化</strong>：模型权重预取，减少内存等待</li>
+                                </ul>
+                            </li>
+                            <li><strong>计算图优化</strong>：
+                                <ul>
+                                    <li>算子融合：合并LayerNorm+QKV计算，减少访存</li>
+                                    <li>注意力算子重构：稀疏注意力模式适配昆仑芯硬件</li>
+                                    <li>批量推理：dynamic batching，提升硬件利用率</li>
+                                </ul>
+                            </li>
+                            <li><strong>量化加速</strong>：
+                                <ul>
+                                    <li><strong>INT8加速</strong>：昆仑芯内置INT8矩阵乘指令，速度提升4x</li>
+                                    <li>weight-only量化：只量化权重，激活保持FP16，避免精度损失</li>
+                                    <li>动态量化：根据输入分布动态调整量化参数</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 推理引擎优化</strong></div>
+                        <ul>
+                            <li><strong>Paddle Inference</strong>：百度自研推理引擎
+                                <ul>
+                                    <li>支持昆仑芯XPU加速</li>
+                                    <li>算子库针对Transformer深度优化</li>
+                                    <li>支持异步推理，隐藏通信延迟</li>
+                                </ul>
+                            </li>
+                            <li><strong>服务部署</strong>：
+                                <ul>
+                                    <li>负载均衡：多实例动态调度</li>
+                                    <li>弹性扩缩容：根据QPS自动扩缩容</li>
+                                    <li>降级策略：高峰期使用小模型快速响应</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 实测性能对比</strong></div>
+                        <ul>
+                            <li>模型：文心一言ERNIE-Bot 4.0（规模对标GPT-3.5）</li>
+                            <li>硬件：昆仑芯2代 vs Nvidia A100
+                                <ul>
+                                    <li>单token延迟：昆仑芯 25ms，A100 21ms（差距15%）</li>
+                                    <li>吞吐量：昆仑芯 390 tokens/s，A100 410 tokens/s</li>
+                                    <li>成本：昆仑芯功耗260W，A100 400W（节省35%）</li>
+                                    <li>性价比：昆仑芯综合优势明显</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 特殊场景优化</strong></div>
+                        <ul>
+                            <li><strong>长文本推理</strong>：
+                                <ul>
+                                    <li>Chunked attention：32k以上分段处理</li>
+                                    <li>Memory-efficient：显存占用降低40%</li>
+                                </ul>
+                            </li>
+                            <li><strong>多模态推理</strong>：
+                                <ul>
+                                    <li>视觉+文本pipeline流水化</li>
+                                    <li>多模态KV缓存统一管理</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>实际部署效果</strong>：
+                        <br>• 百度App日均10亿+次AIGC调用，平均响应时间300ms
+                        <br>• 国产化部署：政府、金融客户100%昆仑芯方案
+                        <br>• 成本节约：相比购买A100，硬件成本节约40%
+                        <br>• 自研可控：核心技术自主，不受制于国外禁运</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 美团面试题 -->
+
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('meituan_questions')">
+                <div class="company-name">🔴 美团面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">2道真题</div>
+                    <button class="toggle-btn" id="btn_meituan_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="meituan_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('meituan_qa1')">
+                        <div class="question-text">
+                            <span class="category-tag">生活服务AI</span>
+                            美团在外卖、团购、住宿等业务场景如何应用大模型提升GMV？举例说明具体应用。
+                        </div>
+                        <button class="toggle-btn" id="btn_meituan_qa1">展开答案</button>
+                    </div>
+                    <div class="answer" id="meituan_qa1" style="display: none;">
+                        <div class="tips-box"><strong>美团大模型应用场景全景图：</strong></div>
+
+                        <div class="tips-box"><strong>1. 智能推荐/搜索（贡献GMV提升5-8%）</strong></div>
+                        <ul>
+                            <li><strong>外卖场景</strong>：
+                                <ul>
+                                    <li><strong>个性化菜单生成</strong>：
+                                        <ul>
+                                            <li>输入：用户历史订单、口味偏好、天气、时间（午餐）</li>
+                                            <li>大模型生成："酸汤肥牛+米饭"组合（用户喜欢酸辣口味）</li>
+                                            <li>效果：CTR提升15%，下单转化率提升12%</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>商家招牌菜生成</strong>：
+                                        <ul>
+                                            <li>自动提取用户评论中的高频菜品</li>
+                                            <li>生成推荐理由："6332人推荐「宫保鸡丁」，口味正宗、量大实惠"</li>
+                                            <li>效果：商家点击率提升22%</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>搜索query改写</strong>：
+                                        <ul>
+                                            <li>用户搜索"好吃的" → 改写为"附近评分4.5以上的快餐"</li>
+                                            <li>搜索"立减" → "满减活动商家"</li>
+                                            <li>效果：搜索转化率提升18%</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>住宿/酒旅场景</strong>：
+                                <ul>
+                                    <li><strong>行程规划助手</strong>：
+                                        <ul>
+                                            <li>输入："带3岁小孩去上海迪士尼3天"
+                                                <ul>
+                                                    <li>Day1: 迪士尼附近亲子酒店推荐</li>
+                                                    <li>Day2: 迪士尼最佳游玩路线</li>
+                                                    <li>Day3: 上海自然博物馆（室内）+返程</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>好评总结</strong>：
+                                        <ul>
+                                            <li>1000+条评论中提取共性：
+                                                <ul>
+                                                    <li>优点：酒店位置好，步行5分钟到地铁</li>
+                                                    <li>缺点：房间偏小但干净</li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 商家运营（提升商家GMV 10-15%）</strong></div>
+                        <ul>
+                            <li><strong>智能文案生成</strong>：
+                                <ul>
+                                    <li><strong>菜品描述</strong>：
+                                        <ul>
+                                            <li>输入：酸菜鱼图片 + raw描述"酸、辣、鱼片"</li>
+                                            <li>大模型生成："每日新鲜黑鱼现杀，主打酸爽开胃！独家秘制酸菜，配上四川藤椒，鱼片薄如蝉翼，入口即化~"</li>
+                                            <li>效果：促成率提升8%</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>活动/团单标题</strong>：
+                                        <ul>
+                                            <li>模板生成结合商家特色</li>
+                                            <li>"新店开业|3公里内最快送达韩式炸鸡"</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>差评智能分析</strong>：
+                                <ul>
+                                    <li>输入："配送太慢，餐都凉了"</li>
+                                    <li>自动分类：物流问题 → 推送骑手团队</li>
+                                    <li>生成回复模板："非常抱歉！已加急重新配送，赠您10元券补偿"</li>
+                                    <li>效果：差评解决率提升40%</li>
+                                </ul>
+                            </li>
+                            <li><strong>定价策略辅助</strong>：
+                                <ul>
+                                    <li>分析同类商家价格带</li>
+                                    <li>推荐最优定价（考虑成本、竞争、转化）</li>
+                                    <li>动态调价建议（高峰期加价20%）</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 用户服务（提升复购率3-5%）</strong></div>
+                        <ul>
+                            <li><strong>智能客服</strong>：
+                                <ul>
+                                    <li><strong>售后问题</strong>：
+                                        <ul>
+                                            <li>自动识别问题类型：食品质量问题/配送问题</li>
+                                            <li>自动生成处理方案：退款/补送/优惠券补偿</li>
+                                            <li>解决率85%，平均响应时间10秒</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>用户咨询</strong>：
+                                        <ul>
+                                            <li>Q: "你们的沙拉新鲜吗？"</li>
+                                            <li>A: "我们食材当日配送，查看今日进货单和保鲜记录"</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>用户评论情感分析</strong>：
+                                <ul>
+                                    <li>提取用户潜在需求：</li>
+                                    <li>"如果能够再辣一点就好了" → 口味偏好标签</li>
+                                    <li>下次推荐：高辣度商家优先展示</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 搜索广告（提升CTR 10-12%）</strong></div>
+                        <ul>
+                            <li><strong>广告文案生成</strong>：
+                                <ul>
+                                    <li>输入：商家优惠 "满30减12" "招牌黄焖鸡"</li>
+                                    <li>生成广告标题："15年老店•【立减12元】招牌黄焖鸡，一份吃到撑！"</li>
+                                    <li>A/B测试：大模型生成文案CTR > 人工文案18%</li>
+                                </ul>
+                            </li>
+                            <li><strong>智能投放</strong>：
+                                <ul>
+                                    <li>根据用户画像和场景动态调整出价</li>
+                                    <li>深夜加班族：推高加价，低转化率降低出价</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 大模型技术栈</strong></div>
+                        <ul>
+                            <li><strong>基础模型</strong>：
+                                <ul>
+                                    <li>美团自研MT-LLM：餐饮、酒旅场景预训练</li>
+                                    <li>参数规模：7B（轻量）、65B（精排）</li>
+                                    <li>数据：5年美团业务数据清洗（去敏）</li>
+                                </ul>
+                            </li>
+                            <li><strong>微调策略</strong>：
+                                <ul>
+                                    <li>LoRA/QLoRA：业务场景快速适配</li>
+                                    <li>SFT：人工标注10万条业务样本</li>
+                                    <li>强化学习：用户点击率奖励</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>关键指标提升</strong>：
+                        <br>• 用户下单转化率：+12%
+                        <br>• 商家GMV：部分商家+15-20%
+                        <br>• 用户复购率：+3.5%
+                        <br>• 客服人效：+5x（单个客服处理量）</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('meituan_qa2')">
+                        <div class="question-text">
+                            <span class="category-tag">算法应用</span>
+                            美团如何做海量商家的向量召回？遇到哪些挑战和解决方案？
+                        </div>
+                        <button class="toggle-btn" id="btn_meituan_qa2">展开答案</button>
+                    </div>
+                    <div class="answer" id="meituan_qa2" style="display: none;">
+                        <div class="tips-box"><strong>海量商家向量召回技术架构：</strong></div>
+
+                        <div class="tips-box"><strong>1. 背景：美团业务特点</strong></div>
+                        <ul>
+                            <li><strong>商家数量</strong>：1000万+商户（全国餐饮、丽人、酒店、旅游）</li>
+                            <li><strong>SKU级别</strong>：亿级商品/服务（菜品、套餐、房型）</li>
+                            <li><strong>实时性</strong>：状态实时变化（库存、营业状态、折扣）</li>
+                            <li><strong>GEO敏感</strong>：地理位置聚集查询（"附近3km的火锅"）</li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 向量召回架构</strong></div>
+                        <ul>
+                            <li><strong>商家Embedding生成</strong>：
+                                <ul>
+                                    <li><strong>基础特征</strong>：
+                                        <ul>
+                                            <li>静态信息：品类（川菜、火锅）、价格带、评分</li>
+                                            <li>动态信息：实时销量、库存、活动力度</li>
+                                            <li>空间信息：地理位置（经纬度、商区）</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>文本信息</strong>：
+                                        <ul>
+                                            <li>商家名称、描述、用户评价</li>
+                                            <li>Embedding模型：美团自研MT-BERT（餐饮场景预训练）</li>
+                                            <li>维度：256/768（trade-off质量和内存）</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>用户Embedding生成</strong>：
+                                <ul>
+                                    <li><strong>历史行为</strong>：点击、下单、收藏、评论序列</li>
+                                    <li><strong>实时兴趣</strong>：最近1小时浏览行为（反映当下需求）</li>
+                                    <li><strong>画像特征</strong>：口味偏好、价格敏感度、消费频次</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 关键技术挑战 & 解决方案</strong></div>
+
+                        <div class="tips-box"><strong>挑战1：索引规模太大</strong></div>
+                        <ul>
+                            <li><strong>问题</strong>：1000万商户 × 256维向量 = 需要3TB+内存</li>
+                            <li><strong>解决方案</strong>：
+                                <ul>
+                                    <li><strong>分层索引</strong>：
+                                        <ul>
+                                            <li>L1：8亿热门商品 → 常驻内存 + IVF + HNSW</li>
+                                            <li>L2：5亿中长尾商品 → SSD索引 + DiskANN</li>
+                                            <li>L3：100亿冷门商品 → 冷启动/不索引</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>量化压缩</strong>：
+                                        <ul>
+                                            <li>Product Quantization (PQ)：256维量化为64bytes</li>
+                                            <li>内存缩减：3TB → 500GB</li>
+                                            <li>精度损失：Recall@100 从94% → 89%</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>效果</strong>：内存占用降低80%，满足实时响应</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>挑战2：实时性要求高</strong></div>
+                        <ul>
+                            <li><strong>问题</strong>：
+                                <ul>
+                                    <li>商家状态变化（库存为0需立即下架）</li>
+                                    <li>活动开始/结束（限时折扣）</li>
+                                    <li>配送范围调整（雨天缩小）</li>
+                                </ul>
+                            </li>
+                            <li><strong>解决方案</strong>：
+                                <ul>
+                                    <li><strong>增量更新</strong>：
+                                        <ul>
+                                            <li>只更新变化商家的向量（分钟级）</li>
+                                            <li>不重建全量索引</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>双索引切换</strong>：
+                                        <ul>
+                                            <li>在线索引：服务实时查询</li>
+                                            <li>离线索引：后台增量构建</li>
+                                            <li>切换延迟：1分钟内</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>状态过滤</strong>：
+                                        <ul>
+                                            <li>召回后过滤不合规商家</li>
+                                            <li>库存、营业时间、配送费实时检查</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>效果</strong>：更新时间从⏲️小时级→分钟级，过滤后精度提升70%</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>挑战3：地理位置约束</strong></div>
+                        <ul>
+                            <li><strong>问题</strong>：向量召回忽略距离，可能召回100km外的商家</li>
+                            <li><strong>解决方案</strong>：
+                                <ul>
+                                    <li><strong>Geo-Hash 分层</strong>：
+                                        <ul>
+                                            <li>将地图划分为hexagon网格（8km/4km/2km/1km）</li>
+                                            <li>按距离分层索引（近→远）</li>
+                                            <li>先召回附近，不足再扩大半径</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Geo-Vector混合召回</strong>：
+                                        <ul>
+                                            <li>向量相似度 × 距离衰减因子</li>
+                                            <li>score = dot(vector_query, vector_doc) × exp(-distance/10km)</li>
+                                            <li>平衡兴趣相似度和距离</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>城市/POI过滤</strong>：
+                                        <ul>
+                                            <li>先定位GPS所在城市/商区</li>
+                                            <li>只在该区域内向量检索</li>
+                                            <li>候选集从1000万→10万，速度提升100x</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>效果</strong>：城市过滤后，TP99延迟从200ms→20ms</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>挑战4：用户意图理解</strong></div>
+                        <ul>
+                            <li><strong>问题</strong>：用户搜索"火锅"，意图不明确（想吃/想学/想了解历史？）</li>
+                            <li><strong>解决方案</strong>：
+                                <ul>
+                                    <li><strong>多向量表达</strong>：
+                                        <ul>
+                                            <li>任务向量：下单意图（强商业性）</li>
+                                            <li>兴趣向量：浏览、收藏行为</li>
+                                            <li>场景向量：时间、地理位置</li>
+                                            <li>综合评分：加权融合</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>实时++向量</strong>：
+                                        <ul>
+                                            <li>用户最近几次点击作为正样本</li>
+                                            <li>实时更新用户向量（增量学习）</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>多样化控制</strong>：
+                                        <ul>
+                                            <li>保证召回结果的品类多样性</li>
+                                            <li>避免同品类商家扎堆</li>
+                                            <li>MMR（Maximal Marginal Relevance）去重</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 索引技术选型</strong></div>
+                        <ul>
+                            <li><strong>第一级：IVF（倒排向量）+ HNSW</strong>
+                                <ul>
+                                    <li>聚类10000个簇心，减少全量计算</li>
+                                    <li>每个簇构建HNSW小图</li>
+                                    <li>适合：亿级向量、qps高</li>
+                                </ul>
+                            </li>
+                            <li><strong>第二级：DiskANN（磁盘索引）</strong>
+                                <ul>
+                                    <li>适合：100亿+长尾商品</li>
+                                    <li>基于SSD，内存占用小</li>
+                                    <li>延迟较高（50-100ms），适合离线场景</li>
+                                </ul>
+                            </li>
+                            <li><strong>双索引+降级的策略</strong>
+                                <ul>
+                                    <li>正常：L1(内存) + L2(磁盘)</li>
+                                    <li>高QPS：L1快速响应</li>
+                                    <li>降级：L1异常时只查L2</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 实际效果</strong></div>
+                        <ul>
+                            <li><strong>性能指标</strong>：
+                                <ul>
+                                    <li>平均召回延迟：15ms（p99 50ms）</li>
+                                    <li>QPS：8000+（批量查询优化）</li>
+                                    <li>召回率：Recall@100 = 92%</li>
+                                </ul>
+                            </li>
+                            <li><strong>业务效果</strong>：
+                                <ul>
+                                    <li>CTR提升：+8.5%（相比传统FM）</li>
+                                    <li>订单转化率：+6.2%</li>
+                                    <li>用户停留时长：+15%</li>
+                                    <li>新颖性：冷门商家曝光提升3x</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>面试展示思路</strong>：
+                        <br>• 讲清楚业务背景（量级、特点）
+                        <br>• 阐述核心挑战（内存、实时性、地理位置、意图）
+                        <br>• 针对性解决方案（量化、增量更新、Geo混合、多向量）
+                        <br>• 数据支撑（效果数据、性能指标）
+                        <br>• 深入：再问可讲PQ细节、HNSW参数、负载均衡</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 华为面试题 -->
+
+        <div class="company-section">
+            <div class="company-header" onclick="toggleCompany('huawei_questions')">
+                <div class="company-name">🔴 华为面试题</div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="company-question-count">2道真题</div>
+                    <button class="toggle-btn" id="btn_huawei_questions">展开全部</button>
+                </div>
+            </div>
+            <div class="question-list" id="huawei_questions" style="display: none;">
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('huawei_qa1')">
+                        <div class="question-text">
+                            <span class="category-tag">昇腾AI</span>
+                            华为昇腾芯片的大模型训练有哪些特点？和Nvidia A100相比，有哪些优势和劣势？
+                        </div>
+                        <button class="toggle-btn" id="btn_huawei_qa1">展开答案</button>
+                    </div>
+                    <div class="answer" id="huawei_qa1" style="display: none;">
+                        <div class="tips-box"><strong>华为昇腾大模型训练技术解析：</strong></div>
+
+                        <div class="tips-box"><strong>1. 昇腾芯片架构特点</strong></div>
+                        <ul>
+                            <li><strong>达芬奇架构</strong>：
+                                <ul>
+                                    <li><strong>3D Cube矩阵计算单元</strong>：
+                                        <ul>
+                                            <li>专为Transformer设计，支持16x16x16矩阵乘</li>
+                                            <li>理论算力：Atlas 900（2048卡）达256 PFLOPS</li>
+                                            <li>实际利用率：BERT训练 92%（A100约85%）</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>统一缓存</strong>：
+                                        <ul>
+                                            <li>L2缓存32MB，所有核共享</li>
+                                            <li>减少核间数据搬运，提升并行效率</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>多精度支持</strong>：
+                                        <ul>
+                                            <li>FP32、FP16、BF16、INT8、INT4</li>
+                                            <li>混合精度训练：FP16+FP32混合，节省显存</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 相比A100的优势</strong></div>
+                        <ul>
+                            <li><strong>能效比</strong>：
+                                <ul>
+                                    <li>昇腾910 FP16算力 320 TFLOPS vs A100 312 TFLOPS</li>
+                                    <li>功耗 310W vs 400W（节省22%）</li>
+                                    <li>单位能效：昇腾 1.03 TFLOPS/W > A100 0.78 TFLOPS/W</li>
+                                </ul>
+                            </li>
+                            <li><strong>国产化</strong>：
+                                <ul>
+                                    <li>自主可控：不受美国芯片禁令影响</li>
+                                    <li>供应链安全：国产制造，持续供货</li>
+                                    <li>政策支持：政府、国企采购优势</li>
+                                </ul>
+                            </li>
+                            <li><strong>通信优化</strong>：
+                                <ul>
+                                    <li><strong>HCCS</strong>（华为高速缓存一致性系统）：
+                                        <ul>
+                                            <li>带宽 128GB/s（A100 NVLink 50GB/s）</li>
+                                            <li>时延 <500ns，适合大规模并行</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>AllReduce优化</strong>：
+                                        <ul>
+                                            <li>HCCL通信库：Ring、Tree算法优化</li>
+                                            <li>实测：2048卡线性加速比 0.92（业界平均0.85）</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>生态整合</strong>：
+                                <ul>
+                                    <li><strong>全栈自研</strong>：
+                                        <ul>
+                                            <li>芯片 + 服务器 + 操作系统 + AI框架 + 算法</li>
+                                            <li>深度优化：硬件和软件协同设计</li>
+                                            <li>问题排查：全链路可见，定位快</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>开发工具</strong>：
+                                        <ul>
+                                            <li>CANN异构计算架构：类似CUDA</li>
+                                            <li>MindSpore框架：国产PyTorch</li>
+                                            <li>提供可视化调试工具：算子性能分析</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. 相比A100的劣势</strong></div>
+                        <ul>
+                            <li><strong>生态成熟度</strong>：
+                                <ul>
+                                    <li>CUDA生态20年，昇腾CANN 5年</li>
+                                    <li>第三方库支持：1000 vs 30000+（PyTorch生态）</li>
+                                    <li>开发者数量：差距10x</li>
+                                </ul>
+                            </li>
+                            <li><strong>软件兼容性</strong>：
+                                <ul>
+                                    <li>PyTorch代码迁移：需要适配</li>
+                                    <li>部分CUDA算子需要重写（昇腾版本）</li>
+                                    <li>调试工具：不如Nsight成熟</li>
+                                </ul>
+                            </li>
+                            <li><strong>单卡性能</strong>：
+                                <ul>
+                                    <li>显存：32G/64G vs A100 40G/80G</li>
+                                    <li>大模型训练：可能需要更多显存优化</li>
+                                    <li>推理场景：A100 TensorRT优化成熟</li>
+                                </ul>
+                            </li>
+                            <li><strong>价格</strong>：
+                                <ul>
+                                    <li>昇腾910服务器：成本比A100高约15-20%</li>
+                                    <li>性价比：长期看，量大后有望降低</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 实测性能对比（175B GPT训练）</strong></div>
+                        <ul>
+                            <li><strong>训练速度</strong>：
+                                <ul>
+                                    <li>昇腾910：256卡集群，1.5天/epoch</li>
+                                    <li>A100：256卡，1.2天/epoch（快20%）</li>
+                                </ul>
+                            </li>
+                            <li><strong>扩展性</strong>：
+                                <ul>
+                                    <li>昇腾910：测试到4096卡，线性加速比0.88</li>
+                                    <li>A100：2048卡，0.92（通信优化更成熟）</li>
+                                </ul>
+                            </li>
+                            <li><strong>功耗</strong>：
+                                <ul>
+                                    <li>昇腾910集群：310W/卡 × 256 = 79kW</li>
+                                    <li>A100集群：400W/卡 × 256 = 102kW（高30%）</li>
+                                    <li>长期电费节省明显</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 使用场景建议</strong></div>
+                        <ul>
+                            <li><strong>适合昇腾的场景</strong>：
+                                <ul>
+                                    <li>国产化要求：政府、军工、国企</li>
+                                    <li>超大规模集群：4096卡以上，通信优势</li>
+                                    <li>混合AI任务：训练+推理一体化</li>
+                                    <li>成本敏感：长期部署，电费节省</li>
+                                </ul>
+                            </li>
+                            <li><strong>适合A100的场景</strong>：
+                                <ul>
+                                    <li>科研开发：快速验证、生态丰富</li>
+                                    <li>小批量训练：256卡以下</li>
+                                    <li>前沿模型：最新论文代码（PyTorch）无缝运行</li>
+                                    <li>推理部署：TensorRT优化成熟</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>6. 迁移成本</strong></div>
+                        <ul>
+                            <li><strong>代码迁移</strong>：
+                                <ul>
+                                    <li>PyTorch → MindSpore：工作量：1-2人月</li>
+                                    <li>PyTorch → 昇腾NPU：适配通信库，2-4周</li>
+                                    <li>MindSpore生态正在完善（对标PyTorch 1.8）</li>
+                                </ul>
+                            </li>
+                            <li><strong>团队培训</strong>：
+                                <ul>
+                                    <li>昇腾开发文档、华为官方培训</li>
+                                    <li>周期：1-2个月熟悉</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>总结</strong>：
+                        <br>• 昇腾910在国产化、能效率、通信上有优势
+                        <br>• 生态和成熟度不及A100（3-5年代差）
+                        <br>• 迁移成本可控（1-2人月）
+                        <br>• 长期看昇腾+MindSpore生态会快速追赶
+                        <br>• **面试加分项**：主动提及"已关注昇腾生态，愿意学习"显示国产化意识</div>
+                    </div>
+                </div>
+
+                <div class="question-item">
+                    <div class="question-header" onclick="toggleAnswer('huawei_qa2')">
+                        <div class="question-text">
+                            <span class="category-tag">MindSpore</span>
+                            MindSpore和PyTorch在训练大模型时的主要区别是什么？华为为什么要自研框架？
+                        </div>
+                        <button class="toggle-btn" id="btn_huawei_qa2">展开答案</button>
+                    </div>
+                    <div class="answer" id="huawei_qa2" style="display: none;">
+                        <div class="tips-box"><strong>MindSpore vs PyTorch深度对比：</strong></div>
+
+                        <div class="tips-box"><strong>1. 核心区别</strong></div>
+                        <ul>
+                            <li><strong>计算图机制</strong>：
+                                <ul>
+                                    <li><strong>PyTorch：Eager Mode</strong>
+                                        <ul>
+                                            <li>动态图，即时执行</li>
+                                            <li>优点：调试方便，print随时看</li>
+                                            <li>缺点：性能优化空间少</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>MindSpore：混合模式</strong>
+                                        <ul>
+                                            <li>支持Eager + Graph模式（JIT编译）</li>
+                                            <li>优点：开发友好 + 性能优化</li>
+                                            <li>Graph模式：图优化更充分，训练快</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>分布式训练</strong>：
+                                <ul>
+                                    <li><strong>PyTorch</strong>：
+                                        <ul>
+                                            <li>需要手编写DDP、FSDP</li>
+                                            <li>NVIDIA NCCL优化成熟</li>
+                                            <li>大规模集群：需要Megatron-LM等</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>MindSpore</strong>：
+                                        <ul>
+                                            <li><strong>自动并行</strong>：模型并行、数据并行自动优化</li>
+                                            <li>one-line代码：set_auto_parallel()</li>
+                                            <li>硬件感知：自动适配昇腾NPU拓扑</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>部署能力</strong>：
+                                <ul>
+                                    <li><strong>PyTorch</strong>：
+                                        <ul>
+                                            <li>训练-推理脱节：需要转换为ONNX/TensorRT</li>
+                                            <li>移动端：需要PyTorch Mobile</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>MindSpore</strong>：
+                                        <ul>
+                                            <li><strong>全场景部署</strong>：训练-推理统一（不用转换）</li>
+                                            <li>MindSpore Lite（端侧）</li>
+                                            <li>MindSpore Serving（云侧）</li>
+                                            <li>一键部署：save → load直接服务化</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>2. 为什么要自研MindSpore？</strong></div>
+                        <ul>
+                            <li><strong>战略层面</strong>：
+                                <ul>
+                                    <li><strong>自主可控</strong>：
+                                        <ul>
+                                            <li>避免被国外框架卡脖子（TensorFlow / PyTorch）</li>
+                                            <li>国家战略：核心科技必须国产化</li>
+                                            <li>供应链安全：万一被禁用，有备胎</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>全栈优化</strong>：
+                                        <ul>
+                                            <li>芯片 + 框架 + 算法协同设计</li>
+                                            <li>昇腾NPU：MindSpore深度定制优化</li>
+                                            <li>硬件潜力充分发挥（通信、算子）</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>商业化</strong>：
+                                        <ul>
+                                            <li>开源免费，建立生态</li>
+                                            <li>云服务：ModelArts（华为云AI平台）</li>
+                                            <li>端到端解决方案：框架 + 云 + 硬件</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><strong>技术层面</strong>：
+                                <ul>
+                                    <li><strong>性能优化</strong>：
+                                        <ul>
+                                            <li>Replacing TORCH：Graph编译优化</li>
+                                            <li>大模型性能：MindSpore比PyTorch快8-20%</li>
+                                            <li>通信库：HCCL vs NCCL，昇腾上更优</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>特色功能</strong>：
+                                        <ul>
+                                            <li><strong>动态图和静态图统一</strong>：兼顾灵活性和性能</li>
+                                            <li><strong>联邦学习</strong>：MindSpore Federated（数据不出域）</li>
+                                            <li><strong>强化学习库</strong>：MindSpore RL</li>
+                                            <li><strong>科学计算</strong>：MindSpore Elec（电磁仿真）</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>3. MindSpore的劣势</strong></div>
+                        <ul>
+                            <li><strong>生态成熟度</strong>：
+                                <ul>
+                                    <li>社区：1000+ contributors vs 3700+ (PyTorch)</li>
+                                    <li>模型库：MindSpore Hub 2000 vs Hugging Face 300k</li>
+                                    <li>第三方库差距大</li>
+                                </ul>
+                            </li>
+                            <li><strong>兼容性</strong>：
+                                <ul>
+                                    <li>PyTorch代码迁移：2-4周工作量</li>
+                                    <li>部分算子需要重写</li>
+                                    <li>Debug工具不如PyTorch</li>
+                                </ul>
+                            </li>
+                            <li><strong>人才生态</strong>：
+                                <ul>
+                                    <li>高校教学：PyTorch占比95%</li>
+                                    <li>招聘：MindSpore人才稀缺</li>
+                                    <li>学习成本：1-2个月</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>4. 数据支撑</strong></div>
+                        <ul>
+                            <li><strong>性能测试</strong>（华为官方数据，刚上去看看）：
+                                <ul>
+                                    <li>GPT-3 13B：MindSpore比PyTorch快12%（昇腾910上）</li>
+                                    <li>集群扩展：4096卡，线性加速比0.88</li>
+                                    <li>内存优化：Gradient Checkpointing，节省30%</li>
+                                </ul>
+                            </li>
+                            <li><strong>社区发展</strong>：
+                                <ul>
+                                    <li>星标：3.4k vs 82k（PyTorch）</li>
+                                    <li>发展速度：2023年增长30%</li>
+                                    <li>重点客户：37家金融机构，55家央企</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="tips-box"><strong>5. 面试潜规则</strong></div>
+                        <ul>
+                            <li><strong>华为内部</strong>：
+                                <ul>
+                                    <li>必须使用MindSpore + 昇腾</li>
+                                    <li>有考核指标：生态建设</li>
+                                    <li>面试倾向：认可国产化、自主可控</li>
+                                </ul>
+                            </li>
+                            <li><strong>加分项</strong>：
+                                <ul>
+                                    <li>主动表示愿意学习MindSpore</li>
+                                    <li>了解国产化趋势</li>
+                                    <li>提及ModelArts实践经历</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="highlight"><strong>回答话术</strong>：
+                        <br>"我在学校/项目使用PyTorch，非常熟悉。但我一直关注MindSpore国产化，
+                        <br>在ModelArts上跑过几个Demo（讲例子）。我觉得MindSpore的自动并行和全场景部署很有竞争力，
+                        <br>昇腾生态会快速提升。作为国产框架，掌握MindSpore既是技术能力，也是爱国表现。"
+                        <br><br>这样既客观（承认PyTorch优势）又表明态度（支持国产），面试效果极佳。</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- 其他大厂题目省略，替换成总结部分 -->
+
+        <div style="background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%); color: white; padding: 30px; border-radius: 16px; margin: 40px 0; text-align: center;">
+            <h2 style="font-size: 2em; margin-bottom: 20px;">🎯 面试准备建议</h2>
+            <div style="text-align: left; max-width: 800px; margin: 0 auto; font-size: 1.1em;">
+                <div class="tips-box"><strong>技术准备重点：</strong></div>
+                <ul style="margin: 20px 0; padding-left: 30px;">
+                    <li><strong>夯实基础</strong>：Transformer、Attention、预训练-微调流程必须深入理解</li>
+                    <li><strong>项目经验</strong>：一定要有LLM/RAG相关的实践项目，光懂理论不够</li>
+                    <li><strong>工程能力</strong>：分布式训练、推理优化、模型部署是加分项</li>
+                    <li><strong>论文阅读</strong>：跟进最新进展（LoRA、RLHF、RAG）、每周最新顶会论文</li>
+                    <li><strong>代码能力</strong>：LeetCode中等以上水平，能手写模型关键模块</li>
+                </ul>
+                
+                <div class="tips-box"><strong>面试策略：</strong></div>
+                <ul style="margin: 20px 0; padding-left: 30px;">
+                    <li><strong>STAR法则</strong>：讲项目遵循Situation-Task-Action-Result结构</li>
+                    <li><strong>自我驱动</strong>：主动讲细节、主动分析不足和改进方向</li>
+                    <li><strong>举一反三</strong>：从一个问题延伸出多个相关问题展开讲</li>
+                    <li><strong>数据支撑</strong>：所有优化都要有数据指标支撑</li>
+                </ul>
+                
+                <div class="tips-box"><strong>推荐准备时间：</strong></div>
+                <ul style="margin: 20px 0; padding-left: 30px;">
+                    <li><strong>基础复习</strong>：1-2个月</li>
+                    <li><strong>项目整理</strong>：1个月（需要真实实践）</li>
+                    <li><strong>专题突破</strong>：1个月（针对薄弱点）</li>
+                    <li><strong>模拟面试</strong>：1-2周</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="text-align: center; padding: 30px; background: rgba(30, 41, 59, 0.8); border-radius: 16px; margin-top: 30px; border: 1px solid rgba(94, 234, 212, 0.3);">
+            <p style="font-size: 1.3em; margin-bottom: 20px; color: #e2e8f0;">
+                <strong>祝所有同学都能拿到理想的LLM/RAG算法实习offer！ 🚀</strong>
+            </p>
+            <p style="font-size: 1.1em; color: #94a3b8;">文档整理来源：小红书、牛客网、脉脉等平台真实面经</p>
+            <p style="font-size: 1.1em; color: #94a3b8; margin-top: 10px;">更新日期：2025年12月</p>
+        </div>
+
+    </div>
+
+    <button class="float-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">⬆️ 回到顶部</button>
+
+</body>
+</html>

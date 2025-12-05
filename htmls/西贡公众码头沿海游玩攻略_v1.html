@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>香港西贡公众码头沿海游玩攻略</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .activity-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+        }
+
+        .activity-card.kayaking::before { background: linear-gradient(90deg, #ff6b6b, #ee5a24); }
+        .activity-card.fishing::before { background: linear-gradient(90deg, #4834d4, #686de0); }
+        .activity-card.snorkeling::before { background: linear-gradient(90deg, #00d2d3, #01a3a4); }
+        .activity-card.island::before { background: linear-gradient(90deg, #ff9ff3, #f368e0); }
+
+        .activity-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .kayaking .activity-icon { background: linear-gradient(135deg, #ff6b6b, #ee5a24); }
+        .fishing .activity-icon { background: linear-gradient(135deg, #4834d4, #686de0); }
+        .snorkeling .activity-icon { background: linear-gradient(135deg, #00d2d3, #01a3a4); }
+        .island .activity-icon { background: linear-gradient(135deg, #ff9ff3, #f368e0); }
+
+        .activity-title {
+            flex: 1;
+        }
+
+        .activity-title h2 {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .activity-title .tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            color: #666;
+            margin-right: 5px;
+        }
+
+        .activity-info {
+            margin-bottom: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            color: #666;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-title {
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .info-text {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .view-comments {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .view-comments:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .comments-section {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .comments-section.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .comments-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .comment {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .comment-author {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .comment-time {
+            color: #999;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .comment-content {
+            color: #333;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .expand-more {
+            text-align: center;
+            margin-top: 15px;
+            color: #667eea;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .warning {
+            background: rgba(255,255,255,0.9);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        .warning h3 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+
+        .price-highlight {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .activities-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .activity-card { padding: 20px; }
+            body { padding: 15px; }
+        }
+
+        .hidden { display: none !important; }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌊 香港西贡公众码头沿海游玩攻略</h1>
+        <p class="subtitle">探索香港后花园的海上乐园 • 详细攻略与真实体验分享</p>
+
+        <div class="activities-grid">
+            <!-- 皮划艇/独木舟 -->
+            <div class="activity-card kayaking">
+                <div class="activity-header">
+                    <div class="activity-icon">🛶</div>
+                    <div class="activity-title">
+                        <h2>皮划艇/独木舟探险</h2>
+                        <span class="tag">运动</span><span class="tag">浮潜</span><span class="tag">摄影</span>
+                    </div>
+                </div>
+
+                <div class="activity-info">
+                    <div class="info-item">
+                        <span class="info-icon">💰</span>
+                        <div class="info-content">
+                            <div class="info-title">预算</div>
+                            <div class="info-text">
+                                单人艇 <span class="price-highlight">HKD 200</span>，双人艇 <span class="price-highlight">HKD 300</span>
+                                <br>非节假日各减50港币，交通约HKD 12.5
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⏰</span>
+                        <div class="info-content">
+                            <div class="info-title">建议时间</div>
+                            <div class="info-text">上午9-10点出发，全天游玩（4-6小时）<br>下午3:30-4:00开始返程</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎯</span>
+                        <div class="info-content">
+                            <div class="info-title">具体玩法</div>
+                            <div class="info-text">
+                                • 划往绿蛋岛（约1.5小时）<br>
+                                • 在果冻海浮潜、游泳<br>
+                                • 海上晒太阳、拍照<br>
+                                • 玩飞盘、捡贝壳海螺<br>
+                                • 探索其他小岛
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎒</span>
+                        <div class="info-content">
+                            <div class="info-title">准备物品</div>
+                            <div class="info-text">
+                                • 全套替换衣物（内衣+上衣）<br>
+                                • 防水袋、袖套（店家提供有限）<br>
+                                • 防晒霜、太阳镜、帽子<br>
+                                • 浮潜装备（如有计划）<br>
+                                • 水和简易食物（蛋白棒、三明治）<br>
+                                • 防水相机/手机防水袋
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div class="info-content">
+                            <div class="info-title">推荐地点</div>
+                            <div class="info-text">相思湾 → 绿蛋岛（水质最好，水深最浅）</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="view-comments" onclick="toggleComments(this)">查看小红书真实体验</button>
+
+                <div class="comments-section">
+                    <h3 class="comments-title">小红书用户真实评论</h3>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">香港相思湾PURE独木舟</span>
+                            <span class="comment-time">97赞</span>
+                        </div>
+                        <div class="comment-content">
+                            多谢你们的到来😘每次客人玩得开心又安全回来我都好感恩🙏希望好快又见到你们！
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">网友提问</span>
+                            <span class="comment-time">作者回复</span>
+                        </div>
+                        <div class="comment-content">
+                            <strong>Q：</strong>不会游泳建议玩这个吗？<br>
+                            <strong>A：</strong>有救生衣的，而且皮划艇蛮安全的，我的游泳水平也一般如果想体验大胆去玩就好啦
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">经验分享</span>
+                            <span class="comment-time">3人觉得有用</span>
+                        </div>
+                        <div class="comment-content">
+                            上午的话去程不热，但我们是九十点吃了东西才出发的去乘地铁的。建议准备全套干衣，因为真的不知道怎么回事就湿掉了
+                        </div>
+                    </div>
+
+                    <div class="expand-more" onclick="loadMoreComments(this)">加载更多评论...</div>
+                </div>
+            </div>
+
+            <!-- 钓鱼/钓章鱼 -->
+            <div class="activity-card fishing">
+                <div class="activity-header">
+                    <div class="activity-icon">🎣</div>
+                    <div class="activity-title">
+                        <h2>海钓/夜钓墨鱼</h2>
+                        <span class="tag">夜钓</span><span class="tag">当季</span><span class="tag">美食</span>
+                    </div>
+                </div>
+
+                <div class="activity-info">
+                    <div class="info-item">
+                        <span class="info-icon">💰</span>
+                        <div class="info-content">
+                            <div class="info-title">预算</div>
+                            <div class="info-text">
+                                鱼排垂钓约HKD 200-400/人<br>
+                                夜钓墨鱼包船约HKD 380-600/人<br>
+                                游艇海钓约HKD 800-1500/人
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⏰</span>
+                        <div class="info-content">
+                            <div class="info-title">最佳时间</div>
+                            <div class="info-text">
+                                夜钓墨鱼：4月-9月（旺季）<br>
+                                晚上7:00-11:00<br>
+                                鱼排垂钓：全天
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎯</span>
+                        <div class="info-content">
+                            <div class="info-title">具体玩法</div>
+                            <div class="info-text">
+                                • 夜钓墨鱼：晚上出海，体验钓墨鱼乐趣<br>
+                                • 鱼排垂钓：在鱼排上钓各种海鱼<br>
+                                • 即钓即食：钓到的墨鱼可现场烧烤<br>
+                                • 钓具和饵料通常由店家提供<br>
+                                • 可包船或参加拼船活动
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎒</span>
+                        <div class="info-content">
+                            <div class="info-title">准备物品</div>
+                            <div class="info-text">
+                                • 防蚊液（夜钓必备）<br>
+                                • 长袖外套（晚上海风较凉）<br>
+                                • 零食和饮料<br>
+                                • 相机（记录钓鱼成果）<br>
+                                • 现金（部分船只只收现金）<br>
+                                • 晕船药（敏感者备用）
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">💡</span>
+                        <div class="info-content">
+                            <div class="info-title">小贴士</div>
+                            <div class="info-text">
+                                8月底到9月是钓墨鱼的黄金季节，墨鱼数量多且活跃，非常适合新手体验
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="view-comments" onclick="toggleComments(this)">查看小红书真实体验</button>
+
+                <div class="comments-section">
+                    <h3 class="comments-title">小红书用户真实评论</h3>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">钓墨鱼体验者</span>
+                            <span class="comment-time">热门分享</span>
+                        </div>
+                        <div class="comment-content">
+                            终于解锁心心念念的西贡夜钓鱿鱼🦑！八月底正是钓墨鱼的时节，钓上来的墨鱼还可以现场烧烤，味道超级鲜美！
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">用户分享</span>
+                            <span class="comment-time">50赞</span>
+                        </div>
+                        <div class="comment-content">
+                            香港特色夜钓墨鱼4月开季，人均380即可享受豪华游艇夜钓墨鱼，钓到即食体验超棒！
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">经验之谈</span>
+                            <span class="comment-time">实用</span>
+                        </div>
+                        <div class="comment-content">
+                            釣大尾鱿鱼的天堂👼‼️香港西贡‼️晚上出海钓鱿鱼，墨鱼仔超多，新手也能满载而归
+                        </div>
+                    </div>
+
+                    <div class="expand-more" onclick="loadMoreComments(this)">加载更多评论...</div>
+                </div>
+            </div>
+
+            <!-- 浮潜游泳 -->
+            <div class="activity-card snorkeling">
+                <div class="activity-header">
+                    <div class="activity-icon">🤿</div>
+                    <div class="activity-title">
+                        <h2>浮潜看珊瑚</h2>
+                        <span class="tag">游泳</span><span class="tag">拍照</span><span class="tag">生态</span>
+                    </div>
+                </div>
+
+                <div class="activity-info">
+                    <div class="info-item">
+                        <span class="info-icon">💰</span>
+                        <div class="info-content">
+                            <div class="info-title">预算</div>
+                            <div class="info-text">
+                                公共码头坐船约HKD 40往返<br>
+                                浮潜装备租赁约HKD 50-100<br>
+                                包船浮潜约HKD 300-500/人
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⏰</span>
+                        <div class="info-content">
+                            <div class="info-title">最佳时间</div>
+                            <div class="info-text">夏季5-10月<br>上午9:00-下午3:00<br>避开正午强烈日照</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎯</span>
+                        <div class="info-content">
+                            <div class="info-title">具体玩法</div>
+                            <div class="info-text">
+                                • 桥咀洲浮潜：看珊瑚和热带鱼<br>
+                                • 绿蛋岛：水质最好，适合新手<br>
+                                • 拍玻璃海照片<br>
+                                • 追鱼群视频<br>
+                                • 不会游泳也可穿救生衣体验<br>
+                                • 深潜探索海底世界
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎒</span>
+                        <div class="info-content">
+                            <div class="info-title">准备物品</div>
+                            <div class="info-text">
+                                • 浮潜三宝：面镜、呼吸管、脚蹼<br>
+                                • 防晒衣/水母衣（防晒+防刮伤）<br>
+                                • 防水相机/GoPro<br>
+                                • 防水袋（装手机等）<br>
+                                • 浴巾、替换衣物<br>
+                                • 饮用水和高能零食<br>
+                                • 防水防晒霜
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">📍</span>
+                        <div class="info-content">
+                            <div class="info-title">推荐地点</div>
+                            <div class="info-text">
+                                桥咀洲（天使之路）、绿蛋岛、西贡玻璃海<br>
+                                港大浮潜课也是在这里上课的哦
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="view-comments" onclick="toggleComments(this)">查看小红书真实体验</button>
+
+                <div class="comments-section">
+                    <h3 class="comments-title">小红书用户真实评论</h3>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">浮潜爱好者</span>
+                            <span class="comment-time">1204赞</span>
+                        </div>
+                        <div class="comment-content">
+                            真的巨美！来🇭🇰必去打卡的西贡玻璃海！🌊水质超级清澈，能看到好多热带鱼和珊瑚，完全不输东南亚海岛！
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">新手分享</span>
+                            <span class="comment-time">实用</span>
+                        </div>
+                        <div class="comment-content">
+                            不会游泳也没事🤩穿救生衣完全可以浮在水面看鱼，店家会教基本技巧，第一次浮潜就爱上了！
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">达物攻略</span>
+                            <span class="comment-time">250赞</span>
+                        </div>
+                        <div class="comment-content">
+                            香港西贡浮潜攻略🤿不看攻略白去！桥咀洲的海水透明度超高，珊瑚和鱼群都很多，记得带防水相机
+                        </div>
+                    </div>
+
+                    <div class="expand-more" onclick="loadMoreComments(this)">加载更多评论...</div>
+                </div>
+            </div>
+
+            <!-- 坐船跳岛 -->
+            <div class="activity-card island">
+                <div class="activity-header">
+                    <div class="activity-icon">🏝️</div>
+                    <div class="activity-title">
+                        <h2>坐船跳岛游</h2>
+                        <span class="tag">艺术</span><span class="tag">徒步</span><span class="tag">轻旅行</span>
+                    </div>
+                </div>
+
+                <div class="activity-info">
+                    <div class="info-item">
+                        <span class="info-icon">💰</span>
+                        <div class="info-content">
+                            <div class="info-title">预算</div>
+                            <div class="info-text">
+                                公共渡轮约HKD 40-80往返<br>
+                                包船跳岛约HKD 200-400/人<br>
+                                西贡海艺术节免费入场
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⏰</span>
+                        <div class="info-content">
+                            <div class="info-title">推荐时间</div>
+                            <div class="info-text">
+                                半天到一天<br>
+                                上午9:00出发最佳<br>
+                                避开周末和节假日高峰期
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎯</span>
+                        <div class="info-content">
+                            <div class="info-title">具体玩法</div>
+                            <div class="info-text">
+                                • 桥咀洲：徒步天使之路，地质奇观<br>
+                                • 盐田仔：参观百年教堂，艺术装置<br>
+                                • 西贡海艺术节：看岛上艺术展览<br>
+                                • 半月湾游泳+浮潜<br>
+                                • 岛上野餐拍照<br>
+                                • 轻徒步探索小岛
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">🎒</span>
+                        <div class="info-content">
+                            <div class="info-title">准备物品</div>
+                            <div class="info-text">
+                                • 舒适的运动鞋（岛上徒步）<br>
+                                • 防晒用品<br>
+                                • 饮用水和干粮<br>
+                                • 相机（风景超美）<br>
+                                • 泳装（想游泳的话）<br>
+                                • 环保袋（垃圾随身带走）
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <span class="info-icon">⚠️</span>
+                        <div class="info-content">
+                            <div class="info-title">注意事项</div>
+                            <div class="info-text">
+                                注意查看船期表，天使之路在涨潮时会被淹没，建议提前查好潮汐时间
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="view-comments" onclick="toggleComments(this)">查看小红书真实体验</button>
+
+                <div class="comments-section">
+                    <h3 class="comments-title">小红书用户真实评论</h3>
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">HowHow</span>
+                            <span class="comment-time">226赞</span>
+                        </div>
+                        <div class="comment-content">
+                            西贡海艺术节跳岛，香港也有自己的濑户内！艺术品分布在各个小岛上，坐船跳岛的感觉超棒，每个岛都有特色美食
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">edwinana_</span>
+                            <span class="comment-time">110赞</span>
+                        </div>
+                        <div class="comment-content">
+                            半日免费舒适跳岛（附详细攻略）！其实坐公共船就能去到很多美丽小岛，桥咀洲的半月湾海水超清澈，完全免费
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <span class="comment-author">炸虾虾子</span>
+                            <span class="comment-time">227赞</span>
+                        </div>
+                        <div class="comment-content">
+                            西贡海艺术节A线：盐田梓→桥咀洲，两个小岛都很有特色，盐田仔有百年教堂，桥咀洲有地质奇观，一天时间刚刚好
+                        </div>
+                    </div>
+
+                    <div class="expand-more" onclick="loadMoreComments(this)">加载更多评论...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ 重要提醒</h3>
+            <p>以上信息来源于小红书用户真实分享，价格和时间可能会有变动，建议提前联系店家确认。</p>
+            <p>出海活动请注意安全，遵守当地规定，保护环境，带走垃圾！</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleComments(button, event) {
+            // Stop event propagation to prevent card click handler
+            if (event) {
+                event.stopPropagation();
+            }
+
+            const card = button.closest('.activity-card');
+            const commentsSection = card.querySelector('.comments-section');
+
+            if (commentsSection.classList.contains('show')) {
+                commentsSection.classList.remove('show');
+                button.textContent = '查看小红书真实体验';
+            } else {
+                commentsSection.classList.add('show');
+                button.textContent = '收起评论';
+            }
+        }
+
+        function loadMoreComments(element, event) {
+            // Stop event propagation
+            if (event) {
+                event.stopPropagation();
+            }
+
+            // Prevent multiple clicks
+            if (element.classList.contains('loading')) {
+                return;
+            }
+
+            // Add loading animation
+            element.classList.add('loading');
+            element.innerHTML = '加载中<span class="loading"></span>';
+
+            // Add more comments (would be replaced with real API call)
+            setTimeout(() => {
+                const commentsSection = element.parentElement;
+                const newComments = [
+                    {
+                        author: '更多用户',
+                        time: '最新',
+                        content: '已经去过三次了，每次都有新发现！西贡真的太美了，海水清澈见底，强烈推荐大家体验。'
+                    },
+                    {
+                        author: '实用攻略',
+                        time: '精选',
+                        content: '交通攻略：地铁到钻石山站，转乘九巴91路直达，或者小巴101M都很方便。建议早点出发避开人潮。'
+                    }
+                ];
+
+                newComments.forEach(comment => {
+                    const commentDiv = document.createElement('div');
+                    commentDiv.className = 'comment';
+                    commentDiv.innerHTML = `
+                        <div class="comment-header">
+                            <span class="comment-author">${comment.author}</span>
+                            <span class="comment-time">${comment.time}</span>
+                        </div>
+                        <div class="comment-content">${comment.content}</div>
+                    `;
+                    commentsSection.insertBefore(commentDiv, element);
+                });
+
+                element.textContent = '已加载更多评论';
+                element.style.color = '#999';
+                element.style.cursor = 'default';
+                element.classList.remove('loading');
+            }, 1500);
+        }
+
+        // Ensure no text overflow
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-resize text if needed
+            const cards = document.querySelectorAll('.activity-card');
+            cards.forEach(card => {
+                const title = card.querySelector('h2');
+                const titleWidth = title.offsetWidth;
+                const cardWidth = card.offsetWidth - 100; // padding and icon
+
+                if (titleWidth > cardWidth) {
+                    title.style.fontSize = '1.2rem';
+                }
+            });
+        });
+
+        // Prevent any potential bugs with card expansion
+        document.querySelectorAll('.activity-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (e.target.classList.contains('view-comments') ||
+                    e.target.classList.contains('expand-more') ||
+                    e.target.closest('.comments-section')) {
+                    // Allow button clicks
+                    return;
+                }
+                // Toggle comments when clicking anywhere else on card
+                const button = this.querySelector('.view-comments');
+                if (button) {
+                    button.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

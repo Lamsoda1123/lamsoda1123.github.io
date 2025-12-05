@@ -1,16 +1,7 @@
 
-- Outstanding Graduate Award (CUMT), 2025.
+- Merit Scholarship, Chinese University of Hong Kong (Shenzhen), 2024
 
-- National Scholarship for Graduate Students (Ministry of Education, China), 2024.
+- Entrance Scholarship, Chinese University of Hong Kong (Shenzhen), 2023
 
-- First-Prize Graduate Academic Scholarship (CUMT), 2024.
+- First Class Honors, University of Glasgow, 2022
 
-- First-Prize Graduate Academic Scholarship (CUMT), 2023.
-
-- Freshman Scholarship (CUMT), 2022.
-
-- Outstanding Undergraduate Thesis Award (Jiangsu, China), 2022.
-
-- First-Prize Corporate Scholarship (CUMT), 2020.
-
-- First-Prize Undergraduate Academic Scholarship (CUMT), 2019.

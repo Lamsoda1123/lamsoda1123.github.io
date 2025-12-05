@@ -1,0 +1,206 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{multicol}
+\usepackage{amsmath}
+\setlength{\multicolsep}{-3.0pt}
+\setlength{\columnsep}{-1pt}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large\bfseries
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{1.0\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \textbf{\small #2} \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.0in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Sida Lin} \\ \vspace{1pt}
+    \faIcon{phone-square-alt} (+86) 131-2886-9783 \quad
+    \faIcon{envelope} Lamsoda@163.com \quad \\
+
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+\resumeSubHeadingListStart
+
+\resumeSubheading
+{The Chinese University of Hong Kong (Shenzhen)}{Shenzhen, China}
+{Master of Data Science}{Sep. 2023 -- Jun. 2025}
+\resumeItemListStart
+\resumeItem{2024: Recipient of the Merit Scholarship, awarded based on research performance.}
+    % \vspace{-10pt}
+\resumeItem{2023: Recipient of the prestigious Entrance Scholarship, awarded based on academic performance.}
+\resumeItemListEnd
+
+\resumeSubheading
+{University of Glasgow}{Glasgow, UK}
+{Bachelor of Statistics}{Sep. 2020 -- Jun. 2022}
+\resumeItemListStart
+\resumeItem{Graduated with First Class Honors for exceptional academic achievements across statistical research projects.}
+\resumeItemListEnd
+
+\resumeSubheading
+{Zhongnan University of Economics and Law}{Wuhan, China}
+{Bachelor of Economic Statistics}{Sep. 2018 -- Jun. 2020}
+\resumeItemListStart
+\resumeItem{Earned a GPA of 3.5/4, reflecting strong performance in data analysis, econometrics, and quantitative research.}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\section{Publications}
+\resumeSubHeadingListStart
+\resumeSubheading
+{WWW 2025}{}
+{Paper: CSPO: Cross-Market Synergistic Stock Price Movement Forecasting with Pseudo-volatility Optimization}{Under Review}
+\resumeItemListStart
+\resumeItem{\textbf{Sida Lin}\textsuperscript{†}, Yankai Chen\textsuperscript{†}, Yiyan Qi, \text{Chenhao Ma}\textsuperscript{*}, Bokai Cao, Yifei Zhang, Xue Liu and \text{Jian Guo}\textsuperscript{*}}
+\resumeItemListEnd
+\resumeSubheading
+{CIKM 2024}{}
+{Paper: Effective Job-market Mobility Prediction with Attentive Heterogeneous Knowledge Learning and Synergy}{Accepted}
+\resumeItemListStart
+\resumeItem{\textbf{Sida Lin}\textsuperscript{†}, \text{Zhouyi Zhang}\textsuperscript{†}, \text{Yankai Chen}\textsuperscript{*}, \text{Chenhao Ma}\textsuperscript{*}, Yixiang Fang, Shan Dai and Guangli Lu}
+\resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+
+%-----------RESEARCH EXPERIENCE-----------
+\section{Research Experience}
+\resumeSubHeadingListStart
+\vspace{+13pt}
+\resumeSubheading
+{International Digital Economy Academy (IDEA)}{Shenzhen, China}
+{Research Intern – Graph Algorithm (202301-202307, 202405-present)}{Jan. 2023 -- Present}
+\resumeItemListStart
+\resumeItem{Led research on using GraphTransformer models for detecting time-series trend reversals in financial data, achieving a 12\% information coefficient and an average return per trade of 0.26\%, improving decision-making for trading strategies.}
+\resumeItem{Developed cross-market pre-trained models for anomaly detection in trading accounts, increasing detection accuracy and robustness across different markets, thus reducing false positives and improving overall system performance.}
+\resumeItem{Contributed to the development of advanced algorithms such as DAGAD, GraphSMOTE, and GraphMixup for anomaly detection tasks, helping the team secure 6th place out of 1500 teams in the highly competitive DCIC 2023 competition.}
+\resumeItem{Currently researching Heterogeneous Graph Anomaly Detection (HAGNN) to address multi-domain challenges, with a focus on improving model generalization and adaptability across diverse applications.}
+\resumeItemListEnd
+\vspace{+13pt}
+\resumeSubheading
+{New Future Venture Capital – Xueming Fund}{Shenzhen, China}
+{Research Intern – Graph Algorithm}{Feb. 2024 -- May 2024}
+\resumeItemListStart
+\resumeItem{Designed a sector relationship model for anomaly detection in financial markets, utilizing graph-based algorithms and machine learning techniques. The model achieved an IC of 0.079, a Sharpe ratio of 2.65, and an annualized return of 21\%, significantly improving risk management and return predictions.}
+\resumeItem{Optimized short-selling strategies for low-exposure small-cap portfolios by applying statistical techniques and portfolio optimization algorithms, resulting in consistent outperformance of benchmark strategies across various market conditions.}
+\resumeItemListEnd
+% \vspace{-13pt} % Adjust spacing before the next section
+
+\resumeSubheading
+{The Chinese University of Hong Kong (Shenzhen)}{Shenzhen, China}
+{Algorithm Research Assistant}{Jul. 2023 -- Feb. 2024}
+\resumeItemListStart
+\resumeItem{Contributed to job-market mobility prediction research, implementing advanced machine learning techniques that resulted in a 2.9\% increase in job @1 hit rate and a 16.86\% improvement in company @1 hit rate. This research was accepted at CIKM 2024 for its significant contributions to the field.}
+\resumeItem{Developed a multi-tower DSSM model for patent and labor matching, optimizing the alignment between job resources and industrial demands, which improved resource allocation in the job market.}
+\resumeItem{Fine-tuned Jobtitle-BERT and Jobtitle-NLLB models to enhance NLP tasks such as job role identification and multilingual translation for job market data, boosting model accuracy and processing speed.}
+% \resumeItem{Ongoing project: Developed models incorporating uncertainty for bundle recommendation, aiming modeling distributions with uncertainty to enhance precision and improve user satisfaction in multi-item recommendation scenarios.}
+\resumeItemListEnd
+\resumeSubheading
+{Ping An Technology}{Shenzhen, China}
+{Data Analyst Intern}{Sep. 2021 -- May 2022}
+\resumeItemListStart
+\resumeItem{Improved fraud detection precision by 22.3\% for high-risk insurance claims by applying advanced data engineering and graph-based algorithms, significantly reducing false positives and enhancing the reliability of the fraud detection model.}
+\resumeItem{Led the detection of organized fraud rings by using data cleaning, graph theory, and community detection techniques to reveal hidden connections, improving post-claim fraud mitigation across multiple insurance categories.}
+\resumeItem{Developed spatiotemporal co-occurrence models to uncover patterns of organized fraud in auto insurance, contributing to fraud risk reduction and streamlining the claim review process to enhance operational efficiency.}
+\resumeItemListEnd
+\resumeSubHeadingListEnd
+
+%-----------COMPETITIONS AND PAPERS-----------
+\section{Competitions}
+\resumeSubHeadingListStart
+\resumeSubheading
+{DCIC 2023}{}
+{Fintech Competition: Fraudulent Account Risk Identification}{Ranked 6/1500}
+\resumeSubheading
+{Digital Intelligence Xinghang 2022}{}
+{Customer Recommendation}{Ranked 5th Nationally (Bank Division)}
+\resumeSubHeadingListEnd
+
+%-----------HONORS & AWARDS-----------
+\section{Honors \& Awards}
+\resumeSubHeadingListStart
+\resumeProjectHeading{\textbf{Merit Scholarship}, Chinese University of Hong Kong (Shenzhen)}{2024}
+\resumeProjectHeading{\textbf{Entrance Scholarship}, Chinese University of Hong Kong (Shenzhen)}{2023}
+\resumeProjectHeading{\textbf{First Class Honors}, University of Glasgow}{2022}
+\resumeSubHeadingListEnd
+
+%-----------SKILLS-----------
+\section{Skills}
+\begin{itemize}[leftmargin=0.15in, label={}]
+    \item \textbf{Programming Languages}{: Python, PyTorch, DGL, Spark, Git, Linux, LaTeX}
+    \vspace{-8pt}
+    \item \textbf{Languages}{: English (IELTS 6.5), Chinese (Native), Cantonese (Fluent)}
+\end{itemize}
+\end{document}

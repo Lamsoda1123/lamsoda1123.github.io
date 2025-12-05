@@ -1,17 +1,47 @@
 
 
-[![senli1073](https://img.shields.io/badge/senli1073-github-blue?logo=github)](https://github.com/senli1073)
+[![Lamsoda1123](https://img.shields.io/badge/Lamsoda1123-github-blue?logo=github)](https://github.com/Lamsoda1123)
 
-He is currently a Fellow in the Department of Earth and Planetary Sciences (EPS) at Harvard University.
+Sida Lin is a Ph.D. student at HKUST HKGAI, focusing on deep research in Large Language Models (LLMs).
 
 #### Contact
 
-Email: senli[at]fas.harvard.edu
+📧 Email: Lamsoda@163.com
+
+#### Current Position
+**Ph.D. Student** at [HKUST HKGAI Center](https://hkgai.hkust.edu.hk/), Hong Kong
+- **Research Focus**: Deep Research in Large Language Models (LLMs)
+- **Period**: September 2025 — Present
 
 #### Education
-M.E., Computer Science and Technology, China University of Mining and Technology, 2022—2025.\
-B.E., Data Science and Big Data Technology, China University of Mining and Technology, 2018—2022.
+**The Chinese University of Hong Kong, Shenzhen** | Shenzhen, China
+Master of Science in Data Science
+*Sep. 2023 — Jun. 2025*
+- Merit Scholarship (2024) for outstanding research performance
+- Entrance Scholarship (2023) for academic excellence
+
+**University of Glasgow** | Glasgow, UK
+Bachelor of Science in Statistics
+*Sep. 2020 — Jun. 2022*
+- Graduated with First Class Honors for exceptional academic achievements
+
+**Zhongnan University of Economics and Law** | Wuhan, China
+Bachelor of Economics in Economic Statistics
+*Sep. 2018 — Jun. 2020*
+- GPA: 3.5/4.0, with strong performance in data analysis and econometrics
 
 #### Research Interests
-Deep Learning, Artificial Intelligence Seismology, Mine Microseismic.
+- Deep Research in Large Language Models (LLMs)
+- Graph Neural Networks and Anomaly Detection
+- Data Mining and Machine Learning
+- Financial Technology (FinTech)
+
+#### Technical Skills
+**Programming Languages**: Python, PyTorch, DGL, Spark, Git, Linux, LaTeX
+**Languages**: English (IELTS 6.5), Chinese (Native), Cantonese (Fluent)
+
+#### Achievements
+- Merit Scholarship, Chinese University of Hong Kong (Shenzhen) (2024)
+- Entrance Scholarship, Chinese University of Hong Kong (Shenzhen) (2023)
+- First Class Honors, University of Glasgow (2022)
 
