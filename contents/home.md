@@ -1,12 +1,14 @@
 
 
-[![Lamsoda1123](https://img.shields.io/badge/Lamsoda1123-github-blue?logo=github)](https://github.com/Lamsoda1123)
+[![Lamsoda1123](https://img.shields.io/badge/Lamsoda1123-github-blue?logo=github)](https://github.com/Lamsoda1123) [![Google Scholar](https://img.shields.io/badge/Google%20Scholar-4285F4?logo=googlescholar&logoColor=white)](https://scholar.google.com/citations?user=iPqKJxgAAAAJ)
 
 Sida Lin is a Ph.D. student at HKUST HKGAI, focusing on deep research in Large Language Models (LLMs).
 
 #### Contact
 
 📧 Email: Lamsoda@163.com
+
+🔬 [Google Scholar](https://scholar.google.com/citations?user=iPqKJxgAAAAJ)
 
 #### Current Position
 **Ph.D. Student** at [HKUST HKGAI Center](https://hkgai.hkust.edu.hk/), Hong Kong
