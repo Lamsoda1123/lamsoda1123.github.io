@@ -42,8 +42,3 @@ Bachelor of Economics in Economic Statistics
 **Programming Languages**: Python, PyTorch, DGL, Spark, Git, Linux, LaTeX
 **Languages**: English (IELTS 6.5), Chinese (Native), Cantonese (Fluent)
 
-#### Achievements
-- Merit Scholarship, Chinese University of Hong Kong (Shenzhen) (2024)
-- Entrance Scholarship, Chinese University of Hong Kong (Shenzhen) (2023)
-- First Class Honors, University of Glasgow (2022)
-
