@@ -16,20 +16,17 @@ Sida Lin is a Ph.D. student at HKUST HKGAI, focusing on deep research in Large L
 - **Period**: September 2025 — Present
 
 #### Education
-**The Chinese University of Hong Kong, Shenzhen** | Shenzhen, China
-Master of Science in Data Science
-*Sep. 2023 — Jun. 2025*
+**The Chinese University of Hong Kong, Shenzhen**
+Master of Science in Data Science -- Sep. 2023 — Jun. 2025
 - Merit Scholarship (2024) for outstanding research performance
 - Entrance Scholarship (2023) for academic excellence
 
-**University of Glasgow** | Glasgow, UK
-Bachelor of Science in Statistics
-*Sep. 2020 — Jun. 2022*
+**University of Glasgow**
+Bachelor of Science in Statistics -- Sep. 2020 — Jun. 2022
 - Graduated with First Class Honors for exceptional academic achievements
 
-**Zhongnan University of Economics and Law** | Wuhan, China
-Bachelor of Economics in Economic Statistics
-*Sep. 2018 — Jun. 2020*
+**Zhongnan University of Economics and Law**
+Bachelor of Economics in Economic Statistics -- Sep. 2018 — Jun. 2020
 - GPA: 3.5/4.0, with strong performance in data analysis and econometrics
 
 #### Research Interests
