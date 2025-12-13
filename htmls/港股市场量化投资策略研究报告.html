@@ -1,0 +1,1995 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>港股市场量化投资策略深度研究报告</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'sage': {
+                            50: '#f6f7f6',
+                            100: '#e3e7e3',
+                            200: '#c7d1c7',
+                            300: '#a1b3a1',
+                            400: '#7a917a',
+                            500: '#5d7a5d',
+                            600: '#4a634a',
+                            700: '#3d523d',
+                            800: '#334333',
+                            900: '#2c372c',
+                        },
+                        'warm-gray': {
+                            50: '#fafaf9',
+                            100: '#f5f5f4',
+                            200: '#e7e5e4',
+                            300: '#d6d3d1',
+                            400: '#a8a29e',
+                            500: '#78716c',
+                            600: '#57534e',
+                            700: '#44403c',
+                            800: '#292524',
+                            900: '#1c1917',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-overlay {
+            background: linear-gradient(135deg, rgba(93, 122, 93, 0.9) 0%, rgba(44, 55, 44, 0.8) 100%);
+        }
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .backdrop-blur {
+            backdrop-filter: blur(8px);
+        }
+        .citation-link {
+            @apply text-sage-600 hover:text-sage-800 transition-colors duration-200;
+        }
+        
+        /* Mermaid diagram styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none; /* 防止触摸设备上的默认行为 */
+            -webkit-user-select: none; /* 防止文本选择 */
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+        
+        /* Mermaid theme customization for better contrast */
+        .mermaid svg {
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            stroke-width: 2px !important;
+        }
+        
+        .mermaid .node .label {
+            color: #1c1917 !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            color: #44403c !important;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            padding: 2px 6px !important;
+            border-radius: 4px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        .mermaid .edgePath path {
+            stroke-width: 2px !important;
+        }
+        
+        /* Enhanced contrast for different node colors */
+        .mermaid .node[style*="fill:#e3f2fd"] .label,
+        .mermaid .node[style*="fill:#e3f2fd"] text {
+            color: #0d47a1 !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#f3e5f5"] .label,
+        .mermaid .node[style*="fill:#f3e5f5"] text {
+            color: #4a148c !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#e8f5e8"] .label,
+        .mermaid .node[style*="fill:#e8f5e8"] text {
+            color: #1b5e20 !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#fff3e0"] .label,
+        .mermaid .node[style*="fill:#fff3e0"] text {
+            color: #e65100 !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#ffebee"] .label,
+        .mermaid .node[style*="fill:#ffebee"] text {
+            color: #b71c1c !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#f1f8e9"] .label,
+        .mermaid .node[style*="fill:#f1f8e9"] text {
+            color: #33691e !important;
+            font-weight: 700 !important;
+        }
+        
+        .mermaid .node[style*="fill:#e0f2f1"] .label,
+        .mermaid .node[style*="fill:#e0f2f1"] text {
+            color: #004d40 !important;
+            font-weight: 700 !important;
+        }
+        
+        /* Default node text styling */
+        .mermaid .node text {
+            fill: #1c1917 !important;
+            font-weight: 600 !important;
+            font-size: 13px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Edge labels styling */
+        .mermaid .edgeLabel text {
+            fill: #44403c !important;
+            font-weight: 500 !important;
+            font-size: 12px !important;
+            font-family: 'Inter', sans-serif !important;
+        }
+        
+        /* Timeline specific styling */
+        .mermaid .section {
+            fill: #f5f5f4 !important;
+            stroke: #d6d3d1 !important;
+            stroke-width: 1px !important;
+        }
+        
+        .mermaid .section0, .mermaid .section1, .mermaid .section2, .mermaid .section3 {
+            fill: #f5f5f4 !important;
+            stroke: #d6d3d1 !important;
+        }
+        
+        .mermaid .cScale0, .mermaid .cScale1, .mermaid .cScale2, .mermaid .cScale3 {
+            fill: #5d7a5d !important;
+        }
+        
+        /* Flowchart specific node styling for better contrast */
+        .mermaid .flowchart-link {
+            stroke: #57534e !important;
+            stroke-width: 2px !important;
+        }
+        
+        @media (max-width: 768px) {
+            .mermaid-container {
+                overflow-x: auto;
+            }
+            /* Adjust hero title for small screens */
+            #hero h1 {
+                font-size: 2.5rem;
+                line-height: 1.2;
+            }
+            /* Ensure text wraps in bento grid */
+            #hero .grid > div {
+                word-wrap: break-word;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="font-sans text-warm-gray-800 bg-warm-gray-50 overflow-x-hidden">
+    <!-- Fixed Table of Contents -->
+    <nav id="toc" class="fixed left-0 top-0 h-full w-72 bg-white/95 backdrop-blur border-r border-warm-gray-200 overflow-y-auto z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+      <div class="p-6">
+        <h3 class="text-lg font-bold text-sage-800 mb-4">目录</h3>
+        <ul class="space-y-2 text-sm">
+          <li>
+            <a href="#hero" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">概览</a>
+          </li>
+          <li>
+            <a href="#market-overview" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">市场概览</a>
+          </li>
+          <li>
+            <a href="#main-strategies" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">主流量化策略</a>
+          </li>
+          <li>
+            <a href="#long-short-strategy" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">多空选股策略</a>
+          </li>
+          <li>
+            <a href="#cta-strategy" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">CTA择时策略</a>
+          </li>
+          <li>
+            <a href="#special-strategies" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">特殊量化策略</a>
+          </li>
+          <li>
+            <a href="#index-strategies" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">指数多空策略</a>
+          </li>
+          <li>
+            <a href="#platforms-tools" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">平台与工具</a>
+          </li>
+          <li>
+            <a href="#conclusion" class="block py-2 px-3 rounded hover:bg-sage-50 transition-colors">结论与展望</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Toggle button for mobile -->
+    <button id="toc-toggle" class="fixed top-4 left-4 z-50 lg:hidden bg-sage-600 text-white p-2 rounded-lg shadow-lg">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Main Content -->
+    <div id="main-content" class="lg:ml-72">
+      <!-- Hero Section -->
+      <section id="hero" class="relative min-h-screen bg-gradient-to-br from-sage-50 via-warm-gray-100 to-sage-100">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+          <img src="https://kimi-web-img.moonshot.cn/img/pbs.twimg.com/473daaaa8aa46c355820688043998e855ea4ef33.jpg" alt="香港金融区高楼大厦天际线" class="w-full h-full object-cover" size="wallpaper" aspect="wide" style="photo" query="香港金融区天际线" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+          <div class="absolute inset-0 gradient-overlay"></div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-12">
+          <!-- Title Section -->
+          <div class="max-w-4xl mb-12 sm:mb-16">
+            <h1 class="text-4xl sm:text-5xl lg:text-7xl font-serif font-bold text-white mb-4 sm:mb-6 text-shadow italic leading-tight">
+              港股市场
+              <br/>
+              <span class="text-sage-200">量化投资策略</span>
+              <br/>
+              深度研究报告
+            </h1>
+            <p class="text-lg sm:text-xl text-sage-100 font-light leading-relaxed max-w-3xl">
+              探索仙股现象、流动性分布与A/H股溢价带来的独特机遇与挑战，
+              构建适应港股生态的量化投资框架
+            </p>
+          </div>
+
+          <!-- Key Highlights Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12 sm:mb-16">
+            <div class="bg-white/10 backdrop-blur rounded-lg p-3 sm:p-6 border border-white/20">
+              <div class="text-3xl font-bold text-white mb-2">56%</div>
+              <div class="text-sage-200 text-sm">仙股占比</div>
+              <div class="text-sage-300 text-xs mt-1">股价低于1港元的股票比例</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-lg p-3 sm:p-6 border border-white/20">
+              <div class="text-3xl font-bold text-white mb-2">200+</div>
+              <div class="text-sage-200 text-sm">机构关注标的</div>
+              <div class="text-sage-300 text-xs mt-1">占据市场80%成交额</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-lg p-3 sm:p-6 border border-white/20">
+              <div class="text-3xl font-bold text-white mb-2">19.9%</div>
+              <div class="text-sage-200 text-sm">价值策略年化收益</div>
+              <div class="text-sage-300 text-xs mt-1">剔除仙股后表现</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur rounded-lg p-3 sm:p-6 border border-white/20">
+              <div class="text-3xl font-bold text-white mb-2">62.34%</div>
+              <div class="text-sage-200 text-sm">小资金策略年化</div>
+              <div class="text-sage-300 text-xs mt-1">&#34;菜场大妈&#34;策略表现</div>
+            </div>
+          </div>
+
+          <!-- Core Findings -->
+          <div class="bg-white/95 backdrop-blur rounded-xl p-4 sm:p-8 border border-warm-gray-200 shadow-xl max-w-6xl">
+            <h3 class="text-2xl font-bold text-sage-800 mb-6">核心发现</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold text-warm-gray-800 mb-3">市场特征</h4>
+                <ul class="space-y-2 text-sm text-warm-gray-600">
+                  <li>• 仙股现象普遍，占港股总数56%</li>
+                  <li>• 流动性高度集中于头部200+股票</li>
+                  <li>• A/H股溢价长期存在且居高不下</li>
+                  <li>• 机构投资者主导，定价相对理性</li>
+                </ul>
+              </div>
+              <div>
+                <h4 class="font-semibold text-warm-gray-800 mb-3">策略机遇</h4>
+                <ul class="space-y-2 text-sm text-warm-gray-600">
+                  <li>• 多因子策略表现稳健，超额收益显著</li>
+                  <li>• CTA策略提供&#34;危机Alpha&#34;对冲功能</li>
+                  <li>• 小资金策略利用机构盲区获取溢价</li>
+                  <li>• 指数多空策略交易成本相对较低</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Market Overview Section -->
+      <section id="market-overview" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">市场概览与量化投资环境</h2>
+
+            <div class="prose prose-lg max-w-none">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">市场结构与特征</h3>
+              <p class="text-warm-gray-700 leading-relaxed mb-6">
+                香港作为国际金融中心，其证券市场拥有超过百年的历史，形成了与内地A股市场截然不同的市场生态和波动特征
+                <a href="https://finance.sina.com.cn/stock/stockzmt/2025-07-07/doc-inferrrh9735060.shtml" class="citation-link">[138]</a>。
+                港股市场以其高度的市场化、国际化和制度成熟度而著称，但同时也因其独特的市场结构，为量化投资者带来了特殊的挑战与机遇。
+              </p>
+
+              <div class="bg-sage-50 rounded-lg p-6 mb-8">
+                <h4 class="text-lg font-semibold text-sage-800 mb-4">仙股现象及其影响</h4>
+                <p class="text-warm-gray-700 mb-4">
+                  仙股（Penny Stock）是港股市场一个极为特殊且普遍的现象，通常指股价低于1港元的股票。根据统计，自2010年以来，港股市场的仙股数量持续上升，自2018年起，股价低于1港元的股票占比已稳定在50%以上
+                  <a href="https://finance.sina.com.cn/stock/stockzmt/2025-07-07/doc-inferrrh9735060.shtml" class="citation-link">[138]</a>。
+                  截至2025年6月，这一比例更是高达<strong>56%</strong>，其中股价低于0.1港元的&#34;超低仙股&#34;有383只
+                  <a href="https://www.fxbaogao.com/detail/4998921" class="citation-link">[139, 190]</a>。
+                </p>
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                  <div class="bg-white rounded-lg p-4 border border-sage-200">
+                    <h5 class="font-semibold text-warm-gray-800 mb-2">仙股特征</h5>
+                    <ul class="text-sm text-warm-gray-600 space-y-1">
+                      <li>• 高波动性、低流动性</li>
+                      <li>• 股权高度集中</li>
+                      <li>• 频繁进行资本运作</li>
+                      <li>• 常年不分红</li>
+                      <li>• 隐藏&#34;老千股&#34;风险</li>
+                    </ul>
+                  </div>
+                  <div class="bg-white rounded-lg p-4 border border-sage-200">
+                    <h5 class="font-semibold text-warm-gray-800 mb-2">对量化投资影响</h5>
+                    <ul class="text-sm text-warm-gray-600 space-y-1">
+                      <li>• 污染市场数据，干扰因子模型</li>
+                      <li>• 需在策略构建时剔除仙股</li>
+                      <li>• 提供&#34;壳资源&#34;投资机会</li>
+                      <li>• 增加数据清洗和处理成本</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">量化投资面临的挑战与机遇</h3>
+
+              <div class="grid md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-warm-gray-50 rounded-lg p-6">
+                  <div class="text-sage-600 text-2xl mb-3">
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-3">数据质量与获取难度</h4>
+                  <p class="text-sm text-warm-gray-600">
+                    高质量数据源相对有限，需要付费订阅专业服务。仙股污染数据集，数据清洗和处理尤为重要。
+                  </p>
+                </div>
+                <div class="bg-warm-gray-50 rounded-lg p-6">
+                  <div class="text-sage-600 text-2xl mb-3">
+                    <i class="fas fa-coins"></i>
+                  </div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-3">交易成本与滑点影响</h4>
+                  <p class="text-sm text-warm-gray-600">
+                    高频策略下交易成本迅速累积，滑点侵蚀复利效应。需优化交易执行，选择流动性好的标的。
+                  </p>
+                </div>
+                <div class="bg-warm-gray-50 rounded-lg p-6">
+                  <div class="text-sage-600 text-2xl mb-3">
+                    <i class="fas fa-gavel"></i>
+                  </div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-3">监管环境与制度差异</h4>
+                  <p class="text-sm text-warm-gray-600">
+                    无涨跌停板限制，T+0交易制度，完善的做空机制，为量化策略提供灵活性。
+                  </p>
+                </div>
+              </div>
+
+              <blockquote class="border-l-4 border-sage-400 pl-6 py-4 bg-sage-50 rounded-r-lg mb-8">
+                <p class="text-warm-gray-700 italic text-lg">
+                  &#34;港股市场每年因仙股的各类操作给散户带来的损失可达数百亿港元，这种折扣可被视为对投资者承担垃圾股风险的补偿。&#34;
+                </p>
+                <footer class="text-sm text-warm-gray-500 mt-2">
+                  —— 基于市场数据统计分析
+                  <a href="https://cn.investing.com/analysis/article-200470648" class="citation-link">[196]</a>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Strategies Section -->
+      <section id="main-strategies" class="py-20 bg-warm-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">主流量化策略类型及实际表现</h2>
+
+            <div class="mb-12">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-8">多因子选股策略表现对比</h3>
+
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                  <h4 class="font-bold text-sage-800 mb-2">价值策略</h4>
+                  <div class="text-3xl font-bold text-sage-600 mb-2">15.6%</div>
+                  <div class="text-sm text-warm-gray-600">年化收益率</div>
+                  <div class="text-xs text-warm-gray-500 mt-1">2016年以来回测</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                  <h4 class="font-bold text-sage-800 mb-2">红利策略</h4>
+                  <div class="text-3xl font-bold text-sage-600 mb-2">12.0%</div>
+                  <div class="text-sm text-warm-gray-600">年化收益率</div>
+                  <div class="text-xs text-warm-gray-500 mt-1">2018年以来回测</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                  <h4 class="font-bold text-sage-800 mb-2">质量策略</h4>
+                  <div class="text-3xl font-bold text-sage-600 mb-2">16.2%</div>
+                  <div class="text-sm text-warm-gray-600">年化收益率</div>
+                  <div class="text-xs text-warm-gray-500 mt-1">2016年以来回测</div>
+                </div>
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                  <h4 class="font-bold text-sage-800 mb-2">成长策略</h4>
+                  <div class="text-3xl font-bold text-sage-600 mb-2">17.1%</div>
+                  <div class="text-sm text-warm-gray-600">年化收益率</div>
+                  <div class="text-xs text-warm-gray-500 mt-1">2016年以来回测</div>
+                </div>
+              </div>
+
+              <p class="text-sm text-warm-gray-600 text-center">
+                数据来源：中金公司研究部
+                <a href="https://www.gelonghui.com/p/2693204" class="citation-link">[25]</a>
+              </p>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 border border-warm-gray-200 shadow-lg">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">价值策略构建框架</h3>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">策略构建步骤</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-100 rounded-full flex items-center justify-center text-sage-600 text-xs font-bold">1</div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">基础池筛选</div>
+                        <div class="text-sm text-warm-gray-600">行业中性化方法，筛选PB-ROE因子值较小的二分之一股票</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-100 rounded-full flex items-center justify-center text-sage-600 text-xs font-bold">2</div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">多因子优选</div>
+                        <div class="text-sm text-warm-gray-600">ROE、现金流资产比、净利润增速稳健因子等权相加</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-100 rounded-full flex items-center justify-center text-sage-600 text-xs font-bold">3</div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">最终持仓</div>
+                        <div class="text-sm text-warm-gray-600">选择综合得分排名前30名的股票</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">策略表现</h4>
+                  <div class="bg-sage-50 rounded-lg p-4">
+                    <div class="grid grid-cols-2 gap-4">
+                      <div>
+                        <div class="text-2xl font-bold text-sage-600">19.9%</div>
+                        <div class="text-sm text-warm-gray-600">全市场年化收益</div>
+                      </div>
+                      <div>
+                        <div class="text-2xl font-bold text-sage-600">15.6%</div>
+                        <div class="text-sm text-warm-gray-600">港股通年化收益</div>
+                      </div>
+                    </div>
+                    <div class="mt-4 text-sm text-warm-gray-600">
+                      <strong>净利润增速稳健因子IC均值：</strong> 4.88%
+                      <br/>
+                      <strong>最大回撤：</strong> 32.6%
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm text-warm-gray-600">
+                策略在回撤控制方面表现突出，主要得益于价值股本身具有的安全边际和风险抵御型因子的选股能力
+                <a href="https://www.gelonghui.com/p/2693204" class="citation-link">[142]</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Long-Short Strategy Section -->
+      <section id="long-short-strategy" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">多空选股策略详解</h2>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">策略构建与核心逻辑</h3>
+                <p class="text-warm-gray-700 leading-relaxed mb-6">
+                  多空选股策略是量化投资中一种重要的绝对收益策略，其核心思想是同时构建多头和空头两个投资组合，通过多头组合的超额收益和空头组合的对冲作用，力求在各种市场环境下都能获得稳定的正收益。
+                </p>
+
+                <div class="bg-sage-50 rounded-lg p-6 mb-6">
+                  <h4 class="font-semibold text-sage-800 mb-4">策略实现步骤</h4>
+                  <div class="space-y-3">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-3 h-3 bg-sage-400 rounded-full"></div>
+                      <span class="text-sm text-warm-gray-700">识别预期表现最好的一篮子股票（多头组合）</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-3 h-3 bg-sage-400 rounded-full"></div>
+                      <span class="text-sm text-warm-gray-700">识别预期表现最差的一篮子股票（空头组合）</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-3 h-3 bg-sage-400 rounded-full"></div>
+                      <span class="text-sm text-warm-gray-700">买入多头组合并卖空空头组合</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                      <div class="w-3 h-3 bg-sage-400 rounded-full"></div>
+                      <span class="text-sm text-warm-gray-700">获取与市场低相关的&#34;Alpha&#34;收益</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src="https://kimi-web-img.moonshot.cn/img/www.interactivebrokers.com/bdd53d9ce93431c42d515a2a5021cad99c060119.jpg" alt="专业的量化交易工作站" class="w-full h-64 object-cover rounded-lg mb-6 shadow-lg" size="medium" aspect="wide" style="photo" query="量化交易工作站" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+                <div class="bg-warm-gray-100 rounded-lg p-6">
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">对冲工具选择</h4>
+                  <div class="space-y-3">
+                    <div class="bg-white rounded p-3 border">
+                      <div class="font-medium text-warm-gray-800">个股融券</div>
+                      <div class="text-sm text-warm-gray-600">直接方式，成本较高，适合大盘蓝筹</div>
+                    </div>
+                    <div class="bg-white rounded p-3 border">
+                      <div class="font-medium text-warm-gray-800">股指期货</div>
+                      <div class="text-sm text-warm-gray-600">恒生指数期货、恒生科技指数期货</div>
+                    </div>
+                    <div class="bg-white rounded p-3 border">
+                      <div class="font-medium text-warm-gray-800">认沽权证</div>
+                      <div class="text-sm text-warm-gray-600">成本相对较低，流动性好</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Strategy Flow Diagram -->
+            <div class="mb-12">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6 text-center">多空策略流程图</h3>
+              <div class="mermaid-container">
+                <div class="mermaid-controls">
+                  <button class="mermaid-control-btn zoom-in" title="放大">
+                    <i class="fas fa-search-plus"></i>
+                  </button>
+                  <button class="mermaid-control-btn zoom-out" title="缩小">
+                    <i class="fas fa-search-minus"></i>
+                  </button>
+                  <button class="mermaid-control-btn reset-zoom" title="重置">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                  </button>
+                  <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                    <i class="fas fa-expand"></i>
+                  </button>
+                </div>
+                <div class="mermaid" id="strategy-flow-diagram">
+                  graph TD
+                  A[&#34;市场数据获取&#34;] --&gt; B[&#34;因子计算与筛选&#34;]
+                  B --&gt; C[&#34;多头组合构建&#34;]
+                  B --&gt; D[&#34;空头组合构建&#34;]
+                  C --&gt; E[&#34;买入多头股票&#34;]
+                  D --&gt; F[&#34;卖空空头股票&#34;]
+                  E --&gt; G[&#34;风险监控与再平衡&#34;]
+                  F --&gt; G
+                  G --&gt; H[&#34;策略收益计算&#34;]
+
+                  style A fill:#e3f2fd,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+                  style B fill:#f3e5f5,stroke:#7c3aed,stroke-width:2px,color:#581c87
+                  style C fill:#e8f5e8,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+                  style D fill:#fff3e0,stroke:#ea580c,stroke-width:2px,color:#9a3412
+                  style E fill:#e8f5e8,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+                  style F fill:#fff3e0,stroke:#ea580c,stroke-width:2px,color:#9a3412
+                  style G fill:#f1f8e9,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+                  style H fill:#e0f2f1,stroke:#1e40af,stroke-width:2px,color:#1e3a8a
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 border border-warm-gray-200 shadow-lg">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">适合小资金的&#34;菜场大妈&#34;策略</h3>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">核心选股思路</h4>
+                  <div class="bg-sage-100 rounded-lg p-6 mb-4">
+                    <div class="text-center">
+                      <div class="text-2xl font-bold text-sage-700 mb-2">质好 · 价低 · 市值小</div>
+                      <div class="text-sm text-warm-gray-600">捕捉小市值和低价股溢价效应</div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-3">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <i class="fas fa-check text-xs"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">质好</div>
+                        <div class="text-sm text-warm-gray-600">筛选基本面优质，如股息率、PEG等指标</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                        <i class="fas fa-dollar-sign text-xs"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">价低</div>
+                        <div class="text-sm text-warm-gray-600">股价不超过9元，便利小资金操作</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                        <i class="fas fa-chart-line text-xs"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">市值小</div>
+                        <div class="text-sm text-warm-gray-600">选择市值最小的股票，捕捉小市值溢价</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">回测表现</h4>
+                  <div class="bg-gradient-to-br from-sage-50 to-sage-100 rounded-lg p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div class="text-center">
+                        <div class="text-3xl font-bold text-sage-700">140倍</div>
+                        <div class="text-sm text-warm-gray-600">总收益（2013-2020）</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-3xl font-bold text-sage-700">62.34%</div>
+                        <div class="text-sm text-warm-gray-600">年化收益率</div>
+                      </div>
+                    </div>
+                    <div class="bg-white rounded p-3 border border-sage-200 mb-3">
+                      <div class="text-xs text-warm-gray-600">考虑1%滑点后</div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-sm text-warm-gray-800">总收益</span>
+                        <span class="font-semibold text-sage-700">97倍</span>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-sm text-warm-gray-800">年化收益</span>
+                        <span class="font-semibold text-sage-700">56.70%</span>
+                      </div>
+                    </div>
+                    <div class="text-xs text-warm-gray-600">
+                      <strong>夏普比率：</strong> 2.25 | <strong>最大回撤：</strong> 30.88%
+                      <a href="https://www.zhihu.com/question/426468983" class="citation-link block mt-1">[199]</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <div class="flex items-start space-x-3">
+                  <div class="text-yellow-600 text-lg">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </div>
+                  <div>
+                    <div class="font-medium text-yellow-800">风险提示</div>
+                    <div class="text-sm text-yellow-700 mt-1">
+                      小资金策略虽有高收益潜力，但策略容量有限，风险较高。投入仙股的资金不应超过总资金的1%-2%，
+                      即使全部亏损，也不会对整体资产造成致命打击。
+                      <a href="https://www.zhihu.com/question/436291669" class="citation-link">[200]</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Strategy Section -->
+      <section id="cta-strategy" class="py-20 bg-warm-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">CTA择时策略分析</h2>
+
+            <div class="grid lg:grid-cols-3 gap-8 mb-12">
+              <div class="lg:col-span-2">
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">策略核心：趋势跟踪与波动率</h3>
+                <p class="text-warm-gray-700 leading-relaxed mb-6">
+                  CTA（Commodity Trading Advisor）策略的核心思想是通过系统化的模型，跟踪市场趋势，进行多空双向交易，以获取绝对收益。在港股市场，CTA策略主要应用于恒生指数期货、恒生科技指数期货等衍生品。
+                </p>
+
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200 mb-6">
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">收益来源与特征</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                        <i class="fas fa-chart-line text-sm"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">做多波动率</div>
+                        <div class="text-sm text-warm-gray-600">在趋势明显的市场中，价格波动率通常较高，为趋势跟踪策略提供盈利空间</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                        <i class="fas fa-shield-alt text-sm"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">危机Alpha</div>
+                        <div class="text-sm text-warm-gray-600">在市场出现危机时，往往伴随着高波动率和强烈趋势，CTA策略表现优异</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+                        <i class="fas fa-exclamation-triangle text-sm"></i>
+                      </div>
+                      <div>
+                        <div class="font-medium text-warm-gray-800">震荡市挑战</div>
+                        <div class="text-sm text-warm-gray-600">在低波动或震荡市场中，由于缺乏持续趋势，策略可能会产生亏损</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <blockquote class="border-l-4 border-sage-400 pl-6 py-4 bg-sage-50 rounded-r-lg">
+                  <p class="text-warm-gray-700 italic text-lg">
+                    &#34;CTA策略常被称为&#39;危机Alpha&#39;的来源，因为在市场出现危机时，往往伴随着高波动率和强烈的下跌趋势，这正是CTA策略大展身手的时机。&#34;
+                  </p>
+                  <footer class="text-sm text-warm-gray-500 mt-2">
+                    —— 基于2015年A股波动期间表现分析
+                    <a href="https://crm.htsc.com.cn/doc/2020/10750101/720748f0-fce0-44b3-9e4b-5be48a6b85ad.pdf" class="citation-link">[152]</a>
+                  </footer>
+                </blockquote>
+              </div>
+
+              <div>
+                <img src="https://kimi-web-img.moonshot.cn/img/support.coincall.com/23890854673cf46df3c4e87c9ab401f9c5286062" alt="期货交易操作界面" class="w-full h-48 object-cover rounded-lg mb-6 shadow-lg" size="medium" aspect="wide" style="photo" query="期货交易界面" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">适合小资金的CTA框架</h4>
+                  <div class="space-y-3">
+                    <div class="bg-sage-50 rounded p-3">
+                      <div class="font-medium text-sage-800 text-sm">简单择时模型</div>
+                      <div class="text-xs text-warm-gray-600">双均线或通道突破策略</div>
+                    </div>
+                    <div class="bg-sage-50 rounded p-3">
+                      <div class="font-medium text-sage-800 text-sm">迷你期货合约</div>
+                      <div class="text-xs text-warm-gray-600">迷你恒生指数期货，资金门槛低</div>
+                    </div>
+                    <div class="bg-sage-50 rounded p-3">
+                      <div class="font-medium text-sage-800 text-sm">严格资金管理</div>
+                      <div class="text-xs text-warm-gray-600">每次交易投入10%-20%，止损2%-5%</div>
+                    </div>
+                    <div class="bg-sage-50 rounded p-3">
+                      <div class="font-medium text-sage-800 text-sm">保持纪律</div>
+                      <div class="text-xs text-warm-gray-600">严格按照模型信号执行</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 border border-warm-gray-200 shadow-lg">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">择时模型构建与回测</h3>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-6">
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">动态择时模型</h4>
+                  <p class="text-warm-gray-700 text-sm mb-4">
+                    中金公司研究报告提供的CTA择时模型，通过多个宏观和市场指标综合判断未来市场波动率环境，
+                    对CTA策略仓位进行动态调整。
+                  </p>
+
+                  <div class="bg-sage-50 rounded-lg p-4">
+                    <h5 class="font-medium text-sage-800 mb-3">模型机制</h5>
+                    <div class="space-y-2 text-sm text-warm-gray-700">
+                      <div>• 选取5个择时指标（宏观经济、市场情绪等）</div>
+                      <div>• 每月底统计看多信号数量</div>
+                      <div>• 无看多信号：下月空仓</div>
+                      <div>• 至少1个看多信号：下月满仓</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">回测表现</h4>
+                  <div class="bg-gradient-to-br from-sage-50 to-sage-100 rounded-lg p-6">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-sage-700">9.29%</div>
+                        <div class="text-sm text-warm-gray-600">择时模型年化收益</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-sage-700">0.75</div>
+                        <div class="text-sm text-warm-gray-600">夏普比率</div>
+                      </div>
+                    </div>
+                    <div class="bg-white rounded p-3 border border-sage-200">
+                      <div class="text-xs text-warm-gray-600 mb-2">基准对比</div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-sm text-warm-gray-800">基准指数年化</span>
+                        <span class="font-semibold text-warm-gray-700">8.80%</span>
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-sm text-warm-gray-800">基准夏普率</span>
+                        <span class="font-semibold text-warm-gray-700">0.72</span>
+                      </div>
+                    </div>
+                    <div class="text-xs text-warm-gray-600 mt-3">
+                      回测期间：2015年7月至今
+                      <a href="https://www.usmart.hk/en/news-detail/6934462928557047813" class="citation-link block">[183]</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Special Strategies Section -->
+      <section id="special-strategies" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">特殊量化策略研究</h2>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">牛熊证量化策略</h3>
+
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                  <div class="flex items-start space-x-3">
+                    <div class="text-red-600 text-xl">
+                      <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-red-800">高风险提示</div>
+                      <div class="text-sm text-red-700 mt-1">
+                        牛熊证具有杠杆效应和强制收回机制，投资者可能在短时间内损失全部本金
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                  <div class="bg-sage-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-sage-800 mb-2">产品特性</h4>
+                    <ul class="text-sm text-warm-gray-700 space-y-1">
+                      <li>• <strong>杠杆效应：</strong> 5倍杠杆牛熊证价格变动约为标的资产的5倍</li>
+                      <li>• <strong>强制收回：</strong> 触及收回价时立即停止交易</li>
+                      <li>• <strong>剩余价值：</strong> 被收回后可能仍有价值，也可能一文不值</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-blue-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-blue-800 mb-2">操作方法</h4>
+                    <ul class="text-sm text-warm-gray-700 space-y-1">
+                      <li>• <strong>正股联动：</strong> 精准预测正股短期走势</li>
+                      <li>• <strong>高频交易：</strong> 利用算法捕捉微小价差</li>
+                      <li>• <strong>打窝轮：</strong> 香港传出的高频量化交易方法</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="bg-warm-gray-100 rounded-lg p-4">
+                  <h4 class="font-semibold text-warm-gray-800 mb-3">小资金参与方式</h4>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• <strong>入场门槛低：</strong> 几百甚至几十港元即可参与</div>
+                    <div>• <strong>风险控制：</strong> 选择收回价与现价有距离的条款</div>
+                    <div>• <strong>严格止损：</strong> 设定止损点并坚决执行</div>
+                    <div>• <strong>分散投资：</strong> 避免重仓或满仓操作</div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">仙股量化策略</h3>
+
+                <img src="https://kimi-web-img.moonshot.cn/img/static.fx168api.com/3d0e6027e1109bbdf570cdb40c60956e6eee399d.png" alt="股票风险警示标志" class="w-full h-48 object-cover rounded-lg mb-6 shadow-lg" size="medium" aspect="wide" query="股票风险警示" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6 mb-6">
+                  <div class="flex items-start space-x-3">
+                    <div class="text-yellow-600 text-xl">
+                      <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div>
+                      <div class="font-semibold text-yellow-800">极高风险警告</div>
+                      <div class="text-sm text-yellow-700 mt-1">
+                        仙股市场存在&#34;老千股&#34;陷阱，不法公司可能通过配股、供股、合股等手段损害小股东利益
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-4 mb-6">
+                  <div class="bg-red-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-red-800 mb-2">仙股特征识别</h4>
+                    <ul class="text-sm text-warm-gray-700 space-y-1">
+                      <li>• <strong>价格维度：</strong> 股价低于1港元，甚至低于0.1港元</li>
+                      <li>• <strong>流动性：</strong> 日成交额仅几千或几万港元</li>
+                      <li>• <strong>基本面：</strong> 市盈率为负、净资产为负</li>
+                      <li>• <strong>风险特征：</strong> 价格易被操控，&#34;庄股&#34;现象普遍</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <h4 class="font-semibold text-green-800 mb-2">策略机会</h4>
+                    <ul class="text-sm text-warm-gray-700 space-y-1">
+                      <li>• <strong>事件驱动：</strong> 资产重组、业务转型等催化剂</li>
+                      <li>• <strong>壳价值：</strong> 筛选可能被借壳上市的标的</li>
+                      <li>• <strong>量化挖掘：</strong> 利用NLP技术分析非结构化信息</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-red-600 to-red-700 rounded-xl p-8 text-white">
+              <div class="flex items-center space-x-4 mb-4">
+                <div class="text-3xl">
+                  <i class="fas fa-ban"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold">重要风险提示</h3>
+                  <p class="text-red-100">特殊策略仅适合经验丰富的专业投资者</p>
+                </div>
+              </div>
+              <div class="grid md:grid-cols-2 gap-6 text-sm">
+                <div>
+                  <h4 class="font-semibold mb-2">牛熊证风险</h4>
+                  <ul class="space-y-1 text-red-100">
+                    <li>• 强制收回机制可能导致全部本金损失</li>
+                    <li>• 高杠杆放大亏损，价格波动剧烈</li>
+                    <li>• 需严格风险控制和专业交易经验</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-2">仙股风险</h4>
+                  <ul class="space-y-1 text-red-100">
+                    <li>• 流动性枯竭，难以平仓</li>
+                    <li>• &#34;老千股&#34;陷阱，制度性风险高</li>
+                    <li>• 建议普通投资者远离仙股投资</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Index Strategies Section -->
+      <section id="index-strategies" class="py-20 bg-warm-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">指数多空策略深度剖析</h2>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">策略类型与构建方法</h3>
+
+                <div class="space-y-6">
+                  <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                    <div class="flex items-center space-x-3 mb-4">
+                      <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600">
+                        <i class="fas fa-chart-line"></i>
+                      </div>
+                      <h4 class="font-semibold text-warm-gray-800">技术指标择时策略</h4>
+                    </div>
+                    <p class="text-sm text-warm-gray-700 mb-3">
+                      利用移动平均线（MA）、MACD、RSI、布林带等技术指标判断指数趋势和转折点。
+                    </p>
+                    <div class="bg-blue-50 rounded p-3">
+                      <div class="text-xs text-blue-700">
+                        <strong>经典策略：</strong> 双均线策略，金叉买入，死叉卖出
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                    <div class="flex items-center space-x-3 mb-4">
+                      <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
+                        <i class="fas fa-balance-scale"></i>
+                      </div>
+                      <h4 class="font-semibold text-warm-gray-800">统计套利与配对交易</h4>
+                    </div>
+                    <p class="text-sm text-warm-gray-700 mb-3">
+                      分析不同指数间的协整关系，当价差偏离长期均值时进行套利交易。
+                    </p>
+                    <div class="bg-green-50 rounded p-3">
+                      <div class="text-xs text-green-700">
+                        <strong>典型配对：</strong> 恒生指数 vs. 恒生科技指数
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-white rounded-lg p-6 border border-warm-gray-200">
+                    <div class="flex items-center space-x-3 mb-4">
+                      <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-purple-600">
+                        <i class="fas fa-building"></i>
+                      </div>
+                      <h4 class="font-semibold text-warm-gray-800">基本面多因子策略</h4>
+                    </div>
+                    <p class="text-sm text-warm-gray-700 mb-3">
+                      分析指数成分股的整体估值水平，结合宏观经济数据构建预测模型。
+                    </p>
+                    <div class="bg-purple-50 rounded p-3">
+                      <div class="text-xs text-purple-700">
+                        <strong>评估指标：</strong> 整体市盈率、市净率、股息率等
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src="https://kimi-web-img.moonshot.cn/img/gbres.dfcfw.com/d266e700deadfac9e23b7beb92155ae1b5379a3c.jpg" alt="恒生指数K线图" class="w-full h-64 object-cover rounded-lg mb-6 shadow-lg" size="medium" aspect="wide" style="photo" query="恒生指数K线图" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+                <div class="bg-white rounded-lg p-6 border border-warm-gray-200 mb-6">
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">交易频率与成本分析</h4>
+
+                  <div class="space-y-4">
+                    <div class="bg-sage-50 rounded-lg p-4">
+                      <h5 class="font-medium text-sage-800 mb-2">日频策略</h5>
+                      <div class="text-sm text-warm-gray-700 space-y-1">
+                        <div>• 基于每日收盘数据</div>
+                        <div>• 交易成本低，延迟要求不高</div>
+                        <div>• 适合大多数投资者</div>
+                      </div>
+                    </div>
+
+                    <div class="bg-blue-50 rounded-lg p-4">
+                      <h5 class="font-medium text-blue-800 mb-2">分钟频策略</h5>
+                      <div class="text-sm text-warm-gray-700 space-y-1">
+                        <div>• 日内交易，持仓几分钟到几小时</div>
+                        <div>• 能精细捕捉短期波动</div>
+                        <div>• 交易成本相应增加</div>
+                      </div>
+                    </div>
+
+                    <div class="bg-red-50 rounded-lg p-4">
+                      <h5 class="font-medium text-red-800 mb-2">秒频策略</h5>
+                      <div class="text-sm text-warm-gray-700 space-y-1">
+                        <div>• 基于逐笔成交数据</div>
+                        <div>• 对系统延迟和稳定性要求极高</div>
+                        <div>• 专业量化机构专用</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-sage-100 rounded-lg p-6">
+                  <h4 class="font-semibold text-sage-800 mb-4">成本优化策略</h4>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 选择低成本经纪商和交易平台</div>
+                    <div>• 优化交易执行算法（TWAP、VWAP）</div>
+                    <div>• 适当降低交易频率，延长持仓周期</div>
+                    <div>• 组合多策略平滑收益曲线</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-8 border border-warm-gray-200 shadow-lg">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">数据输入与模型选择</h3>
+
+              <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-sage-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-sage-800 mb-3">数据类型</h4>
+                  <div class="space-y-2 text-sm text-warm-gray-700">
+                    <div>• <strong>分钟频数据：</strong> 1分钟、5分钟K线等</div>
+                    <div>• <strong>逐笔分时数据：</strong> 每笔交易的详细信息</div>
+                    <div>• <strong>日频数据：</strong> 开盘价、收盘价、成交量等</div>
+                  </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-800 mb-3">模型选择</h4>
+                  <div class="space-y-2 text-sm text-warm-gray-700">
+                    <div>• <strong>手工因子：</strong> 技术指标，可解释性强</div>
+                    <div>• <strong>树模型：</strong> 随机森林、GBDT等</div>
+                    <div>• <strong>深度模型：</strong> LSTM、CNN等</div>
+                  </div>
+                </div>
+
+                <div class="bg-purple-50 rounded-lg p-4">
+                  <h4 class="font-semibold text-purple-800 mb-3">波动率预测</h4>
+                  <div class="space-y-2 text-sm text-warm-gray-700">
+                    <div>• <strong>GARCH类模型：</strong> 时间序列基础模型</div>
+                    <div>• <strong>机器学习融合：</strong> RF、GBDT融合模型</div>
+                    <div>• <strong>双融合模型：</strong> GJR-GARCH-GBDT表现最优</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-r from-sage-50 to-sage-100 rounded-lg p-6">
+                <h4 class="font-semibold text-sage-800 mb-4">波动率预测成功案例</h4>
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p class="text-sm text-warm-gray-700 mb-4">
+                      结合GARCH类模型和机器学习模型的双融合模型在香港股市7只股票样本中表现出色。
+                      研究使用GARCH、GJR-GARCH和EGARCH等模型预测波动率，再与随机森林、GBDT等机器学习模型融合。
+                    </p>
+                    <p class="text-sm text-warm-gray-700">
+                      结果表明，<strong>GJR-GARCH-GBDT和EGARCH-GBDT</strong>等模型在波动率量化交易策略中取得了最优的获利结果。
+                      <a href="https://www.hanspub.org/journal/paperinformation?paperid=86820" class="citation-link">[104]</a>
+                    </p>
+                  </div>
+                  <div class="bg-white rounded-lg p-4 border border-sage-200">
+                    <h5 class="font-medium text-sage-800 mb-2">关键发现</h5>
+                    <ul class="text-sm text-warm-gray-700 space-y-1">
+                      <li>• 双融合模型预测精度优于单一模型</li>
+                      <li>• 融合模型在交易策略盈利能力上表现更优</li>
+                      <li>• 传统时间序列模型与先进机器学习技术相结合效果显著</li>
+                      <li>• 为指数多空策略提供新的技术路径</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Platforms and Tools Section -->
+      <section id="platforms-tools" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">量化交易平台、工具与数据源</h2>
+
+            <div class="mb-12">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-8">主流量化交易平台</h3>
+
+              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6 border border-blue-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white">
+                      <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h4 class="font-bold text-blue-800">富途牛牛</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• Open API支持Python</div>
+                    <div>• 内置网格交易工具</div>
+                    <div>• 覆盖港股、美股、A股</div>
+                  </div>
+                  <div class="mt-4 text-xs text-blue-600">
+                    <a href="https://www.futunn.com/learn/detail-grid-trading-strategy-53384-220487050" class="citation-link">[87]</a>
+                  </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6 border border-green-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-green-600 rounded-lg flex items-center justify-center text-white">
+                      <i class="fas fa-brain"></i>
+                    </div>
+                    <h4 class="font-bold text-green-800">同花顺</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• MindGo量化平台</div>
+                    <div>• 毫秒级回测</div>
+                    <div>• 丰富金融数据接口</div>
+                  </div>
+                  <div class="mt-4 text-xs text-green-600">
+                    <a href="https://finance.sina.com.cn/stock/aigcy/2025-12-09/doc-inhaeunc2949702.shtml" class="citation-link">[28]</a>
+                  </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-6 border border-purple-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-purple-600 rounded-lg flex items-center justify-center text-white">
+                      <i class="fas fa-snowflake"></i>
+                    </div>
+                    <h4 class="font-bold text-purple-800">雪盈证券</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 全球100+市场投资</div>
+                    <div>• 赠送港股Level-2行情</div>
+                    <div>• 支持窝轮、牛熊证</div>
+                  </div>
+                  <div class="mt-4 text-xs text-purple-600">
+                    <a href="https://finance.sina.com.cn/stock/aigcy/2025-12-09/doc-inhaeunc2949702.shtml" class="citation-link">[28]</a>
+                  </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-6 border border-orange-200">
+                  <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-10 h-10 bg-orange-600 rounded-lg flex items-center justify-center text-white">
+                      <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h4 class="font-bold text-orange-800">华盛证券</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 移动端APP体验出色</div>
+                    <div>• 适合高频交易</div>
+                    <div>• 提供量化工具</div>
+                  </div>
+                  <div class="mt-4 text-xs text-orange-600">
+                    <a href="https://finance.sina.com.cn/stock/aigcy/2025-12-09/doc-inhaeunc2949702.shtml" class="citation-link">[28]</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 mb-12">
+              <div>
+                <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">数据服务提供商</h3>
+
+                <div class="space-y-6">
+                  <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-green-800 mb-4">免费数据源</h4>
+                    <div class="space-y-4">
+                      <div class="bg-white rounded p-4 border border-green-100">
+                        <div class="flex items-center space-x-3 mb-2">
+                          <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center text-green-600">
+                            <i class="fas fa-code text-sm"></i>
+                          </div>
+                          <div class="font-medium text-warm-gray-800">AkShare</div>
+                        </div>
+                        <div class="text-sm text-warm-gray-600 mb-2">
+                          开源Python财经数据接口库，覆盖多市场
+                        </div>
+                        <div class="text-xs text-green-600">
+                          <a href="https://blog.csdn.net/qq_24452475/article/details/145841404" class="citation-link">[51]</a>
+                        </div>
+                      </div>
+
+                      <div class="bg-white rounded p-4 border border-green-100">
+                        <div class="flex items-center space-x-3 mb-2">
+                          <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center text-blue-600">
+                            <i class="fas fa-globe text-sm"></i>
+                          </div>
+                          <div class="font-medium text-warm-gray-800">Yahoo Finance</div>
+                        </div>
+                        <div class="text-sm text-warm-gray-600 mb-2">
+                          全球数据丰富，易于获取，适合国际市场
+                        </div>
+                        <div class="text-xs text-green-600">
+                          适合：初学者、个人研究者
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-red-50 border border-red-200 rounded-lg p-6">
+                    <h4 class="font-semibold text-red-800 mb-4">付费数据源</h4>
+                    <div class="space-y-4">
+                      <div class="bg-white rounded p-4 border border-red-100">
+                        <div class="flex items-center space-x-3 mb-2">
+                          <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center text-red-600">
+                            <i class="fas fa-tachometer-alt text-sm"></i>
+                          </div>
+                          <div class="font-medium text-warm-gray-800">同花顺OpenAPI</div>
+                        </div>
+                        <div class="text-sm text-warm-gray-600 mb-2">
+                          毫秒级实时行情，Level-2数据，覆盖多市场
+                        </div>
+                        <div class="text-xs text-red-600">
+                          适合：专业量化交易者、机构
+                        </div>
+                      </div>
+
+                      <div class="bg-white rounded p-4 border border-red-100">
+                        <div class="flex items-center space-x-3 mb-2">
+                          <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center text-purple-600">
+                            <i class="fas fa-bolt text-sm"></i>
+                          </div>
+                          <div class="font-medium text-warm-gray-800">XTick / iTick</div>
+                        </div>
+                        <div class="text-sm text-warm-gray-600 mb-2">
+                          低延迟全球实时行情，适合高频交易
+                        </div>
+                        <div class="text-xs text-red-600">
+                          <a href="https://zhuanlan.zhihu.com/p/1963564455280477300" class="citation-link">[49]</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <img src="https://kimi-web-img.moonshot.cn/img/s2.51cto.com/f23ec40e877286caa2547e8d09a538b52736cc57.jpg" alt="金融数据中心服务器机房" class="w-full h-64 object-cover rounded-lg mb-6 shadow-lg" size="medium" aspect="wide" style="photo" query="金融数据中心服务器机房" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+
+                <div class="bg-sage-100 rounded-lg p-6 border border-sage-200">
+                  <h4 class="font-semibold text-sage-800 mb-4">数据接口选择建议</h4>
+                  <div class="space-y-3 text-sm text-warm-gray-700">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-200 rounded-full flex items-center justify-center text-sage-600 text-xs">1</div>
+                      <div>
+                        <div class="font-medium">评估策略需求</div>
+                        <div>低频策略可用免费API，高频需付费服务</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-200 rounded-full flex items-center justify-center text-sage-600 text-xs">2</div>
+                      <div>
+                        <div class="font-medium">考虑成本预算</div>
+                        <div>付费数据源费用不菲，需权衡性价比</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-200 rounded-full flex items-center justify-center text-sage-600 text-xs">3</div>
+                      <div>
+                        <div class="font-medium">关注技术支持</div>
+                        <div>接口稳定性、易用性和技术支持很重要</div>
+                      </div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-6 h-6 bg-sage-200 rounded-full flex items-center justify-center text-sage-600 text-xs">4</div>
+                      <div>
+                        <div class="font-medium">选择优质接口</div>
+                        <div>应具备RESTful架构、标准JSON格式等特点</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4 text-xs text-sage-600">
+                    <a href="https://qos.hk/blog/python-quant-data-hk-us-cn-guide.html" class="citation-link">[31]</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 rounded-xl p-8 border border-blue-200">
+              <h3 class="text-xl font-serif font-semibold text-blue-800 mb-6">平台选择决策框架</h3>
+              <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-lg p-4 border border-blue-100">
+                  <div class="text-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 mx-auto mb-2">
+                      <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h4 class="font-semibold text-blue-800">初学者</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 推荐：富途牛牛、AkShare</div>
+                    <div>• 优势：操作简单，学习成本低</div>
+                    <div>• 特点：图形化界面，免费数据</div>
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-blue-100">
+                  <div class="text-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 mx-auto mb-2">
+                      <i class="fas fa-user-tie"></i>
+                    </div>
+                    <h4 class="font-semibold text-green-800">专业个人</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 推荐：同花顺MindGo、XTick</div>
+                    <div>• 优势：功能强大，数据全面</div>
+                    <div>• 特点：支持编程，实时行情</div>
+                  </div>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-blue-100">
+                  <div class="text-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 mx-auto mb-2">
+                      <i class="fas fa-building"></i>
+                    </div>
+                    <h4 class="font-semibold text-purple-800">机构投资者</h4>
+                  </div>
+                  <div class="text-sm text-warm-gray-700 space-y-2">
+                    <div>• 推荐：同花顺iFinD、iTick</div>
+                    <div>• 优势：超低延迟，专业服务</div>
+                    <div>• 特点：Level-2数据，API接口</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Conclusion Section -->
+      <section id="conclusion" class="py-20 bg-warm-gray-50">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-serif font-bold text-sage-800 mb-12 text-center">结论与展望</h2>
+
+            <div class="bg-white rounded-xl p-8 border border-warm-gray-200 shadow-lg mb-8">
+              <h3 class="text-2xl font-serif font-semibold text-sage-700 mb-6">核心发现总结</h3>
+
+              <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">市场特征与机遇</h4>
+                  <div class="space-y-3 text-sm text-warm-gray-700">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-sage-400 rounded-full mt-2"></div>
+                      <div>仙股现象普遍（占比56%），需要在策略构建时剔除以保证数据质量</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-sage-400 rounded-full mt-2"></div>
+                      <div>流动性高度集中于头部200+股票，占据市场80%以上成交额</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-sage-400 rounded-full mt-2"></div>
+                      <div>A/H股溢价长期存在，为跨境套利策略提供机会</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-sage-400 rounded-full mt-2"></div>
+                      <div>南向资金持续流入，改善港股流动性和定价效率</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold text-warm-gray-800 mb-4">策略表现与选择</h4>
+                  <div class="space-y-3 text-sm text-warm-gray-700">
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-blue-400 rounded-full mt-2"></div>
+                      <div>多因子策略表现稳健，价值策略年化收益达19.9%</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-green-400 rounded-full mt-2"></div>
+                      <div>CTA策略提供&#34;危机Alpha&#34;对冲功能，但需警惕震荡市风险</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-purple-400 rounded-full mt-2"></div>
+                      <div>小资金&#34;菜场大妈&#34;策略年化收益62.34%，夏普比率2.25</div>
+                    </div>
+                    <div class="flex items-start space-x-3">
+                      <div class="w-2 h-2 bg-orange-400 rounded-full mt-2"></div>
+                      <div>特殊策略（牛熊证、仙股）风险极高，需严格风险控制</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <blockquote class="border-l-4 border-sage-400 pl-6 py-4 bg-sage-50 rounded-r-lg">
+                <p class="text-warm-gray-700 italic text-lg mb-2">
+                  &#34;港股市场的独特性为量化投资带来了特殊的挑战与机遇。成功的关键在于深刻理解市场特性，
+                  选择适合的交易平台与数据源，并严格控制交易成本与滑点。&#34;
+                </p>
+                <footer class="text-sm text-warm-gray-500">
+                  —— 基于全报告分析总结
+                </footer>
+              </blockquote>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <div class="bg-sage-50 rounded-lg p-6 border border-sage-200">
+                <div class="text-center mb-4">
+                  <div class="w-12 h-12 bg-sage-600 rounded-full flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fas fa-lightbulb"></i>
+                  </div>
+                  <h4 class="font-semibold text-sage-800">策略建议</h4>
+                </div>
+                <ul class="text-sm text-warm-gray-700 space-y-2">
+                  <li>• 剔除仙股保证数据质量</li>
+                  <li>• 优先选择港股通标的池</li>
+                  <li>• 平衡流动性与Alpha潜力</li>
+                  <li>• 考虑南向资金影响</li>
+                </ul>
+              </div>
+
+              <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                <div class="text-center mb-4">
+                  <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fas fa-tools"></i>
+                  </div>
+                  <h4 class="font-semibold text-blue-800">技术建议</h4>
+                </div>
+                <ul class="text-sm text-warm-gray-700 space-y-2">
+                  <li>• 选择适合的数据服务商</li>
+                  <li>• 建立稳健的数据处理流程</li>
+                  <li>• 优化交易执行算法</li>
+                  <li>• 严格控制交易成本</li>
+                </ul>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+                <div class="text-center mb-4">
+                  <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white mx-auto mb-3">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <h4 class="font-semibold text-green-800">风控建议</h4>
+                </div>
+                <ul class="text-sm text-warm-gray-700 space-y-2">
+                  <li>• 避免过度依赖单一因子</li>
+                  <li>• 警惕特殊产品风险</li>
+                  <li>• 建立严格止损机制</li>
+                  <li>• 动态调整仓位管理</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-gradient-to-r from-sage-600 to-sage-700 rounded-xl p-8 text-white">
+              <h3 class="text-2xl font-serif font-semibold mb-6 text-center">未来展望</h3>
+              <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="font-semibold mb-3">技术发展趋势</h4>
+                  <div class="space-y-2 text-sm text-sage-100">
+                    <div>• 机器学习与深度学习模型应用将更加普及</div>
+                    <div>• 高频交易技术门槛逐步降低</div>
+                    <div>• 数据服务商竞争加剧，成本有望下降</div>
+                    <div>• 监管科技（RegTech）发展促进市场透明化</div>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-semibold mb-3">市场机会展望</h4>
+                  <div class="space-y-2 text-sm text-sage-100">
+                    <div>• 新经济公司持续涌入港股市场</div>
+                    <div>• 南向资金影响力不断增强</div>
+                    <div>• 衍生品市场创新发展提供新工具</div>
+                    <div>• ESG投资理念量化策略应用前景广阔</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-warm-gray-800 text-warm-gray-300 py-12">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl mx-auto text-center">
+            <h3 class="text-xl font-serif font-semibold text-white mb-4">港股市场量化投资策略深度研究报告</h3>
+            <p class="text-sm mb-6">
+              本报告基于公开数据和研究资料，仅供学习参考。投资有风险，入市需谨慎。
+            </p>
+            <div class="border-t border-warm-gray-700 pt-6 text-xs text-warm-gray-400">
+              <p>数据来源：中金公司研究部、港交所、公开研究报告等</p>
+              <p class="mt-2">报告生成日期：2025年6月</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+                primaryColor: '#f6f7f6',
+                primaryTextColor: '#1c1917',
+                primaryBorderColor: '#5d7a5d',
+                lineColor: '#57534e',
+                secondaryColor: '#e3e7e3',
+                tertiaryColor: '#f5f5f4',
+                background: '#ffffff',
+                mainBkg: '#f6f7f6',
+                secondBkg: '#e3e7e3',
+                tertiaryColor: '#f5f5f4',
+                // Enhanced contrast colors for different node types
+                cScale0: '#5d7a5d',
+                cScale1: '#4a634a',
+                cScale2: '#3d523d',
+                cScale3: '#334333',
+                cScale4: '#2c372c',
+                // Text colors for better contrast
+                cScaleLabel0: '#1c1917',
+                cScaleLabel1: '#1c1917',
+                cScaleLabel2: '#1c1917',
+                cScaleLabel3: '#f5f5f4',
+                cScaleLabel4: '#f5f5f4'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            timeline: {
+                useMaxWidth: true,
+                padding: 20
+            },
+            fontSize: 13,
+            fontFamily: 'Inter, sans-serif'
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Mermaid controls
+            initializeMermaidControls();
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Toggle TOC on mobile
+            const tocToggle = document.getElementById('toc-toggle');
+            const toc = document.getElementById('toc');
+            const mainContent = document.getElementById('main-content');
+            
+            if (tocToggle && toc) {
+                tocToggle.addEventListener('click', () => {
+                    toc.classList.toggle('-translate-x-full');
+                });
+                
+                // Close TOC when clicking outside on mobile
+                document.addEventListener('click', (e) => {
+                    if (window.innerWidth < 1024 && 
+                        !toc.contains(e.target) && 
+                        !tocToggle.contains(e.target) &&
+                        !toc.classList.contains('-translate-x-full')) {
+                        toc.classList.add('-translate-x-full');
+                    }
+                });
+            }
+
+            // Highlight active section in TOC
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('#toc a[href^="#"]');
+
+            function highlightActiveSection() {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                tocLinks.forEach(link => {
+                    link.classList.remove('bg-sage-100', 'text-sage-800');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('bg-sage-100', 'text-sage-800');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', highlightActiveSection);
+            highlightActiveSection(); // Initial call
+        });
+    </script>
+  
+
+</body></html>

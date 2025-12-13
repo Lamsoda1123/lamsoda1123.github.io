@@ -1,0 +1,2073 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>2025年12月稳健增长投资策略分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'earth': {
+                            50: '#faf9f7',
+                            100: '#f3f1ed',
+                            200: '#e6e2da',
+                            300: '#d5cfc3',
+                            400: '#c0b8a8',
+                            500: '#a89670',
+                            600: '#8b7355',
+                            700: '#6d5a44',
+                            800: '#4a3d30',
+                            900: '#2e261e'
+                        },
+                        'navy': {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#102a43'
+                        },
+                        'gold': {
+                            50: '#fefdf9',
+                            100: '#fef7ed',
+                            200: '#fdecc8',
+                            300: '#fbd997',
+                            400: '#f8c05a',
+                            500: '#f5a623',
+                            600: '#d4880f',
+                            700: '#b36b0b',
+                            800: '#8f540e',
+                            900: '#734512'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #102a43 0%, #334e68 50%, #486581 100%);
+        }
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .citation-link {
+            @apply text-navy-600 hover:text-navy-800 underline transition-colors duration-200;
+        }
+        .toc-link {
+            @apply block py-2 px-4 text-sm text-navy-700 hover:text-navy-900 hover:bg-earth-100 rounded transition-all duration-200;
+        }
+        .toc-link.active {
+            @apply text-navy-900 bg-earth-200 border-l-2 border-gold-500;
+        }
+        .expandable-section {
+            @apply bg-white rounded-lg shadow-sm border border-earth-200 overflow-hidden;
+        }
+        .expandable-header {
+            @apply flex items-center justify-between p-4 cursor-pointer hover:bg-earth-50 transition-colors duration-200;
+        }
+        .expandable-content {
+            @apply px-4 pb-4 hidden;
+        }
+        .expandable-content.expanded {
+            @apply block;
+        }
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+    .mermaid-control-btn:active {
+        transform: scale(0.95);
+    }
+
+    @media (max-width: 1024px) {
+        .mermaid-control-btn:not(.reset-zoom) {
+            display: none;
+        }
+        .mermaid-controls {
+            top: auto;
+            bottom: 15px;
+            right: 15px;
+        }
+    }
+</style>
+  <base target="_blank">
+</head>
+
+  <body class="bg-earth-50 text-navy-900 font-sans overflow-x-hidden">
+    <!-- Toggle button for mobile -->
+    <button id="toc-toggle" class="fixed top-4 left-4 z-50 p-2 bg-navy-800 text-white rounded-lg shadow-lg md:hidden">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Fixed Table of Contents -->
+    <div id="toc-container" class="fixed left-0 top-0 h-screen w-64 bg-white/95 backdrop-blur-sm border-r border-earth-200 z-40 overflow-y-auto transform -translate-x-full md:translate-x-0 transition-transform duration-300">
+      <div class="p-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-serif font-bold text-lg text-navy-800">目录</h3>
+          <button id="toc-close" class="md:hidden text-navy-700">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <nav class="space-y-1">
+          <a href="#hero" class="toc-link">概览与核心策略</a>
+          <a href="#market-timing" class="toc-link">1. 投资时机评估</a>
+          <a href="#core-strategy" class="toc-link">2. 杠铃策略详解</a>
+          <a href="#dividend-strategy" class="toc-link">3. 红利低波策略分析</a>
+          <a href="#investment-comparison" class="toc-link">4. 投资标的选择</a>
+          <a href="#bond-futures" class="toc-link">5. 国债期货机会</a>
+          <a href="#implementation" class="toc-link">6. 实施方案</a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="md:ml-64">
+      <!-- Hero Section -->
+      <section id="hero" class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="container mx-auto px-4 md:px-8 py-16 relative z-10">
+          <!-- Bento Grid Layout -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-12">
+            <!-- Main Title -->
+            <div class="md:col-span-8 bg-white/10 backdrop-blur-sm rounded-2xl p-4 md:p-8 border border-white/20">
+              <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight break-words">
+                <em class="text-gold-300">稳健增长</em>
+                <br/>
+                投资策略分析
+              </h1>
+              <p class="text-xl text-earth-100 mb-6 break-words">2025年12月市场环境下中等风险投资者的资产配置方案</p>
+              <div class="flex items-center space-x-4 text-earth-200">
+                <span class="flex items-center">
+                  <i class="fas fa-calendar-alt mr-2"></i>
+                  2025年12月
+                </span>
+                <span class="flex items-center">
+                  <i class="fas fa-chart-line mr-2"></i>
+                  战略配置时点
+                </span>
+              </div>
+            </div>
+
+            <!-- Key Highlights -->
+            <div class="md:col-span-4 space-y-4">
+              <div class="bg-gold-500/20 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-gold-300/30">
+                <h3 class="font-serif text-xl font-bold text-white mb-3">核心观点</h3>
+                <p class="text-earth-100 text-sm leading-relaxed">当前市场震荡期，红利低波策略凭借&#34;日历效应&#34;和低利率环境下的高股息优势，<strong class="text-gold-300">具备显著投资价值</strong></p>
+              </div>
+              <div class="bg-navy-600/30 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-navy-300/30">
+                <h3 class="font-serif text-xl font-bold text-white mb-3">配置建议</h3>
+                <p class="text-earth-100 text-sm leading-relaxed">采用&#34;杠铃策略&#34;：<strong class="text-gold-300">70%-80%</strong>高股息红利ETF + <strong class="text-gold-300">20%-30%</strong>科技成长ETF</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Market Indicators -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white/15 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-white/20">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-serif text-lg font-bold text-white">市场指标</h3>
+                <i class="fas fa-chart-bar text-gold-300"></i>
+              </div>
+              <div class="space-y-3 text-earth-100">
+                <div class="flex justify-between">
+                  <span>沪指</span>
+                  <span class="text-gold-300 font-semibold">&lt; 3900点</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>恒生指数</span>
+                  <span class="text-gold-300 font-semibold">&lt; 26000点</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>10年期国债</span>
+                  <span class="text-gold-300 font-semibold">~1.7%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white/15 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-white/20">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-serif text-lg font-bold text-white">股息率对比</h3>
+                <i class="fas fa-coins text-gold-300"></i>
+              </div>
+              <div class="space-y-3 text-earth-100">
+                <div class="flex justify-between">
+                  <span>A股红利低波</span>
+                  <span class="text-gold-300 font-semibold">5.26%</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>港股通高股息</span>
+                  <span class="text-gold-300 font-semibold">6.44%</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>标普港股低波</span>
+                  <span class="text-gold-300 font-semibold">7.66%</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white/15 backdrop-blur-sm rounded-xl p-4 md:p-6 border border-white/20">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="font-serif text-lg font-bold text-white">资金流入</h3>
+                <i class="fas fa-arrow-trend-up text-gold-300"></i>
+              </div>
+              <div class="space-y-3 text-earth-100">
+                <div class="flex justify-between">
+                  <span>港股通红利ETF</span>
+                  <span class="text-gold-300 font-semibold">连续29日</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>恒生红利低波ETF</span>
+                  <span class="text-gold-300 font-semibold">5.6亿元</span>
+                </div>
+                <div class="flex justify-between">
+                  <span>权益类ETF</span>
+                  <span class="text-gold-300 font-semibold">766亿元</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Strategy Section -->
+      <section id="market-timing" class="py-16 bg-white">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">1. 核心投资策略与时机评估</h2>
+
+            <!-- Market Environment -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">1.1 当前市场环境分析</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="prose max-w-none">
+                  <p class="text-lg text-navy-700 mb-6">进入2025年12月，A股市场整体呈现震荡整理态势，缺乏明确的、可持续的主线行情。截至12月3日，<strong>沪指已跌破3900点，恒生指数亦跌破26000点</strong>，显示出市场情绪偏向谨慎，避险情绪浓厚。</p>
+
+                  <div class="bg-earth-50 rounded-lg p-6 mb-6">
+                    <h4 class="font-bold text-navy-800 mb-4">市场特征分析</h4>
+                    <ul class="space-y-2 text-navy-700">
+                      <li class="flex items-start">
+                        <i class="fas fa-shield-alt text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>防御性板块受青睐</strong>：煤炭、交通运输、机场、电力等传统红利资产板块表现出较强的护盘特征</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-chart-line text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>大盘风格占优</strong>：2015-2024年十年间，12月大盘风格明显占优，沪深300指数跑赢万得全A概率较高</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-exchange-alt text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>高低切换轮动</strong>：随着市场风险偏好修复进入&#34;平台期&#34;，低估值、高股息的红利板块配置价值增强</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <p class="text-navy-700 mb-4">数据来源：<a href="https://www.nfnews.com/content/Lownpgxe6J.html" class="citation-link" target="_blank">南华早报</a>、<a href="https://wallstreetcn.com/articles/3760738" class="citation-link" target="_blank">华尔街见闻</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Policy Environment -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">1.2 政策环境与险资增配</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="grid md:grid-cols-2 gap-6">
+                  <div class="bg-earth-50 rounded-lg p-6">
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-building text-gold-500 mr-3"></i>
+                      机构年末调仓
+                    </h4>
+                    <ul class="space-y-2 text-navy-700 text-sm">
+                      <li>• 年末机构进行资产再平衡和锁定收益</li>
+                      <li>• 卖出短期估值偏高的成长股</li>
+                      <li>• 增配估值低位、基本面稳健品种</li>
+                      <li>• 直接利好高股息防御性资产</li>
+                    </ul>
+                  </div>
+                  <div class="bg-earth-50 rounded-lg p-6">
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-shield-alt text-gold-500 mr-3"></i>
+                      险资政策利好
+                    </h4>
+                    <ul class="space-y-2 text-navy-700 text-sm">
+                      <li>• 监管层下调险资投资股票风险因子</li>
+                      <li>• 释放千亿级别权益加仓空间</li>
+                      <li>• 个人养老金制度推广至全国</li>
+                      <li>• 12月至次年一季度险资&#34;开门红&#34;</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-gold-50 rounded-lg border border-gold-200">
+                  <p class="text-navy-700 text-sm">
+                    <strong>关键洞察：</strong>中证红利全收益指数在1月、12月以及7月份的胜率超过50%，显示出明显的&#34;日历效应&#34;。当前港股通高股息板块的成交额占比仅为6%，拥挤度较低，是较好的配置时机。
+                  </p>
+                  <p class="text-sm text-navy-600 mt-2">
+                    数据来源：<a href="http://stock.eastmoney.com/a/202512053584011551.html" class="citation-link" target="_blank">东方财富</a>、<a href="https://www.nbd.com.cn/articles/2025-12-08/4171892.shtml" class="citation-link" target="_blank">每日经济新闻</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interest Rate Environment -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">1.3 低利率环境的支撑</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="mb-6">
+                  <div class="bg-navy-50 rounded-lg p-6">
+                    <h4 class="font-bold text-navy-800 mb-4">利率环境对比</h4>
+                    <div class="grid md:grid-cols-3 gap-4">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-navy-600">1.7%</div>
+                        <div class="text-sm text-navy-500">10年期国债收益率</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-gold-600">5.26%</div>
+                        <div class="text-sm text-navy-500">中证红利低波指数</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-gold-600">7.66%</div>
+                        <div class="text-sm text-navy-500">标普港股通低波红利</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="prose max-w-none">
+                  <p class="text-navy-700 mb-4">当前的利率环境是支撑红利低波策略长期配置价值的核心因素。中国经济增速放缓，无风险利率持续走低，<strong>10年期国债收益率已降至1.7%左右的历史低位</strong>。</p>
+
+                  <p class="text-navy-700 mb-4">海外市场的利率环境同样对红利策略构成利好。市场普遍预期美联储在12月将进行降息，CME FedWatch工具显示，<strong>市场预期美联储12月降息的概率已升至约87%</strong>。</p>
+
+                  <p class="text-sm text-navy-600">
+                    数据来源：<a href="https://zhuanlan.zhihu.com/p/22364100180" class="citation-link" target="_blank">知乎专栏</a>、<a href="https://finance.sina.com.cn/money/fund/etf/2025-12-08/doc-inhaaexp1932648.shtml" class="citation-link" target="_blank">新浪财经</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Barbell Strategy Section -->
+      <section id="core-strategy" class="py-16 bg-earth-50">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">2. 杠铃策略详解</h2>
+
+            <!-- Strategy Overview -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">2.1 杠铃策略核心理念</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="prose max-w-none mb-6">
+                  <p class="text-lg text-navy-700">对于以长期稳健增长为目标、具备中等风险承受能力的投资者，<strong>&#34;杠铃策略&#34;（Barbell Strategy）</strong>是一种理想的资产配置方案。该策略的核心思想是主动放弃&#34;中等风险、中等回报&#34;的模糊地带，将资产主要配置在两个极端。</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-6">
+                  <!-- Defensive End -->
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-navy-600 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-shield-alt text-white"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-navy-800">防守端</h4>
+                        <p class="text-sm text-navy-600">高胜率、低波动</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-2 text-navy-700 text-sm">
+                      <li>• 基准国债ETF</li>
+                      <li>• 自由现金流ETF</li>
+                      <li>• 红利低波ETF</li>
+                      <li>• 银行ETF</li>
+                    </ul>
+                    <div class="mt-4 p-3 bg-navy-50 rounded">
+                      <div class="text-2xl font-bold text-navy-600">70-80%</div>
+                      <div class="text-xs text-navy-500">配置比例</div>
+                    </div>
+                  </div>
+
+                  <!-- Offensive End -->
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <div class="flex items-center mb-4">
+                      <div class="w-12 h-12 bg-gold-500 rounded-full flex items-center justify-center mr-4">
+                        <i class="fas fa-rocket text-white"></i>
+                      </div>
+                      <div>
+                        <h4 class="font-bold text-navy-800">进攻端</h4>
+                        <p class="text-sm text-navy-600">高赔率、高弹性</p>
+                      </div>
+                    </div>
+                    <ul class="space-y-2 text-navy-700 text-sm">
+                      <li>• A500ETF</li>
+                      <li>• 科创创业50ETF</li>
+                      <li>• 恒生科技指数ETF</li>
+                      <li>• 中证1000ETF</li>
+                    </ul>
+                    <div class="mt-4 p-3 bg-gold-50 rounded">
+                      <div class="text-2xl font-bold text-gold-600">20-30%</div>
+                      <div class="text-xs text-navy-500">配置比例</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-gold-50 rounded-lg p-6">
+                  <h4 class="font-bold text-navy-800 mb-3">策略优势</h4>
+                  <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div class="flex items-start">
+                      <i class="fas fa-check-circle text-gold-500 mt-1 mr-2"></i>
+                      <span><strong>纪律性：</strong>通过定期再平衡实现&#34;高卖低买&#34;</span>
+                    </div>
+                    <div class="flex items-start">
+                      <i class="fas fa-check-circle text-gold-500 mt-1 mr-2"></i>
+                      <span><strong>适应性：</strong>无需预测短期市场走势</span>
+                    </div>
+                    <div class="flex items-start">
+                      <i class="fas fa-check-circle text-gold-500 mt-1 mr-2"></i>
+                      <span><strong>反脆弱：</strong>在各种市场环境下都能保持稳健</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Implementation Strategy -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">2.2 实施策略与再平衡</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <h4 class="font-bold text-navy-800 mb-4">配置原则</h4>
+                    <ul class="space-y-3 text-navy-700">
+                      <li class="flex items-start">
+                        <i class="fas fa-user-clock text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>年龄因素：</strong>年轻投资者可适当提高进攻端比例</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-chart-line text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>收入稳定性：</strong>收入稳定可增加防守端配置</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-hourglass-half text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>投资期限：</strong>长期投资可承受更大波动</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-bold text-navy-800 mb-4">再平衡策略</h4>
+                    <ul class="space-y-3 text-navy-700">
+                      <li class="flex items-start">
+                        <i class="fas fa-calendar-check text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>季度再平衡：</strong>每季度末进行组合调整</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-chart-bar text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>阈值触发：</strong>资产偏离目标比例超过5%时调整</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-balance-scale text-gold-500 mt-1 mr-3"></i>
+                        <span><strong>纪律执行：</strong>避免情绪化交易，严格执行计划</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Interactive Mermaid Diagram -->
+                <div class="bg-white rounded-lg p-6 border border-earth-200">
+                  <h5 class="font-bold text-navy-800 mb-4 text-center">杠铃策略资产配置流程</h5>
+                  <div class="mermaid-container">
+                    <div class="mermaid-controls">
+                      <button class="mermaid-control-btn zoom-in" title="放大">
+                        <i class="fas fa-search-plus"></i>
+                      </button>
+                      <button class="mermaid-control-btn zoom-out" title="缩小">
+                        <i class="fas fa-search-minus"></i>
+                      </button>
+                      <button class="mermaid-control-btn reset-zoom" title="重置">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                      </button>
+                      <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                        <i class="fas fa-expand"></i>
+                      </button>
+                    </div>
+                    <div class="mermaid" id="portfolio-diagram">
+                      graph TD
+                      A[&#34;投资者风险评估&#34;] --&gt; B[&#34;资产配置决策&#34;]
+                      B --&gt; C[&#34;防守端 70-80%&#34;]
+                      B --&gt; D[&#34;进攻端 20-30%&#34;]
+                      C --&gt; E[&#34;高股息红利ETF&#34;]
+                      C --&gt; F[&#34;国债ETF&#34;]
+                      C --&gt; G[&#34;银行ETF&#34;]
+                      D --&gt; H[&#34;科技成长ETF&#34;]
+                      D --&gt; I[&#34;新兴产业ETF&#34;]
+                      E --&gt; J[&#34;定期再平衡&#34;]
+                      F --&gt; J
+                      G --&gt; J
+                      H --&gt; J
+                      I --&gt; J
+                      J --&gt; K[&#34;风险控制与收益优化&#34;]
+
+                      style A fill:#334e68,stroke:#243b53,stroke-width:3px,color:#ffffff,font-weight:bold
+                      style B fill:#486581,stroke:#334e68,stroke-width:3px,color:#ffffff,font-weight:bold
+                      style C fill:#627d98,stroke:#486581,stroke-width:3px,color:#ffffff,font-weight:bold
+                      style D fill:#f5a623,stroke:#d4880f,stroke-width:3px,color:#ffffff,font-weight:bold
+                      style E fill:#829ab1,stroke:#627d98,stroke-width:2px,color:#ffffff,font-weight:600
+                      style F fill:#829ab1,stroke:#627d98,stroke-width:2px,color:#ffffff,font-weight:600
+                      style G fill:#829ab1,stroke:#627d98,stroke-width:2px,color:#ffffff,font-weight:600
+                      style H fill:#f8c05a,stroke:#f5a623,stroke-width:2px,color:#ffffff,font-weight:600
+                      style I fill:#f8c05a,stroke:#f5a623,stroke-width:2px,color:#ffffff,font-weight:600
+                      style J fill:#a89670,stroke:#8b7355,stroke-width:3px,color:#ffffff,font-weight:bold
+                      style K fill:#2e261e,stroke:#1a1610,stroke-width:3px,color:#ffffff,font-weight:bold
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-6 p-4 bg-navy-50 rounded-lg">
+                  <p class="text-navy-700 text-sm">
+                    <strong>成功关键：</strong>再平衡是杠铃策略成功的关键。市场波动会导致组合中各类资产的权重偏离初始设定。通过纪律性的&#34;高卖低买&#34;，可以锁定部分收益，有效控制组合的整体风险暴露。
+                  </p>
+                  <p class="text-sm text-navy-600 mt-2">
+                    数据来源：<a href="https://www.163.com/dy/article/KGBTQLMH0519BKFH.html" class="citation-link" target="_blank">网易财经</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Dividend Strategy Analysis -->
+      <section id="dividend-strategy" class="py-16 bg-white">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">3. 红利低波策略深度分析</h2>
+
+            <!-- Investment Value -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">3.1 2025年12月投资价值</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <!-- Calendar Effect -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-calendar-alt text-gold-500 mr-3"></i>
+                    日历效应与资金流入
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-earth-50 rounded-lg p-6">
+                      <h5 class="font-semibold text-navy-800 mb-3">历史数据统计</h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 中证红利全收益指数：1月、12月胜率&gt;50%</li>
+                        <li>• 港股高股息板块：12月-次年1月中旬上涨概率90.9%</li>
+                        <li>• 上证50和沪深300：12月平均收益率显著高于中证1000</li>
+                      </ul>
+                    </div>
+                    <div class="bg-earth-50 rounded-lg p-6">
+                      <h5 class="font-semibold text-navy-800 mb-3">近期资金动向</h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 恒生红利低波ETF：单周吸金5.6亿元</li>
+                        <li>• 港股通红利ETF：连续29个交易日净流入</li>
+                        <li>• 中证红利ETF：近10日吸金3.51亿元</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Defensive Attributes -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt text-gold-500 mr-3"></i>
+                    低利率环境下的防御属性
+                  </h4>
+                  <div class="bg-navy-50 rounded-lg p-6">
+                    <div class="grid md:grid-cols-3 gap-4">
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-navy-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <i class="fas fa-coins text-white text-xl"></i>
+                        </div>
+                        <h6 class="font-semibold text-navy-800 mb-2">高股息率</h6>
+                        <p class="text-sm text-navy-600">显著高于无风险利率，提供稳定现金回报</p>
+                      </div>
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-navy-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <i class="fas fa-chart-line text-white text-xl"></i>
+                        </div>
+                        <h6 class="font-semibold text-navy-800 mb-2">低波动性</h6>
+                        <p class="text-sm text-navy-600">规避投机性强的股票，降低组合波动</p>
+                      </div>
+                      <div class="text-center">
+                        <div class="w-16 h-16 bg-navy-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                          <i class="fas fa-trophy text-white text-xl"></i>
+                        </div>
+                        <h6 class="font-semibold text-navy-800 mb-2">历史表现</h6>
+                        <p class="text-sm text-navy-600">11年中有10年实现年度正涨幅</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Risk Factors -->
+                <div>
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-exclamation-triangle text-gold-500 mr-3"></i>
+                    风险因素评估
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-amber-50 rounded-lg p-6 border border-amber-200">
+                      <h5 class="font-semibold text-amber-800 mb-3">估值风险</h5>
+                      <ul class="space-y-2 text-amber-700 text-sm">
+                        <li>• 红利低波100指数PE百分位达90.31%</li>
+                        <li>• 部分指数估值处于历史较高水平</li>
+                        <li>• 需关注PB估值和股息率历史分位</li>
+                      </ul>
+                    </div>
+                    <div class="bg-amber-50 rounded-lg p-6 border border-amber-200">
+                      <h5 class="font-semibold text-amber-800 mb-3">拥挤度风险</h5>
+                      <div class="mb-3">
+                        <div class="flex justify-between text-sm mb-1">
+                          <span>当前拥挤度</span>
+                          <span class="text-green-600 font-semibold">6%</span>
+                        </div>
+                        <div class="w-full bg-amber-200 rounded-full h-2">
+                          <div class="bg-green-500 h-2 rounded-full" style="width: 6%"></div>
+                        </div>
+                      </div>
+                      <p class="text-sm text-amber-700">港股通高股息板块成交额占比处于较低水平，尚未被过度炒作</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://www.nfnews.com/content/Lownpgxe6J.html" class="citation-link" target="_blank">南华早报</a>、<a href="http://stock.eastmoney.com/a/202512053584011551.html" class="citation-link" target="_blank">东方财富</a>、<a href="https://zhuanlan.zhihu.com/p/22364100180" class="citation-link" target="_blank">知乎专栏</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Price Increase Analysis -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">3.2 价格上涨原因分析</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <!-- Theoretical Misconception -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">理论误区澄清</h4>
+                  <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                    <div class="flex items-start">
+                      <i class="fas fa-lightbulb text-blue-500 text-xl mr-4 mt-1"></i>
+                      <div>
+                        <h5 class="font-semibold text-blue-800 mb-2">常见误解</h5>
+                        <p class="text-blue-700 text-sm mb-3">&#34;如果投资目标是获取股息，股价或ETF价格就应该保持稳定&#34;</p>
+                        <h5 class="font-semibold text-blue-800 mb-2">正确理解</h5>
+                        <p class="text-blue-700 text-sm">股息是收益来源之一，但资产价格由多重因素决定。红利低波ETF价格是其持仓股票在二级市场交易价格的实时反映，必然存在波动。&#34;低波&#34;指相对市场整体波动率较低，而非无波动。</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Core Reasons -->
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-chart-line text-gold-500 mr-3"></i>
+                      市场供求与资金流入
+                    </h4>
+                    <ul class="space-y-3 text-navy-700 text-sm">
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>大量申购ETF份额增加总份额和规模</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>基金管理人买入更多成分股推高股价</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>&#34;防御+收益&#34;双重优势满足市场需求</span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-cogs text-gold-500 mr-3"></i>
+                      分红再投资与调仓
+                    </h4>
+                    <ul class="space-y-3 text-navy-700 text-sm">
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>分红再投资产生复利效应</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>指数定期调仓实现&#34;高抛低吸&#34;</span>
+                      </li>
+                      <li class="flex items-start">
+                        <i class="fas fa-arrow-right text-gold-500 mt-1 mr-2"></i>
+                        <span>优胜劣汰机制确保组合质量</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Deep Reason -->
+                <div class="bg-gradient-to-r from-navy-50 to-gold-50 rounded-lg p-6">
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-search text-gold-500 mr-3"></i>
+                    深层原因：利率下行与估值提升
+                  </h4>
+                  <div class="prose max-w-none text-navy-700 text-sm">
+                    <p class="mb-3"><strong>贴现率效应：</strong>股票价值是未来现金流的贴现值。当无风险利率下降时，未来现金流的现值增加，股票内在价值提升。</p>
+                    <p class="mb-3"><strong>价值重估：</strong>经济进入高质量发展阶段，企业更倾向于将利润以现金分红形式回报股东，这种价值创造模式得到长线资金认可。</p>
+                    <p><strong>长期趋势：</strong>红利低波ETF价格的持续上涨，是宏观利率下行和资产价值重估这一长期趋势的具体体现。</p>
+                  </div>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://finance.sina.cn/fund/etf/2025-12-05/detail-infztpue8438770.d.html?vt=4&amp;cid=76524&amp;node_id=76524" class="citation-link" target="_blank">新浪财经</a>、<a href="https://www.jiemian.com/article/13713867.html" class="citation-link" target="_blank">界面新闻</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Investment Comparison Section -->
+      <section id="investment-comparison" class="py-16 bg-navy-50">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">4. 投资标的比较与选择</h2>
+
+            <!-- Moutai vs ETF -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">4.1 贵州茅台 vs. 红利低波ETF</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <!-- Moutai Analysis -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-wine-bottle text-gold-500 mr-3"></i>
+                    贵州茅台：极致的确定性
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-6 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3">核心优势</h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 无与伦比的品牌壁垒和定价权</li>
+                        <li>• ROE长期维持高位（~36.3%）</li>
+                        <li>• 承诺2024-2026年分红率不低于75%</li>
+                        <li>• 2025年隐含股息率约3.6%</li>
+                      </ul>
+                    </div>
+                    <div class="bg-amber-50 rounded-lg p-6 border border-amber-200">
+                      <h5 class="font-semibold text-amber-800 mb-3">投资风险</h5>
+                      <ul class="space-y-2 text-amber-700 text-sm">
+                        <li>• 2025年PE约19-20倍，估值较高</li>
+                        <li>• 业绩增速放缓至个位数</li>
+                        <li>• 股价弹性相对有限</li>
+                        <li>• 对高端消费市场依赖度高</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ETF Analysis -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                    <i class="fas fa-chart-pie text-gold-500 mr-3"></i>
+                    红利低波ETF：分散的策略优势
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-6 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3">策略特征</h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 分散化投资降低单一风险</li>
+                        <li>• 持仓涵盖多行业优质公司</li>
+                        <li>• 定期调仓优化组合质量</li>
+                        <li>• 交易成本低，操作简便</li>
+                      </ul>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+                      <h5 class="font-semibold text-green-800 mb-3">估值优势</h5>
+                      <div class="space-y-2 text-green-700 text-sm">
+                        <div class="flex justify-between">
+                          <span>PE倍数</span>
+                          <span class="font-semibold">~8.1倍</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span>股息率</span>
+                          <span class="font-semibold">5.4%</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span>PB估值</span>
+                          <span class="font-semibold">历史较低水平</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="overflow-x-auto mb-6">
+                  <table class="w-full bg-white rounded-lg border border-earth-200">
+                    <thead class="bg-navy-600 text-white">
+                      <tr>
+                        <th class="px-6 py-3 text-left font-semibold">特征</th>
+                        <th class="px-6 py-3 text-left font-semibold">贵州茅台</th>
+                        <th class="px-6 py-3 text-left font-semibold">红利低波ETF</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-earth-200">
+                      <tr>
+                        <td class="px-6 py-3 font-semibold text-navy-800">投资逻辑</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">单一龙头企业，极致的确定性与品牌价值</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">一篮子高股息、低波动股票，分散化与稳健性</td>
+                      </tr>
+                      <tr class="bg-earth-50">
+                        <td class="px-6 py-3 font-semibold text-navy-800">估值 (PE, TTM)</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">约19-20倍</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">约8-9倍 (指数)</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-3 font-semibold text-navy-800">股息率</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">约3.6% (2025年预测)</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">约5.4% (指数)</td>
+                      </tr>
+                      <tr class="bg-earth-50">
+                        <td class="px-6 py-3 font-semibold text-navy-800">核心优势</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">强大的品牌护城河，高ROE，业绩确定性极高</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">估值低，股息率高，风险分散，波动率低</td>
+                      </tr>
+                      <tr>
+                        <td class="px-6 py-3 font-semibold text-navy-800">主要风险</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">估值偏高，业绩增速放缓，股价弹性有限</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">市场整体系统性风险，部分指数估值历史分位较高</td>
+                      </tr>
+                      <tr class="bg-earth-50">
+                        <td class="px-6 py-3 font-semibold text-navy-800">适合投资者</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">追求长期确定性，能接受较高估值的价值投资者</td>
+                        <td class="px-6 py-3 text-navy-700 text-sm">追求稳健现金流，风险偏好中等，希望构建底仓的投资者</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="bg-gold-50 rounded-lg p-6">
+                  <h4 class="font-bold text-navy-800 mb-3">投资建议</h4>
+                  <p class="text-navy-700 text-sm">对于中等风险承受能力的投资者，<strong class="text-gold-600">红利低波ETF是更优的底仓选择</strong>。可考虑将大部分资金配置于红利低波ETF构建稳健基础，同时用一小部分资金长期持有贵州茅台，以分享龙头企业的成长红利。</p>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://pdf.dfcfw.com/pdf/H3_AP202508131726808000_1.pdf?1755107023000.pdf" class="citation-link" target="_blank">东方财富研究报告</a>、<a href="https://stock.finance.sina.com.cn/stock/view/paper.php?symbol=sh000001&amp;reportid=817998180277" class="citation-link" target="_blank">新浪财经研报</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- A vs H Shares -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">4.2 A股 vs. 港股高股息资产</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <!-- Hong Kong Advantages -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">港股红利资产优势</h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+                      <h5 class="font-semibold text-green-800 mb-3 flex items-center">
+                        <i class="fas fa-chart-bar text-green-600 mr-2"></i>
+                        估值洼地
+                      </h5>
+                      <ul class="space-y-2 text-green-700 text-sm">
+                        <li>• AH溢价导致港股估值折价</li>
+                        <li>• 中证港股通高股息PE仅7倍多</li>
+                        <li>• 显著低于A股同类资产</li>
+                        <li>• 提供更高安全边际</li>
+                      </ul>
+                    </div>
+                    <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+                      <h5 class="font-semibold text-green-800 mb-3 flex items-center">
+                        <i class="fas fa-coins text-green-600 mr-2"></i>
+                        高股息率
+                      </h5>
+                      <div class="space-y-2">
+                        <div class="flex justify-between text-sm">
+                          <span>港股通高股息指数</span>
+                          <span class="font-semibold">6.44%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span>中证红利指数</span>
+                          <span>4.39%</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                          <span>深证红利指数</span>
+                          <span>4.03%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Risk Analysis -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">港股特有风险</h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-50 rounded-lg p-6 border border-red-200">
+                      <h5 class="font-semibold text-red-800 mb-3 flex items-center">
+                        <i class="fas fa-exchange-alt text-red-600 mr-2"></i>
+                        汇率风险
+                      </h5>
+                      <p class="text-red-700 text-sm mb-3">内地投资者需承担人民币兑港币的汇率变动风险，可能影响最终收益。</p>
+                      <div class="text-xs text-red-600">
+                        <div>• 港币贬值 → 汇兑损失</div>
+                        <div>• 人民币升值 → 额外收益</div>
+                      </div>
+                    </div>
+                    <div class="bg-red-50 rounded-lg p-6 border border-red-200">
+                      <h5 class="font-semibold text-red-800 mb-3 flex items-center">
+                        <i class="fas fa-percentage text-red-600 mr-2"></i>
+                        红利税差异
+                      </h5>
+                      <div class="space-y-2 text-red-700 text-sm">
+                        <div class="flex justify-between">
+                          <span>H股红利税</span>
+                          <span class="font-semibold">20%</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span>红筹股红利税</span>
+                          <span class="font-semibold">最高28%</span>
+                        </div>
+                        <div class="flex justify-between">
+                          <span>A股（持有一年+）</span>
+                          <span>免征</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Investment Channels -->
+                <div class="mb-6">
+                  <h4 class="font-bold text-navy-800 mb-4">投资渠道对比</h4>
+                  <div class="overflow-x-auto">
+                    <table class="w-full bg-white rounded-lg border border-earth-200">
+                      <thead class="bg-navy-600 text-white">
+                        <tr>
+                          <th class="px-4 py-3 text-left font-semibold text-sm">投资渠道</th>
+                          <th class="px-4 py-3 text-left font-semibold text-sm">优点</th>
+                          <th class="px-4 py-3 text-left font-semibold text-sm">缺点</th>
+                          <th class="px-4 py-3 text-left font-semibold text-sm">适合人群</th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-earth-200">
+                        <tr class="bg-earth-50">
+                          <td class="px-4 py-3 font-semibold text-navy-800 text-sm">港股通ETF</td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">
+                            • 操作简便 (A股账户直接交易)
+                            <br/>
+                            • 分散风险
+                            <br/>
+                            • 部分产品可能优化税务成本
+                          </td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">
+                            • 需支付管理费、托管费
+                            <br/>
+                            • 存在跟踪误差
+                          </td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">大多数中等风险承受能力投资者；寻求便捷、稳健配置的投资者</td>
+                        </tr>
+                        <tr>
+                          <td class="px-4 py-3 font-semibold text-navy-800 text-sm">直接换汇投资个股</td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">
+                            • 选择范围更广
+                            <br/>
+                            • 潜在超额收益更高
+                            <br/>
+                            • 自主决策灵活
+                          </td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">
+                            • 操作复杂 (需港股账户、换汇)
+                            <br/>
+                            • 汇率风险
+                            <br/>
+                            • 个股风险集中
+                            <br/>
+                            • 信息不对称
+                          </td>
+                          <td class="px-4 py-3 text-navy-700 text-xs">对港股市场有深入研究的专业投资者；具备较强选股能力的投资者</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <div class="bg-blue-50 rounded-lg p-6">
+                  <h4 class="font-bold text-blue-800 mb-3">推荐建议</h4>
+                  <p class="text-blue-700 text-sm">对于大多数中等风险承受能力的投资者，<strong>通过港股通ETF来布局港股高股息资产，是更为稳妥和高效的选择</strong>。这种方式操作简便、风险分散，且能够享受港股市场的估值洼地和股息率优势。</p>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://wallstreetcn.com/articles/3753051" class="citation-link" target="_blank">华尔街见闻</a>、<a href="https://www.nbd.com.cn/articles/2025-12-08/4171767.html" class="citation-link" target="_blank">每日经济新闻</a>
+                </p>
+              </div>
+            </div>
+
+            <!-- Other High Dividend Options -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">4.3 其他高股息ETF与个股</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                  <!-- A Share ETFs -->
+                  <div>
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-chart-bar text-gold-500 mr-3"></i>
+                      A股高股息ETF
+                    </h4>
+                    <div class="space-y-4">
+                      <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <h5 class="font-semibold text-navy-800 mb-2">中证红利ETF (515080, 510880)</h5>
+                        <p class="text-navy-700 text-sm mb-2">经典红利策略，跟踪中证红利指数，选取现金股息率高、分红稳定的100只股票。</p>
+                        <div class="text-xs text-navy-500">
+                          <span class="mr-3">覆盖：金融、能源、消费</span>
+                          <span>特点：分红稳定，盈利持续</span>
+                        </div>
+                      </div>
+                      <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <h5 class="font-semibold text-navy-800 mb-2">红利质量ETF (159209)</h5>
+                        <p class="text-navy-700 text-sm mb-2">在&#34;高股息&#34;基础上增加&#34;高盈利质量&#34;筛选，要求成分股具有高ROE和稳定盈利增长。</p>
+                        <div class="text-xs text-navy-500">
+                          <span class="mr-3">覆盖：消费、医药</span>
+                          <span>特点：分红+成长双重收益</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Hong Kong ETFs -->
+                  <div>
+                    <h4 class="font-bold text-navy-800 mb-4 flex items-center">
+                      <i class="fas fa-globe text-gold-500 mr-3"></i>
+                      港股高股息ETF
+                    </h4>
+                    <div class="space-y-4">
+                      <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <h5 class="font-semibold text-navy-800 mb-2">港股通红利ETF (513530)</h5>
+                        <p class="text-navy-700 text-sm mb-2">跟踪中证港股通高股息投资指数，股息率通常显著高于A股同类指数。</p>
+                        <div class="text-xs text-navy-500">
+                          <span class="mr-3">股息率：~6.44%</span>
+                          <span>PE：~7.78倍</span>
+                        </div>
+                      </div>
+                      <div class="bg-white rounded-lg p-4 border border-earth-200">
+                        <h5 class="font-semibold text-navy-800 mb-2">恒生红利低波ETF (159545)</h5>
+                        <p class="text-navy-700 text-sm mb-2">结合&#34;红利&#34;和&#34;低波&#34;两大因子，注重控制组合波动性。</p>
+                        <div class="text-xs text-navy-500">
+                          <span class="mr-3">特点：高股息+低波动</span>
+                          <span>适合：稳健型投资者</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Individual Stocks -->
+                <div class="mb-6">
+                  <h4 class="font-bold text-navy-800 mb-4">高股息行业与个股</h4>
+                  <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-2 flex items-center">
+                        <i class="fas fa-oil-well text-gold-500 mr-2"></i>
+                        能源行业
+                      </h5>
+                      <ul class="text-navy-700 text-sm space-y-1">
+                        <li>• 中国神华</li>
+                        <li>• 中国石油</li>
+                        <li>• 现金流充裕，分红稳定</li>
+                      </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-2 flex items-center">
+                        <i class="fas fa-university text-gold-500 mr-2"></i>
+                        银行业
+                      </h5>
+                      <ul class="text-navy-700 text-sm space-y-1">
+                        <li>• 六大国有银行</li>
+                        <li>• 分红&#34;主力军&#34;</li>
+                        <li>• 吸引险资等长线资金</li>
+                      </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-2 flex items-center">
+                        <i class="fas fa-industry text-gold-500 mr-2"></i>
+                        公用事业
+                      </h5>
+                      <ul class="text-navy-700 text-sm space-y-1">
+                        <li>• 电力、水务</li>
+                        <li>• 高速公路</li>
+                        <li>• 业务稳定，现金流可预测</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-navy-50 rounded-lg p-6">
+                  <h4 class="font-bold text-navy-800 mb-3">选股要点</h4>
+                  <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <h6 class="font-semibold text-navy-700 mb-2">基本面要求</h6>
+                      <ul class="space-y-1 text-navy-600">
+                        <li>• 持续分红历史</li>
+                        <li>• 分红比例稳定或提升</li>
+                        <li>• 盈利能力强</li>
+                        <li>• 负债率合理</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h6 class="font-semibold text-navy-700 mb-2">政策受益</h6>
+                      <ul class="space-y-1 text-navy-600">
+                        <li>• 新&#34;国九条&#34;受益</li>
+                        <li>• 央国企分红机制优化</li>
+                        <li>• 国民经济支柱企业</li>
+                        <li>• 稳定回报基石</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://finance.sina.com.cn/jjxw/2025-12-02/doc-infzmaxf1066368.shtml" class="citation-link" target="_blank">新浪财经</a>、<a href="https://finance.sina.com.cn/money/fund/jjzl/2025-12-08/doc-inhaaexh3714366.shtml" class="citation-link" target="_blank">新浪财经基金</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bond Futures Section -->
+      <section id="bond-futures" class="py-16 bg-white">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">5. 国债期货投资机会与风险</h2>
+
+            <!-- Investment Opportunities -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">5.1 当前市场环境下的投资机会</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                  <div class="bg-blue-50 rounded-lg p-6 border border-blue-200">
+                    <h4 class="font-bold text-blue-800 mb-4 flex items-center">
+                      <i class="fas fa-chart-line text-blue-600 mr-3"></i>
+                      利率环境利好
+                    </h4>
+                    <ul class="space-y-2 text-blue-700 text-sm">
+                      <li>• 市场预期美联储12月降息概率87%</li>
+                      <li>• 全球利率环境宽松基调确立</li>
+                      <li>• 国内中长端利率逐步下行趋势</li>
+                      <li>• 长期持有可从债券价格上涨获益</li>
+                    </ul>
+                  </div>
+                  <div class="bg-green-50 rounded-lg p-6 border border-green-200">
+                    <h4 class="font-bold text-green-800 mb-4 flex items-center">
+                      <i class="fas fa-tools text-green-600 mr-3"></i>
+                      功能价值
+                    </h4>
+                    <ul class="space-y-2 text-green-700 text-sm">
+                      <li>• 套期保值：对冲利率上行风险</li>
+                      <li>• 期现套利：利用基差波动获利</li>
+                      <li>• 跨期套利：不同期限合约价差</li>
+                      <li>• &#34;固收+&#34;策略：平衡组合风险</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="bg-amber-50 rounded-lg p-6 border border-amber-200">
+                  <h4 class="font-bold text-amber-800 mb-3 flex items-center">
+                    <i class="fas fa-exclamation-triangle text-amber-600 mr-3"></i>
+                    机会限制
+                  </h4>
+                  <p class="text-amber-700 text-sm">当前国债收益率已处历史相对低位，进一步下行空间有限，潜在资本利得空间也相对有限。国债期货主要扮演风险管理工具和资产配置&#34;稳定器&#34;角色。</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Risk Analysis -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">5.2 潜在风险分析</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="grid md:grid-cols-2 gap-6 mb-8">
+                  <div class="bg-red-50 rounded-lg p-6 border border-red-200">
+                    <h4 class="font-bold text-red-800 mb-4 flex items-center">
+                      <i class="fas fa-gavel text-red-600 mr-3"></i>
+                      政策不确定性
+                    </h4>
+                    <ul class="space-y-2 text-red-700 text-sm">
+                      <li>• 年末重要会议政策预期扰动</li>
+                      <li>• 超预期政策定调引发债市波动</li>
+                      <li>• 稳增长信号可能推高经济预期</li>
+                      <li>• 地产维稳举措或致利率债承压</li>
+                    </ul>
+                  </div>
+                  <div class="bg-orange-50 rounded-lg p-6 border border-orange-200">
+                    <h4 class="font-bold text-orange-800 mb-4 flex items-center">
+                      <i class="fas fa-wave-square text-orange-600 mr-3"></i>
+                      市场与流动性风险
+                    </h4>
+                    <ul class="space-y-2 text-orange-700 text-sm">
+                      <li>• 债市波动加剧，敏感度上升</li>
+                      <li>• 30年期国债期货一度连续下跌</li>
+                      <li>• 权益市场反弹构成资金分流</li>
+                      <li>• 长端利率上行风险突出</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Recent Market Performance -->
+                <div class="mb-6">
+                  <h4 class="font-bold text-navy-800 mb-4">近期市场表现</h4>
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <div class="grid md:grid-cols-3 gap-6">
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-red-600 mb-2">-1%+</div>
+                        <div class="text-sm text-navy-600">30年期国债期货单日跌幅</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-orange-600 mb-2">连续下跌</div>
+                        <div class="text-sm text-navy-600">30年期国债期货走势</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="text-2xl font-bold text-navy-600 mb-2">年内高点</div>
+                        <div class="text-sm text-navy-600">30年期国债收益率触及</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Investment Recommendation -->
+                <div class="bg-gray-50 rounded-lg p-6">
+                  <h4 class="font-bold text-gray-800 mb-3 flex items-center">
+                    <i class="fas fa-lightbulb text-gold-500 mr-3"></i>
+                    投资建议
+                  </h4>
+                  <p class="text-gray-700 text-sm mb-4">在当前市场环境下，国债期货的直接投资机会相对有限，风险较高，不建议普通投资者作为主要配置。</p>
+                  <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <h6 class="font-semibold text-gray-800 mb-2">适合人群</h6>
+                      <ul class="text-gray-600 text-xs space-y-1">
+                        <li>• 机构投资者进行风险管理</li>
+                        <li>• 专业投资者进行套利交易</li>
+                        <li>• 具备丰富经验的交易者</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h6 class="font-semibold text-gray-800 mb-2">替代方案</h6>
+                      <ul class="text-gray-600 text-xs space-y-1">
+                        <li>• 基准国债ETF</li>
+                        <li>• 固收类产品</li>
+                        <li>• 高股息红利资产</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <p class="text-sm text-navy-600 mt-6">
+                  数据来源：<a href="https://finance.sina.com.cn/money/fund/jjzl/2025-12-08/doc-inhaaexh3714366.shtml" class="citation-link" target="_blank">新浪财经</a>、<a href="https://m.chinabgao.com/finance/info/75286.html" class="citation-link" target="_blank">中国报告网</a>、<a href="https://finance.sina.com.cn/money/fund/jjzl/2025-12-08/doc-inhaavuy3514905.shtml" class="citation-link" target="_blank">新浪财经基金</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Implementation Section -->
+      <section id="implementation" class="py-16 bg-earth-50">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-4xl font-bold text-navy-800 mb-8">6. 实施方案与时机评估</h2>
+
+            <!-- Strategic Timing -->
+            <div class="expandable-section mb-8">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">6.1 当前时点战略意义</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <div class="bg-gradient-to-r from-navy-600 to-navy-700 rounded-lg p-8 text-white mb-8">
+                  <h4 class="font-serif text-2xl font-bold mb-4">2025年12月：战略性配置时点</h4>
+                  <p class="text-navy-100 mb-6">对于以长期稳健增长为目标、具备中等风险承受能力的投资者，当前市场震荡期为红利低波策略提供了显著的配置价值。</p>
+                  <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                      <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-calendar-check text-white text-xl"></i>
+                      </div>
+                      <h5 class="font-semibold mb-2">日历效应</h5>
+                      <p class="text-navy-100 text-sm">年末年初红利资产历史表现优异</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-percentage text-white text-xl"></i>
+                      </div>
+                      <h5 class="font-semibold mb-2">利率优势</h5>
+                      <p class="text-navy-100 text-sm">股息率显著高于无风险利率</p>
+                    </div>
+                    <div class="text-center">
+                      <div class="w-16 h-16 bg-gold-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-arrow-trend-up text-white text-xl"></i>
+                      </div>
+                      <h5 class="font-semibold mb-2">资金流入</h5>
+                      <p class="text-navy-100 text-sm">持续的资金净流入验证价值</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Market Environment Summary -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">市场环境总结</h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg p-6 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3 flex items-center">
+                        <i class="fas fa-shield-alt text-gold-500 mr-2"></i>
+                        防御性特征
+                      </h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 沪指跌破3900点，市场情绪谨慎</li>
+                        <li>• 传统红利资产板块护盘特征明显</li>
+                        <li>• 大盘风格在12月历史占优</li>
+                        <li>• 机构年末调仓偏好防御品种</li>
+                      </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-6 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3 flex items-center">
+                        <i class="fas fa-chart-line text-gold-500 mr-2"></i>
+                        政策支持
+                      </h5>
+                      <ul class="space-y-2 text-navy-700 text-sm">
+                        <li>• 险资投资股票风险因子下调</li>
+                        <li>• 个人养老金制度全国推广</li>
+                        <li>• 新&#34;国九条&#34;推动分红提升</li>
+                        <li>• 险资&#34;开门红&#34;增量资金预期</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Dividend Yield Comparison Chart -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">收益率对比分析</h4>
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <div class="space-y-4">
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <span class="text-navy-700 font-medium mb-1 sm:mb-0">10年期国债收益率</span>
+                        <div class="w-full sm:w-2/3 bg-earth-200 rounded-full h-3">
+                          <div class="bg-blue-500 h-3 rounded-full" style="width: 22%"></div>
+                        </div>
+                        <span class="text-blue-600 font-bold ml-0 sm:ml-2 mt-1 sm:mt-0">1.7%</span>
+                      </div>
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <span class="text-navy-700 font-medium mb-1 sm:mb-0">贵州茅台股息率</span>
+                        <div class="w-full sm:w-2/3 bg-earth-200 rounded-full h-3">
+                          <div class="bg-purple-500 h-3 rounded-full" style="width: 46%"></div>
+                        </div>
+                        <span class="text-purple-600 font-bold ml-0 sm:ml-2 mt-1 sm:mt-0">3.6%</span>
+                      </div>
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <span class="text-navy-700 font-medium mb-1 sm:mb-0">中证红利低波指数</span>
+                        <div class="w-full sm:w-2/3 bg-earth-200 rounded-full h-3">
+                          <div class="bg-gold-500 h-3 rounded-full" style="width: 67%"></div>
+                        </div>
+                        <span class="text-gold-600 font-bold ml-0 sm:ml-2 mt-1 sm:mt-0">5.26%</span>
+                      </div>
+                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <span class="text-navy-700 font-medium mb-1 sm:mb-0">港股通高股息指数</span>
+                        <div class="w-full sm:w-2/3 bg-earth-200 rounded-full h-3">
+                          <div class="bg-green-500 h-3 rounded-full" style="width: 82%"></div>
+                        </div>
+                        <span class="text-green-600 font-bold ml-0 sm:ml-2 mt-1 sm:mt-0">6.44%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Implementation Plan -->
+            <div class="expandable-section">
+              <div class="expandable-header" onclick="toggleSection(this)">
+                <h3 class="font-serif text-2xl font-bold text-navy-800">6.2 具体实施方案</h3>
+                <i class="fas fa-chevron-down text-navy-600 transition-transform duration-200"></i>
+              </div>
+              <div class="expandable-content">
+                <!-- Core Portfolio Structure -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">核心投资组合结构</h4>
+                  <div class="bg-white rounded-lg p-6 border border-earth-200">
+                    <div class="grid md:grid-cols-2 gap-8">
+                      <div>
+                        <h5 class="font-semibold text-navy-800 mb-4 flex items-center">
+                          <i class="fas fa-shield-alt text-navy-600 mr-2"></i>
+                          防守端 70-80%
+                        </h5>
+                        <div class="space-y-3">
+                          <div class="flex items-center justify-between p-3 bg-navy-50 rounded">
+                            <span class="text-navy-700">红利低波ETF (A股)</span>
+                            <span class="text-navy-600 font-semibold">40%</span>
+                          </div>
+                          <div class="flex items-center justify-between p-3 bg-navy-50 rounded">
+                            <span class="text-navy-700">港股通红利ETF</span>
+                            <span class="text-navy-600 font-semibold">30%</span>
+                          </div>
+                          <div class="flex items-center justify-between p-3 bg-navy-50 rounded">
+                            <span class="text-navy-700">国债ETF/固收</span>
+                            <span class="text-navy-600 font-semibold">10%</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <h5 class="font-semibold text-navy-800 mb-4 flex items-center">
+                          <i class="fas fa-rocket text-gold-600 mr-2"></i>
+                          进攻端 20-30%
+                        </h5>
+                        <div class="space-y-3">
+                          <div class="flex items-center justify-between p-3 bg-gold-50 rounded">
+                            <span class="text-navy-700">科创50ETF</span>
+                            <span class="text-gold-600 font-semibold">15%</span>
+                          </div>
+                          <div class="flex items-center justify-between p-3 bg-gold-50 rounded">
+                            <span class="text-navy-700">恒生科技指数ETF</span>
+                            <span class="text-gold-600 font-semibold">10%</span>
+                          </div>
+                          <div class="flex items-center justify-between p-3 bg-gold-50 rounded">
+                            <span class="text-navy-700">A500ETF</span>
+                            <span class="text-gold-600 font-semibold">5%</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Implementation Steps -->
+                <div class="mb-8">
+                  <h4 class="font-bold text-navy-800 mb-4">实施步骤与时间表</h4>
+                  <div class="space-y-4">
+                    <div class="flex items-start">
+                      <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">1</div>
+                      <div class="flex-1">
+                        <h5 class="font-semibold text-navy-800 mb-2">资产配置阶段（12月）</h5>
+                        <ul class="text-navy-700 text-sm space-y-1">
+                          <li>• 完成主要资产配置，建立核心持仓</li>
+                          <li>• 重点关注红利低波ETF和港股通红利ETF</li>
+                          <li>• 分批建仓，避免时点选择风险</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="flex items-start">
+                      <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">2</div>
+                      <div class="flex-1">
+                        <h5 class="font-semibold text-navy-800 mb-2">动态调整阶段（Q1 2026）</h5>
+                        <ul class="text-navy-700 text-sm space-y-1">
+                          <li>• 根据市场变化调整配置比例</li>
+                          <li>• 重点关注科技成长板块表现</li>
+                          <li>• 执行首次季度再平衡</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="flex items-start">
+                      <div class="w-8 h-8 bg-navy-600 rounded-full flex items-center justify-center text-white font-bold mr-4 mt-1">3</div>
+                      <div class="flex-1">
+                        <h5 class="font-semibold text-navy-800 mb-2">长期管理阶段（持续）</h5>
+                        <ul class="text-navy-700 text-sm space-y-1">
+                          <li>• 严格执行再平衡纪律</li>
+                          <li>• 定期评估投资目标和风险承受能力</li>
+                          <li>• 根据市场环境动态调整策略</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Monitoring and Rebalancing -->
+                <div class="mb-6">
+                  <h4 class="font-bold text-navy-800 mb-4">监控与再平衡机制</h4>
+                  <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3 flex items-center">
+                        <i class="fas fa-calendar-check text-gold-500 mr-2"></i>
+                        定期再平衡
+                      </h5>
+                      <ul class="text-navy-700 text-xs space-y-1">
+                        <li>• 季度末评估配置比例</li>
+                        <li>• 年度全面审视组合</li>
+                        <li>• 纪律性执行调整</li>
+                      </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3 flex items-center">
+                        <i class="fas fa-balance-scale text-gold-500 mr-2"></i>
+                        阈值触发
+                      </h5>
+                      <ul class="text-navy-700 text-xs space-y-1">
+                        <li>• 资产偏离&gt;5%时调整</li>
+                        <li>• 市场重大变化时响应</li>
+                        <li>• 风险指标超标时干预</li>
+                      </ul>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border border-earth-200">
+                      <h5 class="font-semibold text-navy-800 mb-3 flex items-center">
+                        <i class="fas fa-chart-line text-gold-500 mr-2"></i>
+                        绩效监控
+                      </h5>
+                      <ul class="text-navy-700 text-xs space-y-1">
+                        <li>• 跟踪组合收益率</li>
+                        <li>• 监控风险指标</li>
+                        <li>• 评估策略有效性</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Risk Management -->
+                <div class="bg-gradient-to-r from-red-50 to-orange-50 rounded-lg p-6">
+                  <h4 class="font-bold text-red-800 mb-4 flex items-center">
+                    <i class="fas fa-shield-alt text-red-600 mr-3"></i>
+                    风险管理要点
+                  </h4>
+                  <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h6 class="font-semibold text-red-800 mb-2">系统性风险</h6>
+                      <ul class="text-red-700 text-xs space-y-1">
+                        <li>• 市场整体下跌风险</li>
+                        <li>• 利率环境变化影响</li>
+                        <li>• 政策环境重大变化</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h6 class="font-semibold text-red-800 mb-2">策略风险</h6>
+                      <ul class="text-red-700 text-xs space-y-1">
+                        <li>• 红利策略拥挤度上升</li>
+                        <li>• 个股分红政策变化</li>
+                        <li>• 汇率波动影响港股收益</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <p class="text-red-700 text-sm mt-4">建议：将红利低波策略作为组合核心配置，而非全部配置，通过分散投资降低风险。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-navy-900 text-white py-12">
+        <div class="container mx-auto px-8">
+          <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-8">
+              <h3 class="font-serif text-2xl font-bold mb-4">2025年12月稳健增长投资策略</h3>
+              <p class="text-navy-200">基于当前市场环境的专业分析与配置建议</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+              <div>
+                <h4 class="font-semibold text-gold-300 mb-2">核心策略</h4>
+                <p class="text-navy-200 text-sm">杠铃策略：70-80%高股息红利ETF + 20-30%科技成长ETF</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gold-300 mb-2">投资时点</h4>
+                <p class="text-navy-200 text-sm">2025年12月：日历效应+低利率环境+资金流入三重利好</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gold-300 mb-2">风险控制</h4>
+                <p class="text-navy-200 text-sm">分散投资+定期再平衡+动态调整</p>
+              </div>
+            </div>
+            <div class="border-t border-navy-700 pt-8">
+              <p class="text-navy-300 text-sm">
+                本分析基于公开信息和历史数据，仅供参考，不构成投资建议。投资有风险，入市需谨慎。
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Toggle sections
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Update active link
+                    document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Update active TOC link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 100;
+            
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+                
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+
+        // Initialize Mermaid
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#334e68',
+                primaryTextColor: '#ffffff',
+                primaryBorderColor: '#243b53',
+                lineColor: '#486581',
+                secondaryColor: '#f5a623',
+                tertiaryColor: '#829ab1',
+                background: '#ffffff',
+                mainBkg: '#334e68',
+                secondBkg: '#f5a623',
+                tertiaryBkg: '#829ab1',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis',
+                padding: 20
+            },
+            sequence: {
+                useMaxWidth: false,
+                wrap: true
+            },
+            gantt: {
+                useMaxWidth: false
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Initialize mermaid controls when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMermaidControls();
+        });
+
+        // Toggle TOC on mobile
+        const tocToggle = document.getElementById('toc-toggle');
+        const tocClose = document.getElementById('toc-close');
+        const tocContainer = document.getElementById('toc-container');
+        
+        tocToggle.addEventListener('click', function() {
+            tocContainer.classList.toggle('-translate-x-full');
+        });
+        
+        tocClose.addEventListener('click', function() {
+            tocContainer.classList.add('-translate-x-full');
+        });
+        
+        // On window resize, if it's desktop view, show TOC
+        function checkWindowSize() {
+            if (window.innerWidth >= 768) {
+                tocContainer.classList.remove('-translate-x-full');
+            }
+        }
+        
+        window.addEventListener('resize', checkWindowSize);
+        checkWindowSize();
+    </script>
+  
+
+</body></html>

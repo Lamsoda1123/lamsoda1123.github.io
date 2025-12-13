@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小红书量化因子研报调研报告</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+            font-weight: 600;
+        }
+        
+        .section h3 {
+            font-size: 20px;
+            margin: 20px 0 15px 0;
+            color: #444;
+            font-weight: 600;
+        }
+        
+        .card {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .rating {
+            display: inline-block;
+            color: #ffd700;
+            font-size: 18px;
+            margin-left: 10px;
+        }
+        
+        .factor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .factor-item {
+            background: white;
+            border: 2px solid #e8eaff;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .factor-item:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+        
+        .factor-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .factor-desc {
+            color: #666;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-card .number {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .platform-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .platform-item:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .platform-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .platform-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .platform-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .note-info {
+            background: #f0f8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .note-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .note-data {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .note-content {
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .stars {
+            color: #ffd700;
+            font-size: 20px;
+            margin-left: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .factor-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>小红书量化因子研报调研报告</h1>
+            <div class="subtitle">深度分析券商研报认可度、因子逻辑与获取渠道</div>
+            <div class="subtitle" style="margin-top: 10px;">📊 调研时间：2025年12月12日</div>
+        </div>
+
+        <!-- 主要内容 -->
+        <div class="content">
+            <!-- 调研概览 -->
+            <div class="section">
+                <h2>📈 调研概览</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="number">100+</div>
+                        <div class="label">调研笔记数量</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">5</div>
+                        <div class="label">核心搜索关键词</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">15+</div>
+                        <div class="label">研报获取平台</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="number">20+</div>
+                        <div class="label">热门因子数量</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 券商研报认可度排名 -->
+            <div class="section">
+                <h2>🏆 券商研报认可度排名</h2>
+                
+                <div class="card">
+                    <div class="factor-name">1. 国泰君安证券 <span class="stars">★★★★★</span></div>
+                    <div class="factor-desc">
+                        <span class="highlight">认可度极高</span> - 191个阿尔法因子系列最受推崇，短周期价量因子体系被公认为"必读研报"。用户评论中出现大量求PDF、讨论复现的情况，收藏量高达224次。
+                        <br><br>
+                        <strong>核心研报：</strong>《基于短周期价量特征的多因子选股体系——数量化专题之九十三》
+                        <br>
+                        <strong>特点：</strong>短周期因子、191个系统化测试、实用性强
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="factor-name">2. 华泰证券 <span class="stars">★★★★☆</span></div>
+                    <div class="factor-desc">
+                        <span class="highlight">宏观因子研究领先</span> - 宏观因子拟合模型备受关注，但技术门槛较高。社区内有专门讨论复现华泰宏观因子的求助帖（80赞，98收藏），显示其研究深度。
+                        <br><br>
+                        <strong>核心研报：</strong>多因子模型体系、CTA量化策略、宏观因子拟合
+                        <br>
+                        <strong>特点：</strong>研究深入、方法论严谨、适合专业机构
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="factor-name">3. 广发证券 <span class="stars">★★★★☆</span></div>
+                    <div class="factor-desc">
+                        <span class="highlight">因子挖掘先驱</span> - "技术因子海量挖掘"与WorldQuant101齐名，是因子研究领域的早期开拓者。
+                        <br><br>
+                        <strong>特点：</strong>因子挖掘方法论的先行者，适合因子研究者参考
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="factor-name">4. 东北证券 <span class="stars">★★★★☆</span></div>
+                    <div class="factor-desc">
+                        <span class="highlight">因子选股系列</span> - 系统化的因子选股研究，在量化圈子有一定影响力。
+                        <br><br>
+                        <strong>特点：</strong>因子选股体系完整，适合策略开发参考
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="factor-name">5. 瑞银/高盛/摩根士丹利 <span class="stars">★★★★☆</span></div>
+                    <div class="factor-desc">
+                        <span class="highlight">国际视野</span> - 提供全球宏观视角和Hedge Fund研究，适合需要国际投资视野的用户。
+                        <br><br>
+                        <strong>代表内容：</strong>瑞银因子表现分析、高盛Hedge Fund研究、大摩行业分析
+                        <br>
+                        <strong>特点：</strong>宏观分析深入、国际视角、英文研报为主
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热门因子详解 -->
+            <div class="section">
+                <h2>🔥 热门因子详解</h2>
+                
+                <div class="factor-list">
+                    <div class="factor-item">
+                        <div class="factor-name">国泰君安191个阿尔法因子</div>
+                        <div class="factor-desc">
+                            <strong>来源：</strong>国泰君安金工团队<br>
+                            <strong>类型：</strong>短周期价量因子<br>
+                            <strong>特点：</strong>覆盖1-5日高频特征，系统化测试，因子衰退较慢
+                        </div>
+                    </div>
+
+                    <div class="factor-item">
+                        <div class="factor-name">宏观因子 (华泰)</div>
+                        <div class="factor-desc">
+                            <strong>来源：</strong>华泰证券金工<br>
+                            <strong>计算：</strong>多元线性回归 + X13季节调整<br>
+                            <strong>难点：</strong>技术门槛高，复现困难，需要专业工具
+                        </div>
+                    </div>
+
+                    <div class="factor-item">
+                        <div class="factor-name">RSRS因子</div>
+                        <div class="factor-desc">
+                            <strong>名称：</strong>阻力支撑相对强度 (Resistance Support Relative Strength)<br>
+                            <strong>计算：</strong>最高价与最低价线性回归斜率<br>
+                            <strong>逻辑：</strong>斜率越大，阻力支撑相对强度越强，多空力量对比更明确
+                        </div>
+                    </div>
+
+                    <div class="factor-item">
+                        <div class="factor-name">CTA量化因子</div>
+                        <div class="factor-desc">
+                            <strong>来源：</strong>华泰证券三篇系列研报<br>
+                            <strong>类型：</strong>商品期货因子<br>
+                            <strong>特点：</strong>适用于商品市场，与股票因子相关性低
+                        </div>
+                    </div>
+
+                    <div class="factor-item">
+                        <div class="factor-name">价值因子 (改进版)</div>
+                        <div class="factor-desc">
+                            <strong>来源：</strong>华泰金工<br>
+                            <strong>特点：</strong>对传统价值因子进行改进，考虑市场环境变化
+                        </div>
+                    </div>
+
+                    <div class="factor-item">
+                        <div class="factor-name">高频因子</div>
+                        <div class="factor-desc">
+                            <strong>类型：</strong>日内高频量价因子<br>
+                            <strong>特点：</strong>从分钟线提取日频特征，信息密度高
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 核心笔记深度分析 -->
+            <div class="section">
+                <h2>📋 核心笔记深度分析</h2>
+
+                <div class="note-info">
+                    <div class="note-title">笔记一：国泰君安191个阿尔法因子</div>
+                    <div class="note-data">👤 作者：码力十足学量化 | 👍 155赞 | ⭐ 224收藏 | 💬 35评论</div>
+                    <div class="note-content">
+                        <strong>核心观点：</strong>中低频alpha因子衰退严重，短周期因子仍有较大机会，因为容量受限大资金难以进入。
+                        <br><br>
+                        <strong>用户反馈：</strong>大量用户求PDF，作者回应可从聚宽获取，多人询问复现细节，证明该研报实用性高。
+                    </div>
+                </div>
+
+                <div class="note-info">
+                    <div class="note-title">笔记二：华泰宏观因子复现求助</div>
+                    <div class="note-data">👤 作者：春天的第十八个瞬间 | 👍 80赞 | ⭐ 98收藏 | 💬 24评论</div>
+                    <div class="note-content">
+                        <strong>技术难点：</strong>X13季节调整工具在Python中调用困难，怀疑2024年7月版本更新导致，R语言版本相对稳定。
+                        <br><br>
+                        <strong>社区反应：</strong>多位用户表示遇到类似问题，建议用央行X11替代，或使用R语言包，显示华泰研报技术深度和复现挑战。
+                    </div>
+                </div>
+
+                <div class="note-info">
+                    <div class="note-title">笔记三：RSRS因子研报复现</div>
+                    <div class="note-data">👤 作者：赛博赵唤狮 | 👍 23赞 | ⭐ 31收藏 | 🎥 视频教程</div>
+                    <div class="note-content">
+                        <strong>创新点：</strong>将传统阻力位支撑位转化为相对强度指标，用量化的方式衡量多空力量对比。
+                        <br><br>
+                        <strong>教学价值：</strong>用初中数学知识（线性回归）即可理解，切入口友好，适合因子入门学习。
+                    </div>
+                </div>
+
+                <div class="note-info">
+                    <div class="note-title">笔记四：CTA量化策略因子</div>
+                    <div class="note-data">👤 作者：QuantML | 👍 118赞 | ⭐ 152收藏 | 📊 华泰三篇研报</div>
+                    <div class="note-content">
+                        <strong>内容：</strong>分享华泰CTA量化策略系列研报，商品因子关注度持续增长，显示资产配置需求上升。
+                    </div>
+                </div>
+            </div>
+
+            <!-- 研报获取平台 -->
+            <div class="section">
+                <h2>🌐 研报获取平台大全</h2>
+                
+                <h3>专业金融终端（机构投资者）</h3>
+                <div class="platform-grid">
+                    <div class="platform-item">
+                        <div class="platform-name">Wind（万得）</div>
+                        <div class="platform-type">专业级</div>
+                        <div class="platform-desc">最全面的金融终端，券商主流工具，数万/年，适合机构。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">iFinD（同花顺）</div>
+                        <div class="platform-type">专业级</div>
+                        <div class="platform-desc">数千/年，数据覆盖广，适合专业投资者和私募。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">Choice（东方财富）</div>
+                        <div class="platform-type">性价比</div>
+                        <div class="platform-desc">约5000元/年，覆盖广，适合个人投资者。</div>
+                    </div>
+                </div>
+
+                <h3>量化投研平台</h3>
+                <div class="platform-grid">
+                    <div class="platform-item">
+                        <div class="platform-name">聚宽（JoinQuant）</div>
+                        <div class="platform-type">量化专用</div>
+                        <div class="platform-desc">量化投研平台，提供数据和研报，分档收费，社区活跃。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">掘金量化</div>
+                        <div class="platform-type">量化专用</div>
+                        <div class="platform-desc">策略+数据，支持多种语言，适合量化开发者。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">米筐（Ricequant）</div>
+                        <div class="platform-type">量化专用</div>
+                        <div class="platform-desc">专业量化平台，支持策略回测和实盘。</div>
+                    </div>
+                </div>
+
+                <h3>免费/低成本渠道（个人投资者推荐）</h3>
+                <div class="platform-grid">
+                    <div class="platform-item">
+                        <div class="platform-name">萝卜投研</div>
+                        <div class="platform-type">免费</div>
+                        <div class="platform-desc">每日免费查看数十篇研报，iFinD免费版，适合入门。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">券商APP</div>
+                        <div class="platform-type">免费/低门槛</div>
+                        <div class="platform-desc">华泰、国泰君安、广发等，自家研报免费获取。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">券商微信公众号</div>
+                        <div class="platform-type">免费</div>
+                        <div class="platform-desc">每日推送精选研报，关注"卖方研究"等公众号。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">金十数据</div>
+                        <div class="platform-type">免费</div>
+                        <div class="platform-desc">宏观数据+研报，适合宏观研究。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">巨潮资讯</div>
+                        <div class="platform-type">官方</div>
+                        <div class="platform-desc">官方披露平台，上市公司公告，免费。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">小红书博主</div>
+                        <div class="platform-type">社区分享</div>
+                        <div class="platform-desc">关注量化博主，如右兜全球研报、小学生hanks等。</div>
+                    </div>
+                </div>
+
+                <h3>国际券商研报渠道</h3>
+                <div class="platform-grid">
+                    <div class="platform-item">
+                        <div class="platform-name">瑞银/高盛/大摩官网</div>
+                        <div class="platform-type">免费+付费</div>
+                        <div class="platform-desc">部分研报免费，注册后可获取，适合国际投资视野。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">右兜全球研报</div>
+                        <div class="platform-type">小红书博主</div>
+                        <div class="platform-desc">专门分享国际投行研报，专注全球宏观和因子研究。</div>
+                    </div>
+                    <div class="platform-item">
+                        <div class="platform-name">TradingView</div>
+                        <div class="platform-type">社区</div>
+                        <div class="platform-desc">国际投资者社区，部分用户分享研报解读。</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 投资建议 -->
+            <div class="section">
+                <h2>💡 投资建议与研报获取策略</h2>
+                
+                <div class="card">
+                    <h3>个人投资者组合（免费为主）</h3>
+                    <div class="factor-desc">
+                        <strong>基础版：</strong>萝卜投研 + 券商APP + 微信公众号 + 小红书博主关注<br>
+                        <strong>进阶版：</strong>Choice入门版 + 慧博投研月卡 + 聚宽社区<br>
+                        <strong>成本：</strong>0-500元/月
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>专业投资者组合</h3>
+                    <div class="factor-desc">
+                        <strong>数据核心：</strong>iFinD或Choice专业版<br>
+                        <strong>量化支持：</strong>聚宽专业版 + 掘金量化<br>
+                        <strong>国际视野：</strong>国际投行关系 + 右兜全球研报订阅<br>
+                        <strong>成本：</strong>1-3万元/年
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>研报阅读建议</h3>
+                    <div class="factor-desc">
+                        1. <strong>优先阅读：</strong>国泰君安191因子系列、华泰宏观因子<br>
+                        2. <strong>关注复现：</strong>RSRS因子、CTA因子有完整复现路径<br>
+                        3. <strong>方法论：</strong>学习研报框架，构建自己的因子库<br>
+                        4. <strong>社区交流：</strong>小红书量化社区讨论活跃，可获取实战经验
+                    </div>
+                </div>
+            </div>
+
+            <!-- 风险提示 -->
+            <div class="section">
+                <h2>⚠️ 风险提示与注意事项</h2>
+                
+                <div class="card">
+                    <h3>因子失效风险</h3>
+                    <div class="factor-desc">
+                        • 中低频因子普遍面临衰退问题<br>
+                        • 短周期因子容量有限，大资金难以介入<br>
+                        • 因子需持续监控，定期更新迭代
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>技术门槛提醒</h3>
+                    <div class="factor-desc">
+                        • 华泰宏观因子复现难度高，需要掌握X13/X11季节调整<br>
+                        • 部分研报代码实现存在"trick"，直接复现可能效果差异大<br>
+                        • 建议从RSRS等简单因子入手，逐步深入
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>数据质量注意</h3>
+                    <div class="factor-desc">
+                        • 免费平台数据可能存在延迟<br>
+                        • 高频因子需要高质量tick数据<br>
+                        • 回测时注意幸存者偏差和前视偏差
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>📊 本报告基于小红书平台100+篇量化因子研报相关笔记调研</p>
+            <p>🔍 调研方法：关键词搜索 + 高赞笔记深度分析 + 用户评论挖掘</p>
+            <p>📅 报告生成时间：2025年12月12日</p>
+            <p style="margin-top: 15px; font-size: 14px;">
+                免责声明：本报告仅供研究参考，不构成投资建议。量化投资有风险，入市需谨慎。
+            </p>
+        </div>
+    </div>
+</body>
+</html>

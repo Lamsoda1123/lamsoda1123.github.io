@@ -1,0 +1,2006 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>香港券商深度调研：5万至10万美元入金规模下的全面比较</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --secondary: #475569;
+            --accent: #0f172a;
+            --surface: #f8fafc;
+            --muted: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        .font-serif { font-family: 'Crimson Text', serif; }
+        .font-sans { font-family: 'Inter', sans-serif; }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 35%, #334155 100%);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #1e293b, #475569);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .toc-sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: #ffffff;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            z-index: 1000;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            padding: 0;
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--primary);
+            border-left-color: var(--primary);
+            background: rgba(30, 41, 59, 0.05);
+        }
+        
+        .toc-link.sub {
+            font-size: 0.875rem;
+            padding-left: 2rem;
+            color: var(--muted);
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 4rem 0;
+        }
+        
+        .broker-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th {
+            background: var(--surface);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            color: var(--secondary);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 1px solid #0ea5e9;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .citation {
+            color: var(--muted);
+            font-size: 0.875rem;
+            text-decoration: none;
+            margin-left: 0.25rem;
+        }
+        
+        .citation:hover {
+            color: var(--primary);
+        }
+
+        /* Mermaid diagram styling */
+        .mermaid-container {
+            display: flex;
+            justify-content: center;
+            min-height: 300px;
+            max-height: 800px;
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mermaid-container .mermaid {
+            width: 100%;
+            max-width: 100%;
+            height: 100%;
+            cursor: grab;
+            transition: transform 0.3s ease;
+            transform-origin: center center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            touch-action: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .mermaid-container .mermaid svg {
+            max-width: 100%;
+            height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .mermaid-container .mermaid:active {
+            cursor: grabbing;
+        }
+
+        .mermaid-container.zoomed .mermaid {
+            height: 100%;
+            width: 100%;
+            cursor: grab;
+        }
+
+        .mermaid-controls {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .mermaid-control-btn {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #374151;
+            font-size: 14px;
+            min-width: 36px;
+            height: 36px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mermaid-control-btn:hover {
+            background: #f8fafc;
+            border-color: #3b82f6;
+            color: #3b82f6;
+            transform: translateY(-1px);
+        }
+
+        .mermaid-control-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Enhanced Mermaid theme customization for better contrast */
+        .mermaid .node rect,
+        .mermaid .node circle,
+        .mermaid .node ellipse,
+        .mermaid .node polygon {
+            fill: #ffffff;
+            stroke: var(--primary);
+            stroke-width: 2px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Different node colors with good contrast */
+        .mermaid .node:nth-child(4n+1) rect,
+        .mermaid .node:nth-child(4n+1) circle,
+        .mermaid .node:nth-child(4n+1) ellipse,
+        .mermaid .node:nth-child(4n+1) polygon {
+            fill: #f0f9ff;
+            stroke: #0369a1;
+        }
+        
+        .mermaid .node:nth-child(4n+2) rect,
+        .mermaid .node:nth-child(4n+2) circle,
+        .mermaid .node:nth-child(4n+2) ellipse,
+        .mermaid .node:nth-child(4n+2) polygon {
+            fill: #f0fdf4;
+            stroke: #15803d;
+        }
+        
+        .mermaid .node:nth-child(4n+3) rect,
+        .mermaid .node:nth-child(4n+3) circle,
+        .mermaid .node:nth-child(4n+3) ellipse,
+        .mermaid .node:nth-child(4n+3) polygon {
+            fill: #fefce8;
+            stroke: #ca8a04;
+        }
+        
+        .mermaid .node:nth-child(4n+4) rect,
+        .mermaid .node:nth-child(4n+4) circle,
+        .mermaid .node:nth-child(4n+4) ellipse,
+        .mermaid .node:nth-child(4n+4) polygon {
+            fill: #fdf2f8;
+            stroke: #c026d3;
+        }
+        
+        .mermaid .node .label {
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            fill: var(--primary);
+        }
+        
+        .mermaid .edgePath .path {
+            stroke: var(--secondary);
+            stroke-width: 2px;
+            fill: none;
+        }
+        
+        .mermaid .edgeLabel {
+            background-color: white;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            fill: var(--primary);
+        }
+        
+        .mermaid .cluster rect {
+            fill: #f8fafc;
+            stroke: var(--border);
+            stroke-width: 1px;
+        }
+        
+        .mermaid .cluster .label {
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            fill: var(--primary);
+        }
+        
+        /* Improve text contrast for different node colors */
+        .mermaid .node:nth-child(4n+1) .label {
+            fill: #0369a1;
+            color: #0369a1;
+        }
+        
+        .mermaid .node:nth-child(4n+2) .label {
+            fill: #15803d;
+            color: #15803d;
+        }
+        
+        .mermaid .node:nth-child(4n+3) .label {
+            fill: #ca8a04;
+            color: #ca8a04;
+        }
+        
+        .mermaid .node:nth-child(4n+4) .label {
+            fill: #c026d3;
+            color: #c026d3;
+        }
+        
+        /* Default node color fallback */
+        .mermaid .node .label {
+            fill: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Responsive adjustments for small screens (<=768px) */
+        @media (max-width: 768px) {
+            .toc-sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .mermaid-control-btn:not(.reset-zoom) {
+                display: none;
+            }
+            .mermaid-controls {
+                top: auto;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+
+        /* Responsive adjustments for medium screens (<=1024px) */
+        @media (max-width: 1024px) {
+            .toc-sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="font-sans bg-gray-50">
+    <!-- Table of Contents Sidebar -->
+    <nav class="toc-sidebar">
+      <div class="mb-6">
+        <h3 class="font-serif text-lg font-semibold text-gray-900 mb-4">目录</h3>
+        <a href="#executive-summary" class="toc-link">摘要</a>
+        <a href="#core-findings" class="toc-link">核心发现</a>
+        <a href="#futu" class="toc-link">富途证券分析</a>
+        <a href="#tiger" class="toc-link">老虎证券分析</a>
+        <a href="#webull" class="toc-link">微牛证券分析</a>
+        <a href="#interactive-brokers" class="toc-link">盈透证券分析</a>
+        <a href="#other-brokers" class="toc-link">其他券商</a>
+        <a href="#comparison" class="toc-link">横向比较</a>
+        <a href="#recommendations" class="toc-link">选择建议</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="hero-gradient text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <img src="https://kimi-web-img.moonshot.cn/img/pbs.twimg.com/473daaaa8aa46c355820688043998e855ea4ef33.jpg" alt="香港金融城市天际线背景" class="w-full h-full object-cover" size="wallpaper" aspect="wide" style="photo" query="香港金融城市天际线" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+        </div>
+        <div class="relative z-10 px-4 md:px-8 py-16">
+          <div class="grid grid-cols-12 gap-8 max-w-7xl mx-auto">
+            <div class="col-span-12 md:col-span-7">
+              <h1 class="font-serif text-3xl md:text-5xl font-bold leading-tight mb-6">
+                <em class="text-xl md:text-3xl opacity-90">香港券商深度调研</em>
+                <br/>
+                <span class="text-2xl md:text-4xl">5万至10万美元入金规模下的全面比较</span>
+              </h1>
+              <p class="text-lg md:text-xl opacity-90 leading-relaxed">
+                为香港本地居民提供详尽的券商选择指南，基于真实数据深度分析成本、产品、技术与用户体验
+              </p>
+            </div>
+            <div class="col-span-12 md:col-span-5">
+              <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4 md:p-6 border border-white/20">
+                <h3 class="font-serif text-lg md:text-xl font-semibold mb-4">关键洞察</h3>
+                <ul class="space-y-2 text-sm opacity-90">
+                  <li class="flex items-start"><i class="fas fa-chart-line mt-1 mr-2"></i>老虎证券港股交易零佣金优势突出</li>
+                  <li class="flex items-start"><i class="fas fa-globe mt-1 mr-2"></i>盈透证券全球市场覆盖无与伦比</li>
+                  <li class="flex items-start"><i class="fas fa-mobile-alt mt-1 mr-2"></i>互联网券商社群生态活跃</li>
+                  <li class="flex items-start"><i class="fas fa-coins mt-1 mr-2"></i>数字货币交易成新差异化服务</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section id="executive-summary" class="px-8 py-12 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">摘要</h2>
+
+          <div class="highlight-box">
+            <p class="text-lg leading-relaxed">
+              对于计划在香港市场投资5万至10万美元的本地居民，选择券商需综合考量成本、产品、技术和用户体验。<strong>互联网券商（如富途、老虎、微牛）</strong> 以其低佣金、便捷的开户流程和活跃的社群生态，成为大多数零售投资者的首选，尤其适合追求成本效益和便捷操作的投资者。<strong>国际专业券商（如盈透证券）</strong> 则凭借其无与伦比的市场覆盖广度、极低的大额交易成本和专业级的交易工具（如TWS平台），更适合需要进行全球资产配置、交易复杂衍生品或进行量化交易的专业投资者。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+            <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+              <h4 class="font-semibold text-green-800 mb-3"><i class="fas fa-dollar-sign mr-2"></i>成本最优选择</h4>
+              <p class="text-green-700">老虎证券在港股交易上实现零佣金和零平台费，成本优势最为突出</p>
+            </div>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+              <h4 class="font-semibold text-blue-800 mb-3"><i class="fas fa-globe-americas mr-2"></i>全球市场首选</h4>
+              <p class="text-blue-700">盈透证券在美股交易和全球市场准入方面具有无可比拟的优势</p>
+            </div>
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+              <h4 class="font-semibold text-purple-800 mb-3"><i class="fas fa-users mr-2"></i>用户体验最佳</h4>
+              <p class="text-purple-700">富途证券凭借牛牛圈社群和优秀界面设计，提供最佳用户体验</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Findings -->
+      <section id="core-findings" class="px-8 py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-12">核心发现与市场格局</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">券商市场三分天下</h3>
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-700"><i class="fas fa-rocket mr-2"></i>互联网券商</h4>
+                  <p class="text-gray-600 mb-3">富途、老虎、微牛等，以极致线上体验、低佣金和活跃社群生态为主要特征<a href="https://www.biyapay.com/zh/blogDetail/2390-2025-hong-kong-stock-trading-selection-guide-globa" class="citation" target="_blank">[542]</a>
+                  </p>
+                  <div class="text-sm text-blue-600">✓ 一站式全球市场交易</div>
+                  <div class="text-sm text-blue-600">✓ 丰富图表工具</div>
+                  <div class="text-sm text-blue-600">✓ 活跃社群生态</div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h4 class="font-semibold text-lg mb-3 text-green-700"><i class="fas fa-building mr-2"></i>国际大型券商</h4>
+                  <p class="text-gray-600 mb-3">盈透证券、嘉信理财等，覆盖全球150+市场，服务专业投资者<a href="https://www.interactivebrokers.com.hk/cn/index.php?f=25377" class="citation" target="_blank">[556]</a>
+                    <a href="https://brokerchooser.com/best-brokers/best-stock-brokers-in-hong-kong" class="citation" target="_blank">[581]</a>
+                  </p>
+                  <div class="text-sm text-green-600">✓ 机构级费率</div>
+                  <div class="text-sm text-green-600">✓ 专业交易工具</div>
+                  <div class="text-sm text-green-600">✓ 全球市场覆盖</div>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h4 class="font-semibold text-lg mb-3 text-purple-700"><i class="fas fa-home mr-2"></i>香港本地券商</h4>
+                  <p class="text-gray-600 mb-3">致富证券、华盛证券等，深厚本地根基，提供线下服务<a href="https://www.biyapay.com/zh/blogDetail/2390-2025-hong-kong-stock-trading-selection-guide-globa" class="citation" target="_blank">[542]</a>
+                  </p>
+                  <div class="text-sm text-purple-600">✓ 本地化产品</div>
+                  <div class="text-sm text-purple-600">✓ 个性化咨询</div>
+                  <div class="text-sm text-purple-600">✓ 实体分行网络</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">5-10万美元投资者画像</h3>
+              <div class="bg-white rounded-lg p-6 border border-gray-200 mb-6">
+                <h4 class="font-semibold text-lg mb-4">核心需求特征</h4>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <i class="fas fa-chart-pie text-blue-500 mr-3"></i>
+                    <span><strong>成本敏感：</strong>高度关注佣金、平台费、融资利率<a href="https://www.biyapay.com/blogDetail/2432-hong-kong-stock-trading-fee-comparison-which-broke" class="citation" target="_blank">[552]</a></span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-tachometer-alt text-green-500 mr-3"></i>
+                    <span><strong>效率追求：</strong>快速开户、高效资金存取、稳定交易系统<a href="https://www.biyapay.com/zh/blogDetail/2390-2025-hong-kong-stock-trading-selection-guide-globa" class="citation" target="_blank">[542]</a></span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-layer-group text-purple-500 mr-3"></i>
+                    <span><strong>产品丰富：</strong>除港美股，希望投资ETF、期权、期货、数字货币<a href="https://www.interactivebrokers.com.hk/en/trading/products-cryptocurrencies.php" class="citation" target="_blank">[555]</a>
+                      <a href="https://www.interactivebrokers.com.hk/cn/index.php?f=25377" class="citation" target="_blank">[556]</a>
+                    </span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-code text-orange-500 mr-3"></i>
+                    <span><strong>技术需求：</strong>稳定低延迟API、丰富数据维度<a href="https://juejin.cn/post/7494562378153066535" class="citation" target="_blank">[547]</a></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+                <h4 class="font-semibold text-lg mb-3 text-blue-800">投资者决策流程</h4>
+                <div class="mermaid-container">
+                  <div class="mermaid-controls">
+                    <button class="mermaid-control-btn zoom-in" title="放大">
+                      <i class="fas fa-search-plus"></i>
+                    </button>
+                    <button class="mermaid-control-btn zoom-out" title="缩小">
+                      <i class="fas fa-search-minus"></i>
+                    </button>
+                    <button class="mermaid-control-btn reset-zoom" title="重置">
+                      <i class="fas fa-expand-arrows-alt"></i>
+                    </button>
+                    <button class="mermaid-control-btn fullscreen" title="全屏查看">
+                      <i class="fas fa-expand"></i>
+                    </button>
+                  </div>
+                  <div class="mermaid">
+                    flowchart TD
+                    A[&#34;5-10万美元投资者&#34;] --&gt; B{&#34;主要交易品种&#34;}
+                    B --&gt;|港股为主| C[&#34;老虎证券
+                    <br/>零佣金优势&#34;]
+                    B --&gt;|美股为主| D[&#34;盈透证券
+                    <br/>全球市场覆盖&#34;]
+                    B --&gt;|数字货币| E[&#34;富途/老虎
+                    <br/>合规交易&#34;]
+                    B --&gt;|本地港股| F[&#34;致富证券
+                    <br/>实体服务&#34;]
+
+                    C --&gt; G{&#34;技术需求&#34;}
+                    D --&gt; G
+                    E --&gt; G
+                    F --&gt; G
+
+                    G --&gt;|量化交易| H[&#34;API服务对比&#34;]
+                    G --&gt;|普通交易| I[&#34;用户体验优先&#34;]
+
+                    H --&gt; J[&#34;最终选择&#34;]
+                    I --&gt; J
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="broker-card">
+            <h3 class="font-serif text-2xl font-semibold mb-6">关键指标对比总览</h3>
+
+            <h4 class="text-xl font-semibold mb-4 text-gray-800">佣金与费用结构对比</h4>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>券商</th>
+                  <th>港股佣金</th>
+                  <th>港股平台费</th>
+                  <th>美股佣金</th>
+                  <th>美股平台费</th>
+                  <th>主要特点</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>富途证券</strong></td>
+                  <td>0.03% (最低HK$3)</td>
+                  <td>HK$15/笔</td>
+                  <td>$0.0049/股 (最低$0.99)</td>
+                  <td>$0.005/股 (最低$1)</td>
+                  <td>互联网券商，低佣金，社群活跃<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>老虎证券</strong></td>
+                  <td>0.029% (最低HK$3)</td>
+                  <td>HK$15/笔</td>
+                  <td>$0.0049/股 (最低$0.99)</td>
+                  <td>$0.005/股 (最低$1)</td>
+                  <td>互联网券商，支持多市场，量化工具丰富<a href="https://pdf.dfcfw.com/pdf/H3_AP202107171504397820_1.pdf" class="citation" target="_blank">[561]</a>
+                    <a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>微牛证券</strong></td>
+                  <td>0.02% (最低HK$2)</td>
+                  <td>HK$13/笔</td>
+                  <td>$0.0045/股 (最低$0.89)</td>
+                  <td>$0.0045/股 (最低$0.89)</td>
+                  <td>互联网券商，提供免佣活动，界面友好<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>盈透证券</strong></td>
+                  <td>0.08% (最低HK$18)</td>
+                  <td>无</td>
+                  <td>$0.005/股 (最低$1)</td>
+                  <td>无</td>
+                  <td>国际券商，全球市场，专业工具，费率极具竞争力<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                    <a href="https://brokerchooser.com/best-brokers/best-stock-brokers-in-hong-kong" class="citation" target="_blank">[581]</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>华盛证券</strong></td>
+                  <td>0.03% (最低HK$3)</td>
+                  <td>HK$15/笔</td>
+                  <td>$0.0049/股 (最低$0.99)</td>
+                  <td>交易金额0.5% (最低$1)</td>
+                  <td>互联网券商，支持A股通道<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>uSMART盈立</strong></td>
+                  <td>HK$0</td>
+                  <td>HK$12/笔</td>
+                  <td>$0</td>
+                  <td>按股价阶梯收费 (最低$1.88)</td>
+                  <td>互联网券商，部分产品零佣金<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="mt-8">
+              <h4 class="text-xl font-semibold mb-4 text-gray-800">产品丰富度与特色服务对比</h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h5 class="font-semibold text-lg mb-3 text-blue-700">盈透证券 - 全球市场领导者</h5>
+                  <ul class="space-y-2 text-gray-600">
+                    <li>• 进入全球150个市场、27种货币交易<a href="https://www.interactivebrokers.com.hk/cn/index.php?f=25377" class="citation" target="_blank">[556]</a>
+                      <a href="https://brokerchooser.com/best-brokers/best-stock-brokers-in-hong-kong" class="citation" target="_blank">[581]</a>
+                    </li>
+                    <li>• 股票、期权、期货、外汇、债券、基金全覆盖</li>
+                    <li>• 合规提供比特币和以太坊现货交易<a href="https://www.interactivebrokers.com.hk/en/trading/products-cryptocurrencies.php" class="citation" target="_blank">[555]</a>
+                      <a href="https://www.osl.com/hk-en/media-coverage/interactive-brokers-offering-crypto-hk-osl/" class="citation" target="_blank">[558]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <h5 class="font-semibold text-lg mb-3 text-green-700">互联网券商 - 创新服务先锋</h5>
+                  <ul class="space-y-2 text-gray-600">
+                    <li>• 港、美、A股及新加坡、日本、澳洲等多个市场<a href="https://www.biyapay.com/zh/blogDetail/2390-2025-hong-kong-stock-trading-selection-guide-globa" class="citation" target="_blank">[542]</a>
+                    </li>
+                    <li>• 期权、窝轮、牛熊证、ETF等衍生品</li>
+                    <li>• 富途已推出香港加密货币交易服务<a href="https://www.futuhk.com/en/support/topic2_1448" class="citation" target="_blank">[517]</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Futu Securities Analysis -->
+      <section id="futu" class="px-8 py-16 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">富途证券 (Futu Securities) 深度分析</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            <div class="lg:col-span-2">
+              <h3 class="font-serif text-2xl font-semibold mb-6">核心竞争力</h3>
+              <div class="space-y-6">
+                <div class="bg-blue-50 border-l-4 border-blue-500 p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-800"><i class="fas fa-rocket mr-2"></i>技术优势</h4>
+                  <p class="text-blue-700">自主研发&#34;富途牛牛&#34;平台，支持高达0.013秒高速下单，24/5美股交易，提供强大的技术分析工具和实时资讯<a href="https://www.futuholdings.com/en-us/product" class="citation" target="_blank">[519]</a>
+                  </p>
+                </div>
+
+                <div class="bg-green-50 border-l-4 border-green-500 p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-green-800"><i class="fas fa-users mr-2"></i>社群生态</h4>
+                  <p class="text-green-700">&#34;牛牛圈&#34;和&#34;牛牛聊天室&#34;构建活跃投资者社群，用户可分享观点、讨论热点，形成强大网络效应<a href="http://toujiao.sina.cn/article/detail/150" class="citation" target="_blank">[560]</a>
+                  </p>
+                </div>
+
+                <div class="bg-purple-50 border-l-4 border-purple-500 p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-purple-800"><i class="fas fa-coins mr-2"></i>产品创新</h4>
+                  <p class="text-purple-700">香港合规提供比特币和以太坊交易，零佣金公募基金申购，推出&#34;现金宝&#34;等现金管理工具<a href="https://www.futuhk.com/en/support/topic2_1448" class="citation" target="_blank">[517]</a>
+                    <a href="https://www.futuhk.com/products/funds" class="citation" target="_blank">[124]</a>
+                    <a href="https://zhuanlan.zhihu.com/p/1926945217199714810" class="citation" target="_blank">[18]</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">费用结构</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h4 class="font-semibold mb-4 text-gray-800">港股交易费用</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between">
+                    <span>佣金</span>
+                    <span class="font-medium">0.03% (最低HK$3)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span>平台费</span>
+                    <span class="font-medium">HK$15/笔<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-200 mt-4 pt-4">
+                  <h4 class="font-semibold mb-4 text-gray-800">美股交易费用</h4>
+                  <div class="space-y-3 text-sm">
+                    <div class="flex justify-between">
+                      <span>佣金</span>
+                      <span class="font-medium">$0.0049/股 (最低$0.99)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span>平台费</span>
+                      <span class="font-medium">$0.005/股 (最低$1)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h5 class="font-semibold text-yellow-800 mb-2">新客优惠</h5>
+                <ul class="text-sm text-yellow-700 space-y-1">
+                  <li>• 终身港股免佣<a href="https://www.planto.hk/en/blog/futu-brokers-review-en/" class="citation" target="_blank">[379]</a>
+                  </li>
+                  <li>• 400港元交易优惠券</li>
+                  <li>• 180天美股费用豁免</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">API服务</h3>
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-semibold mb-4">OpenAPI支持</h4>
+                <p class="text-gray-600 mb-4">提供API服务，允许开发者接入交易系统和行情数据，但具体费用需联系客户经理确认<a href="https://openapi.futunn.com/futu-api-doc/intro/fee.html" class="citation" target="_blank">[380]</a>
+                </p>
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center">
+                    <i class="fas fa-check text-green-500 mr-2"></i>
+                    <span>Level 1实时行情免费提供</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                    <span>Level 2行情需付费订阅</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">投资者教育</h3>
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-semibold mb-4">教育资源</h4>
+                <p class="text-gray-600 mb-4">提供丰富的免费教育资源，包括入门课程、深度解析和专业人士直播<a href="https://www.futuholdings.com/en-us/product" class="citation" target="_blank">[519]</a>
+                  <a href="https://statichk.iqdii.com/stockdata/notice/newprospectus/sehk21052501208.pdf" class="citation" target="_blank">[524]</a>
+                </p>
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center">
+                    <i class="fas fa-graduation-cap text-blue-500 mr-2"></i>
+                    <span>系统化投资课程</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-video text-purple-500 mr-2"></i>
+                    <span>专业直播讲座</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-newspaper text-green-500 mr-2"></i>
+                    <span>7x24小时财经新闻</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Tiger Brokers Analysis -->
+      <section id="tiger" class="px-8 py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">老虎证券 (Tiger Brokers) 深度分析</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">核心竞争优势</h3>
+              <div class="space-y-6">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-green-800"><i class="fas fa-dollar-sign mr-2"></i>成本优势突出</h4>
+                  <p class="text-green-700 mb-3">港股交易真正实现零佣金和零平台费，在成本竞争中占据绝对优势<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a>
+                  </p>
+                  <div class="bg-green-100 rounded p-3 text-sm">
+                    <strong>美股费率：</strong> $0.0049/股，最低$0.99
+                  </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-800"><i class="fas fa-gift mr-2"></i>丰厚转仓奖励</h4>
+                  <p class="text-blue-700 mb-3">转入50,000港币以上股票可获得1,200港币代金券+30次免佣卡<a href="https://fan-crossborder.com/tigertradehk-reward" class="citation" target="_blank">[616]</a>
+                  </p>
+                  <div class="bg-blue-100 rounded p-3 text-sm">
+                    <strong>奖励叠加：</strong>可与新客奖励同时享受
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">技术平台特色</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">Tiger Trade App</h4>
+                <p class="text-gray-600 mb-4">专为现代投资者打造，界面直观，操作流畅，&#34;基于应用程序，对初学者友好&#34;<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[592]</a>
+                </p>
+
+                <div class="space-y-3">
+                  <div class="flex items-start">
+                    <i class="fas fa-code text-orange-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">OpenAPI免费开放</div>
+                      <div class="text-sm text-gray-600">开户入金即可使用，支持港股、美股、A股实时及历史行情<a href="https://blog.csdn.net/2501_93262691/article/details/151782214" class="citation" target="_blank">[568]</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-chart-line text-green-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">量化分析工具</div>
+                      <div class="text-sm text-gray-600">策略回测、因子分析等专业工具</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-clock text-blue-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">高效资金流转</div>
+                      <div class="text-sm text-gray-600">eDDA快捷入金，1-3个工作日到账<a href="https://www.moneysmart.hk/en/investments/tiger-brokers" class="citation" target="_blank">[363]</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-8">
+            <h3 class="font-serif text-2xl font-semibold mb-6">产品与服务矩阵</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <h4 class="font-semibold text-lg mb-3 text-blue-700">全球市场覆盖</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                  <li>• 美国、香港股票市场</li>
+                  <li>• 中国A股（沪深港通）</li>
+                  <li>• 新加坡、澳洲股票<a href="https://www.biyapay.com/zh/blogDetail/2390-2025-hong-kong-stock-trading-selection-guide-globa" class="citation" target="_blank">[542]</a>
+                  </li>
+                  <li>• 港股、美股期权</li>
+                  <li>• 港股窝轮、牛熊证</li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg mb-3 text-green-700">API服务</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                  <li>• 免费OpenAPI<a href="https://blog.csdn.net/2501_93262691/article/details/151782214" class="citation" target="_blank">[568]</a>
+                  </li>
+                  <li>• 逐笔成交数据</li>
+                  <li>• 实时行情推送</li>
+                  <li>• 全面交易功能</li>
+                  <li>• FIX协议支持<a href="https://www.itiger.com/hk/en/inst/proprietary-trading-group" class="citation" target="_blank">[374]</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg mb-3 text-purple-700">增值服务</h4>
+                <ul class="space-y-2 text-gray-600 text-sm">
+                  <li>• 老虎学院投资课程</li>
+                  <li>• 专业社群交流</li>
+                  <li>• 跟单学习模式</li>
+                  <li>• 策略回测工具</li>
+                  <li>• 盘前盘后交易<a href="https://quant.itigerup.com/openapi/en/python/overview/introduction.html" class="citation" target="_blank">[375]</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Webull Analysis -->
+      <section id="webull" class="px-8 py-16 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">微牛证券 (Webull Securities) 深度分析</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">差异化优势</h3>
+              <div class="space-y-6">
+                <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-indigo-800"><i class="fas fa-chart-area mr-2"></i>免费深度行情</h4>
+                  <p class="text-indigo-700 mb-3">免费提供纳斯达克TotalView深度行情和OPRA期权报价，极大降低信息获取成本<a href="https://www.webull.hk/en/" class="citation" target="_blank">[603]</a>
+                  </p>
+                  <div class="bg-indigo-100 rounded p-3 text-sm">
+                    <strong>通常价值：</strong> Level 2行情年费数千美元
+                  </div>
+                </div>
+
+                <div class="bg-teal-50 border border-teal-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-teal-800"><i class="fas fa-dollar-sign mr-2"></i>零费用政策</h4>
+                  <p class="text-teal-700 mb-3">特定推广期内提供&#34;真零费用&#34;交易，美股期权OPRA行情免费<a href="https://www.webull.hk/en/" class="citation" target="_blank">[603]</a>
+                  </p>
+                  <div class="bg-teal-100 rounded p-3 text-sm">
+                    <strong>注意：</strong>优惠政策可能有时间限制
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">平台功能</h3>
+              <div class="bg-gray-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-4">专业交易工具</h4>
+                <p class="text-gray-600 mb-4">提供&#34;布局清晰，对休闲投资者友好&#34;的平台界面，同时集成专业级交易工具<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[592]</a>
+                </p>
+
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <i class="fas fa-tools text-blue-500 mr-3"></i>
+                    <span class="text-sm">强大的技术分析工具</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-chart-bar text-green-500 mr-3"></i>
+                    <span class="text-sm">全面的基本面数据</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-mobile-alt text-purple-500 mr-3"></i>
+                    <span class="text-sm">跨平台无缝交易</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-clock text-orange-500 mr-3"></i>
+                    <span class="text-sm">5x24小时美股交易<a href="https://www.webull.hk/en/" class="citation" target="_blank">[603]</a></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-8">
+            <h3 class="font-serif text-2xl font-semibold mb-6">费用与资金效率</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">交易费用</h4>
+                <div class="space-y-4">
+                  <div class="bg-blue-50 rounded-lg p-4">
+                    <h5 class="font-medium mb-2">港股交易</h5>
+                    <div class="space-y-2 text-sm">
+                      <div class="flex justify-between">
+                        <span>佣金</span>
+                        <span class="font-medium">0.02% (最低HK$2)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>平台费</span>
+                        <span class="font-medium">HK$13/笔<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="bg-green-50 rounded-lg p-4">
+                    <h5 class="font-medium mb-2">美股交易</h5>
+                    <div class="space-y-2 text-sm">
+                      <div class="flex justify-between">
+                        <span>佣金</span>
+                        <span class="font-medium">$0.0045/股 (最低$0.89)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                      </div>
+                      <div class="flex justify-between">
+                        <span>平台费</span>
+                        <span class="font-medium">$0.0045/股 (最低$0.89)<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[580]</a></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">资金存取</h4>
+                <div class="space-y-4">
+                  <div class="bg-yellow-50 rounded-lg p-4">
+                    <h5 class="font-medium mb-2">入金方式</h5>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                      <li>• 仅支持香港银行电汇<a href="https://www.webull.hk/en/help/faq/578-How-to-deposit-funds-into-your-Webull-HK-account" class="citation" target="_blank">[600]</a>
+                      </li>
+                      <li>• 支持港币、美元、人民币</li>
+                      <li>• 1-2个工作日到账</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-purple-50 rounded-lg p-4">
+                    <h5 class="font-medium mb-2">出金优势</h5>
+                    <ul class="text-sm space-y-1 text-gray-700">
+                      <li>• 免费出金（除海外账户）<a href="https://www.webull.hk/en/help/faq/1062-Popular-inquiries-about-withdrawals" class="citation" target="_blank">[599]</a>
+                        <a href="https://www.webull.hk/en/help/faq/600-How-to-withdraw-funds-from-your-Webull-HK-account" class="citation" target="_blank">[601]</a>
+                      </li>
+                      <li>• 最低出金：港币150，美元10</li>
+                      <li>• 1-3个工作日到账</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Interactive Brokers Analysis -->
+      <section id="interactive-brokers" class="px-8 py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">盈透证券 (Interactive Brokers) 深度分析</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">全球市场领导者</h3>
+              <div class="space-y-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-800"><i class="fas fa-globe-americas mr-2"></i>无与伦比的市场覆盖</h4>
+                  <p class="text-blue-700 mb-3">提供进入全球150多个市场、33个国家的交易服务，覆盖北美、欧洲、亚太等主要金融中心<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[592]</a>
+                  </p>
+                  <div class="bg-blue-100 rounded p-3 text-sm">
+                    <strong>产品范围：</strong> 股票、期权、期货、外汇、债券、基金等几乎所有金融产品
+                  </div>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                  <h4 class="font-semibold text-lg mb-3 text-green-800"><i class="fas fa-cogs mr-2"></i>专业交易工具</h4>
+                  <p class="text-green-700 mb-3">Trader Workstation (TWS)平台功能极其强大，提供高级图表、算法交易、风险分析等专业工具<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[592]</a>
+                  </p>
+                  <div class="bg-green-100 rounded p-3 text-sm">
+                    <strong>定位：</strong> &#34;功能丰富，更适合经验丰富的交易者&#34;
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-serif text-2xl font-semibold mb-6">API生态系统</h3>
+              <div class="bg-white border border-gray-200 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">全面的API解决方案</h4>
+                <p class="text-gray-600 mb-4">提供TWS API、Web API、FIX API等多种接口，满足不同层次量化交易需求<a href="https://www.interactivebrokers.com.hk/en/trading/ib-api.php" class="citation" target="_blank">[478]</a>
+                </p>
+
+                <div class="space-y-4">
+                  <div class="border-l-4 border-orange-400 pl-4">
+                    <div class="font-medium text-orange-800">TWS API</div>
+                    <div class="text-sm text-gray-600">最常用的接口，控制TWS桌面平台</div>
+                  </div>
+                  <div class="border-l-4 border-blue-400 pl-4">
+                    <div class="font-medium text-blue-800">Web API</div>
+                    <div class="text-sm text-gray-600">REST和WebSocket接口，适合网页应用</div>
+                  </div>
+                  <div class="border-l-4 border-green-400 pl-4">
+                    <div class="font-medium text-green-800">FIX API</div>
+                    <div class="text-sm text-gray-600">超低延迟，面向专业机构</div>
+                  </div>
+                </div>
+
+                <div class="mt-4 bg-yellow-50 border border-yellow-200 rounded p-3">
+                  <div class="text-sm text-yellow-800">
+                    <strong>注意：</strong> API访问免费，但实时市场数据订阅需付费<a href="https://www.interactivebrokers.com.hk/en/pricing/market-data-pricing.php" class="citation" target="_blank">[483]</a>
+                    <a href="https://www.interactivebrokers.com.hk/en/pricing/market-data-pricing.php" class="citation" target="_blank">[484]</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-8">
+            <h3 class="font-serif text-2xl font-semibold mb-6">数据服务深度</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-blue-800">Level I数据</h4>
+                <ul class="text-sm text-blue-700 space-y-2">
+                  <li>• 最优买卖报价</li>
+                  <li>• 最新成交价</li>
+                  <li>• 合并实时数据</li>
+                  <li>• 免费非合并数据<a href="https://www.interactivebrokers.com.hk/en/pricing/market-data-pricing.php" class="citation" target="_blank">[483]</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-green-800">Level II数据</h4>
+                <ul class="text-sm text-green-700 space-y-2">
+                  <li>• 完整订单簿深度</li>
+                  <li>• 纳斯达克TotalView</li>
+                  <li>• 市场流动性分析</li>
+                  <li>• 佣金达标可豁免<a href="https://www.interactivebrokers.com.hk/en/pricing/market-data-pricing.php" class="citation" target="_blank">[484]</a>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-purple-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-purple-800">数据线政策</h4>
+                <ul class="text-sm text-purple-700 space-y-2">
+                  <li>• 初始100条实时数据线</li>
+                  <li>• 按佣金和资产规模调整</li>
+                  <li>• 高频交易者友好</li>
+                  <li>• 灵活订阅选项<a href="https://www.interactivebrokers.com.hk/en/pricing/market-data-pricing.php" class="citation" target="_blank">[483]</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-6">
+            <h3 class="font-serif text-2xl font-semibold mb-4">费用注意事项</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <h4 class="font-semibold mb-3 text-gray-800">账户闲置费</h4>
+                <p class="text-gray-600 mb-3">账户余额低于10万美元且月佣金低于10美元时，收取每月10美元闲置费<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[592]</a>
+                </p>
+                <div class="bg-red-100 rounded p-3 text-sm">
+                  <strong>豁免条件：</strong> 账户余额超10万美元或月佣金超10美元
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold mb-3 text-gray-800">推荐奖励</h4>
+                <p class="text-gray-600 mb-3">新客户在入金10,000美元并维持一年后，可获得最高1,000美元IBKR股票奖励<a href="https://www.interactivebrokers.com/en/trading/referral-member-to-member.php" class="citation" target="_blank">[469]</a>
+                </p>
+                <div class="bg-green-100 rounded p-3 text-sm">
+                  <strong>奖励比例：</strong> 每入金300美元获得1美元股票
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Other Brokers -->
+      <section id="other-brokers" class="px-8 py-16 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">其他值得关注的券商</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Hafoo Securities -->
+            <div class="bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-lg p-6">
+              <h3 class="font-serif text-2xl font-semibold mb-4 text-red-800">哈富证券 (Hafoo Securities)</h3>
+              <div class="mb-4">
+                <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full mr-2">东方财富旗下</span>
+                <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">加密资产牌照</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold mb-2">核心优势</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• 佣金仅为大型中资券商的十分之一<a href="https://zhuanlan.zhihu.com/p/421866776" class="citation" target="_blank">[100]</a>
+                    </li>
+                    <li>• 2024年6月获得虚拟资产交易牌照<a href="https://www.moomoo.com/hans/news/post/55363585" class="citation" target="_blank">[84]</a>
+                    </li>
+                    <li>• 港股佣金0.025%，最低5港元<a href="https://www.hafoo.com.hk/hk/hans/help/fees-hk" class="citation" target="_blank">[83]</a>
+                    </li>
+                    <li>• 美股佣金$0.0049/股，最低$0.99<a href="https://www.hafoo.com.hk/hk/hans/help/fees-us" class="citation" target="_blank">[81]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-2">奖励政策</h4>
+                  <div class="bg-red-100 rounded p-3 text-sm">
+                    <div class="font-medium mb-2">入金奖励：</div>
+                    <ul class="space-y-1">
+                      <li>• 入金1万港元：800港元奖励</li>
+                      <li>• 入金5万港元：1,200港元奖励</li>
+                      <li>• 入金10万港元：1,800港元奖励<a href="https://fan-crossborder.com/archives/7517" class="citation" target="_blank">[73]</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chief Securities -->
+            <div class="bg-gradient-to-br from-blue-50 to-cyan-50 border border-blue-200 rounded-lg p-6">
+              <h3 class="font-serif text-2xl font-semibold mb-4 text-blue-800">致富证券 (Chief Securities)</h3>
+              <div class="mb-4">
+                <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mr-2">本地45年历史</span>
+                <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">全面牌照</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold mb-2">费用优势</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• 免平台费、存仓费、不活跃费<a href="https://www.moneyhero.com.hk/zh/investments/products/chief" class="citation" target="_blank">[434]</a>
+                      <a href="https://play.google.com/store/apps/details?id=com.app.chief&amp;hl=zh_CN" class="citation" target="_blank">[440]</a>
+                    </li>
+                    <li>• 港股佣金0.0668%，最低20港币<a href="https://www.mg21.com/chiefgroup.html" class="citation" target="_blank">[434]</a>
+                    </li>
+                    <li>• 美股佣金$0.01/股，最低$2.88<a href="https://www.mg21.com/chiefgroup.html" class="citation" target="_blank">[435]</a>
+                    </li>
+                    <li>• 免费港美股Level 1即时报价</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-2">产品特色</h4>
+                  <div class="bg-blue-100 rounded p-3 text-sm">
+                    <div class="font-medium mb-2">期权期货服务：</div>
+                    <ul class="space-y-1">
+                      <li>• 港股期权长仓：5港币/张<a href="https://www.chiefgroup.com.hk/hk/options" class="citation" target="_blank">[493]</a>
+                      </li>
+                      <li>• 美股期权：$0.99/张<a href="https://www.chiefgroup.com.hk/cn/service/commission" class="citation" target="_blank">[442]</a>
+                      </li>
+                      <li>• 环球期货：50+产品，$0.88起<a href="https://www.chiefgroup.com.hk/cn/service/commission" class="citation" target="_blank">[442]</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Saxo Bank -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-6">
+              <h3 class="font-serif text-2xl font-semibold mb-4 text-green-800">盛宝银行 (Saxo Bank)</h3>
+              <div class="mb-4">
+                <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full mr-2">丹麦投资银行</span>
+                <span class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">专业平台</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold mb-2">全球市场准入</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• 36个交易所准入<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                    <li>• 35,000+金融产品</li>
+                    <li>• 180+货币对外汇交易</li>
+                    <li>• 港股佣金0.08%，最低15港元<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-2">平台特色</h4>
+                  <div class="bg-green-100 rounded p-3 text-sm">
+                    <div class="font-medium mb-2">SaxoTraderPRO平台：</div>
+                    <ul class="space-y-1">
+                      <li>• 高级图表工具</li>
+                      <li>• 算法交易功能</li>
+                      <li>• 风险管理工具</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Charles Schwab -->
+            <div class="bg-gradient-to-br from-yellow-50 to-amber-50 border border-yellow-200 rounded-lg p-6">
+              <h3 class="font-serif text-2xl font-semibold mb-4 text-yellow-800">嘉信理财 (Charles Schwab)</h3>
+              <div class="mb-4">
+                <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full mr-2">全球领先</span>
+                <span class="inline-block bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">财富管理</span>
+              </div>
+
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-semibold mb-2">综合服务</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• 香港办事处，中文客服<a href="https://www.schwab.com.hk/open-account-intro" class="citation" target="_blank">[475]</a>
+                    </li>
+                    <li>• 美股ETF零佣金交易<a href="https://www.schwab.com/pricing" class="citation" target="_blank">[472]</a>
+                    </li>
+                    <li>• 12个国际市场直接交易<a href="https://www.schwab.com/global-trading" class="citation" target="_blank">[473]</a>
+                    </li>
+                    <li>• 强大研究团队支持</li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 class="font-semibold mb-2">注意事项</h4>
+                  <div class="bg-yellow-100 rounded p-3 text-sm">
+                    <div class="font-medium mb-2">国际交易费用：</div>
+                    <ul class="space-y-1">
+                      <li>• 港股交易：250港币佣金<a href="https://www.marottaonmoney.com/wp-content/uploads/2020/02/Charles-Schwab-Pricing-Guide.pdf" class="citation" target="_blank">[476]</a>
+                      </li>
+                      <li>• 外汇兑换：1%费率（10万美元以下）</li>
+                      <li>• 适合看重服务的投资者</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Comparison Section -->
+      <section id="comparison" class="px-8 py-16 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">关键维度横向比较</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white border border-gray-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-blue-800">成本效益分析</h3>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold text-green-800 mb-2">互联网券商优势</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>老虎证券：</strong>港股真正零佣金，成本最优<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                    <li>• <strong>富途证券：</strong>一世免佣，但收取平台费<a href="https://www.futuhk.com/en/support/topic2_335" class="citation" target="_blank">[378]</a>
+                    </li>
+                    <li>• <strong>微牛证券：</strong>美股费率略低，免费Level 2行情</li>
+                  </ul>
+                </div>
+
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">国际券商优势</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>盈透证券：</strong>无平台费，阶梯费率适合大额交易<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                    <li>• <strong>嘉信理财：</strong>美股零佣金，国际交易费用高</li>
+                  </ul>
+                </div>
+
+                <div class="border-l-4 border-purple-500 pl-4">
+                  <h4 class="font-semibold text-purple-800 mb-2">本地券商特色</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>致富证券：</strong>免平台费存仓费，费用亲民<a href="https://www.moneyhero.com.hk/zh/investments/products/chief" class="citation" target="_blank">[434]</a>
+                    </li>
+                    <li>• <strong>哈富证券：</strong>佣金低于行业平均水平</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white border border-gray-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-green-800">技术实力比拼</h3>
+
+              <div class="space-y-6">
+                <div class="border-l-4 border-blue-500 pl-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">API服务领导者</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>盈透证券：</strong>行业领先，TWS API功能全面<a href="https://www.interactivebrokers.com.hk/en/trading/ib-api.php" class="citation" target="_blank">[391]</a>
+                      <a href="https://www.interactivebrokers.com.hk/en/trading/ib-api.php" class="citation" target="_blank">[478]</a>
+                    </li>
+                    <li>• <strong>老虎证券：</strong>免费OpenAPI，降低门槛<a href="https://blog.csdn.net/2501_93262691/article/details/151782214" class="citation" target="_blank">[568]</a>
+                    </li>
+                    <li>• <strong>富途证券：</strong>OpenAPI，地域差异化政策<a href="https://openapi.futunn.com/futu-api-doc/intro/fee.html" class="citation" target="_blank">[380]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                  <h4 class="font-semibold text-green-800 mb-2">行情数据优势</h4>
+                  <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>微牛证券：</strong>免费美股Level 2和OPRA行情<a href="https://www.webull.hk/en/" class="citation" target="_blank">[603]</a>
+                    </li>
+                    <li>• <strong>致富证券：</strong>高频交易API优化<a href="https://bayase.com/post/z84wm2ot/" class="citation" target="_blank">[406]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                  <h4 class="font-semibold mb-2">量化交易者选择建议</h4>
+                  <div class="text-sm text-gray-600">
+                    <div class="font-medium mb-2">专业机构：盈透证券</div>
+                    <div class="font-medium mb-2">个人爱好者：老虎证券 + 微牛行情</div>
+                    <div class="font-medium">高频策略：致富证券API</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white border border-gray-200 rounded-lg p-8">
+            <h3 class="font-serif text-2xl font-semibold mb-6 text-purple-800">产品广度与深度</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+              <div class="bg-blue-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-blue-800">全球市场</h4>
+                <div class="text-center mb-4">
+                  <div class="text-3xl font-bold text-blue-600">150+</div>
+                  <div class="text-sm text-blue-700">市场覆盖</div>
+                </div>
+                <div class="text-sm text-gray-600 text-center">
+                  <strong>盈透证券</strong>绝对优势<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[400]</a>
+                  <a href="https://www.interactivebrokers.com.hk/cn/index.php?f=25377" class="citation" target="_blank">[556]</a>
+                </div>
+              </div>
+
+              <div class="bg-green-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-green-800">数字货币</h4>
+                <div class="text-center mb-4">
+                  <div class="text-3xl font-bold text-green-600">合规</div>
+                  <div class="text-sm text-green-700">交易服务</div>
+                </div>
+                <div class="text-sm text-gray-600 text-center">
+                  <strong>富途、老虎</strong>已获批<a href="https://www.futuhk.com/en/support/topic2_1448" class="citation" target="_blank">[397]</a>
+                  <a href="https://www.itiger.com/hk/en/invest/virtual-assets" class="citation" target="_blank">[361]</a>
+                </div>
+              </div>
+
+              <div class="bg-purple-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-purple-800">本地市场</h4>
+                <div class="text-center mb-4">
+                  <div class="text-3xl font-bold text-purple-600">专业</div>
+                  <div class="text-sm text-purple-700">衍生品</div>
+                </div>
+                <div class="text-sm text-gray-600 text-center">
+                  <strong>致富、创兴</strong>深耕港股<a href="https://www.chiefgroup.com.hk/hk/individual/futures" class="citation" target="_blank">[410]</a>
+                  <a href="https://www.chbank.com/tc/personal/wealth-management/investment-choices/commodities-futures-investment/index.shtml" class="citation" target="_blank">[406]</a>
+                </div>
+              </div>
+
+              <div class="bg-orange-50 rounded-lg p-6">
+                <h4 class="font-semibold text-lg mb-3 text-orange-800">新兴资产</h4>
+                <div class="text-center mb-4">
+                  <div class="text-3xl font-bold text-orange-600">创新</div>
+                  <div class="text-sm text-orange-700">布局</div>
+                </div>
+                <div class="text-sm text-gray-600 text-center">
+                  <strong>哈富证券</strong>虚拟资产<a href="https://www.moomoo.com/hans/news/post/55363585" class="citation" target="_blank">[84]</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Recommendations -->
+      <section id="recommendations" class="px-8 py-16 bg-white">
+        <div class="max-w-6xl mx-auto">
+          <h2 class="font-serif text-3xl font-bold text-gradient mb-8">5万-10万美元投资者最终选择建议</h2>
+
+          <div class="highlight-box mb-12">
+            <p class="text-lg leading-relaxed">
+              基于详尽的对比分析，我们为不同投资需求的5万至10万美元香港本地居民投资者提供以下选择建议。每位投资者应根据自身交易习惯、资产配置需求和技术水平，在成本、产品、技术和用户体验之间找到最佳平衡点。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <!-- Cost-Sensitive Investors -->
+            <div class="bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-green-800">
+                <i class="fas fa-dollar-sign mr-3"></i>成本敏感型投资者
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-green-200">
+                  <h4 class="font-semibold text-lg mb-3 text-green-700">
+                    <i class="fas fa-star mr-2"></i>首选：老虎证券
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• <strong>港股真正零佣金</strong>，零平台费优势突出<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                    <li>• 丰厚转仓奖励：转入5万港币以上获1,200港币代金券<a href="https://fan-crossborder.com/tigertradehk-reward" class="citation" target="_blank">[616]</a>
+                    </li>
+                    <li>• 量化工具丰富，API免费开放<a href="https://blog.csdn.net/2501_93262691/article/details/151782214" class="citation" target="_blank">[568]</a>
+                    </li>
+                    <li>• 适合以港股交易为主的投资者</li>
+                  </ul>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-green-200">
+                  <h4 class="font-semibold text-lg mb-3 text-green-600">
+                    <i class="fas fa-thumbs-up mr-2"></i>备选：富途证券
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• &#34;一世免佣&#34;政策，但收取平台费<a href="https://www.futuhk.com/en/support/topic2_335" class="citation" target="_blank">[378]</a>
+                    </li>
+                    <li>• 用户体验和社群生态更胜一筹<a href="http://toujiao.sina.cn/article/detail/150" class="citation" target="_blank">[560]</a>
+                    </li>
+                    <li>• 已推出数字货币交易服务<a href="https://www.futuhk.com/en/support/topic2_1448" class="citation" target="_blank">[517]</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Global Investors -->
+            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-blue-800">
+                <i class="fas fa-globe mr-3"></i>全球资产配置型投资者
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-blue-200">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-700">
+                    <i class="fas fa-star mr-2"></i>首选：盈透证券
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• 覆盖全球150+市场，产品最全<a href="https://www.singsaver.com.sg/investment/products/tiger-brokers" class="citation" target="_blank">[400]</a>
+                      <a href="https://www.interactivebrokers.com.hk/cn/index.php?f=25377" class="citation" target="_blank">[556]</a>
+                    </li>
+                    <li>• 专业TWS平台，强大API支持<a href="https://www.interactivebrokers.com.hk/en/trading/ib-api.php" class="citation" target="_blank">[478]</a>
+                    </li>
+                    <li>• 机构级费率，无平台费<a href="https://www.stashaway.hk/r/top-online-stock-brokerages-hong-kong" class="citation" target="_blank">[400]</a>
+                    </li>
+                    <li>• 适合进行全球化、多资产配置</li>
+                  </ul>
+                </div>
+
+                <div class="bg-white rounded-lg p-6 border border-blue-200">
+                  <h4 class="font-semibold text-lg mb-3 text-blue-600">
+                    <i class="fas fa-thumbs-up mr-2"></i>备选：盛宝银行
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• 36个交易所准入，产品丰富</li>
+                    <li>• 专业SaxoTraderPRO平台</li>
+                    <li>• 外汇交易服务突出，180+货币对</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Crypto Investors -->
+            <div class="bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-purple-800">
+                <i class="fas fa-coins mr-3"></i>数字资产配置型投资者
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-purple-200">
+                  <h4 class="font-semibold text-lg mb-3 text-purple-700">
+                    <i class="fas fa-star mr-2"></i>首选：富途证券或老虎证券
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• 均获香港牌照，合规提供加密货币交易<a href="https://www.futuhk.com/en/support/topic2_1448" class="citation" target="_blank">[517]</a>
+                      <a href="https://www.itiger.com/hk/en/invest/virtual-assets" class="citation" target="_blank">[361]</a>
+                    </li>
+                    <li>• 传统金融与数字资产无缝对接</li>
+                    <li>• 统一平台管理，操作便捷</li>
+                    <li>• 支持比特币、以太坊等主流币种</li>
+                  </ul>
+                </div>
+
+                <div class="bg-purple-100 rounded-lg p-4">
+                  <h5 class="font-semibold text-purple-800 mb-2">风险提示</h5>
+                  <p class="text-sm text-purple-700">数字货币投资高风险，建议合理配置比例，选择合规平台进行交易</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Local Service Investors -->
+            <div class="bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-lg p-8">
+              <h3 class="font-serif text-2xl font-semibold mb-6 text-orange-800">
+                <i class="fas fa-home mr-3"></i>本地化服务偏好型投资者
+              </h3>
+
+              <div class="space-y-6">
+                <div class="bg-white rounded-lg p-6 border border-orange-200">
+                  <h4 class="font-semibold text-lg mb-3 text-orange-700">
+                    <i class="fas fa-star mr-2"></i>首选：致富证券
+                  </h4>
+                  <ul class="text-sm text-gray-700 space-y-2">
+                    <li>• 遍布香港的实体分行网络<a href="https://www.mg21.com/chiefgroup.html" class="citation" target="_blank">[435]</a>
+                    </li>
+                    <li>• 深厚本地市场根基和专业服务</li>
+                    <li>• 全面的港股期权和期货产品<a href="https://www.chiefgroup.com.hk/hk/options" class="citation" target="_blank">[493]</a>
+                    </li>
+                    <li>• 亲民费用结构，免多项费用<a href="https://www.moneyhero.com.hk/zh/investments/products/chief" class="citation" target="_blank">[434]</a>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="bg-orange-100 rounded-lg p-4">
+                  <h5 class="font-semibold text-orange-800 mb-2">服务特色</h5>
+                  <p class="text-sm text-orange-700">适合偏好线下服务、注重本地化支持的投资者，提供个性化咨询和全方位金融服务</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-gray-50 to-slate-50 border border-gray-200 rounded-lg p-8">
+            <h3 class="font-serif text-2xl font-semibold mb-6 text-gray-800">
+              <i class="fas fa-balance-scale mr-3"></i>最终决策框架
+            </h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">核心考量因素</h4>
+                <div class="space-y-4">
+                  <div class="flex items-start">
+                    <i class="fas fa-chart-line text-blue-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">成本结构</div>
+                      <div class="text-sm text-gray-600">佣金、平台费、融资利率等显性成本</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-globe text-green-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">市场覆盖</div>
+                      <div class="text-sm text-gray-600">港美股、全球市场、数字货币等</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-code text-purple-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">技术实力</div>
+                      <div class="text-sm text-gray-600">API功能、数据深度、平台稳定性</div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start">
+                    <i class="fas fa-users text-orange-500 mr-3 mt-1"></i>
+                    <div>
+                      <div class="font-medium">用户体验</div>
+                      <div class="text-sm text-gray-600">界面设计、社群生态、教育资源</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-semibold text-lg mb-4 text-gray-800">选择建议总结</h4>
+                <div class="bg-white rounded-lg p-6 border border-gray-200">
+                  <div class="space-y-3 text-sm">
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium">极致低成本</span>
+                      <span class="text-green-600 font-semibold">老虎证券</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium">全球市场配置</span>
+                      <span class="text-blue-600 font-semibold">盈透证券</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium">数字货币交易</span>
+                      <span class="text-purple-600 font-semibold">富途证券</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium">本地化服务</span>
+                      <span class="text-orange-600 font-semibold">致富证券</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="font-medium">量化交易</span>
+                      <span class="text-indigo-600 font-semibold">盈透/老虎</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <h5 class="font-semibold text-yellow-800 mb-2">
+                    <i class="fas fa-lightbulb mr-2"></i>最终建议
+                  </h5>
+                  <p class="text-sm text-yellow-700">
+                    没有一家券商是完美的，投资者应根据自身核心需求，在成本、产品、技术和体验之间做出权衡，选择最适合自己的券商，以实现长期投资目标。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+        // Initialize Mermaid with custom configuration
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'base',
+            themeVariables: {
+                primaryColor: '#ffffff',
+                primaryTextColor: '#1e293b',
+                primaryBorderColor: '#1e293b',
+                lineColor: '#475569',
+                secondaryColor: '#f8fafc',
+                tertiaryColor: '#e2e8f0',
+                background: '#ffffff',
+                mainBkg: '#ffffff',
+                secondBkg: '#f8fafc',
+                tertiaryBkg: '#f1f5f9',
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '14px'
+            },
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            sequence: {
+                useMaxWidth: false
+            },
+            gantt: {
+                useMaxWidth: false
+            }
+        });
+
+        // Initialize Mermaid Controls for zoom and pan
+        function initializeMermaidControls() {
+            const containers = document.querySelectorAll('.mermaid-container');
+
+            containers.forEach(container => {
+            const mermaidElement = container.querySelector('.mermaid');
+            let scale = 1;
+            let isDragging = false;
+            let startX, startY, translateX = 0, translateY = 0;
+
+            // 触摸相关状态
+            let isTouch = false;
+            let touchStartTime = 0;
+            let initialDistance = 0;
+            let initialScale = 1;
+            let isPinching = false;
+
+            // Zoom controls
+            const zoomInBtn = container.querySelector('.zoom-in');
+            const zoomOutBtn = container.querySelector('.zoom-out');
+            const resetBtn = container.querySelector('.reset-zoom');
+            const fullscreenBtn = container.querySelector('.fullscreen');
+
+            function updateTransform() {
+                mermaidElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+
+                if (scale > 1) {
+                container.classList.add('zoomed');
+                } else {
+                container.classList.remove('zoomed');
+                }
+
+                mermaidElement.style.cursor = isDragging ? 'grabbing' : 'grab';
+            }
+
+            if (zoomInBtn) {
+                zoomInBtn.addEventListener('click', () => {
+                scale = Math.min(scale * 1.25, 4);
+                updateTransform();
+                });
+            }
+
+            if (zoomOutBtn) {
+                zoomOutBtn.addEventListener('click', () => {
+                scale = Math.max(scale / 1.25, 0.3);
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform();
+                });
+            }
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                scale = 1;
+                translateX = 0;
+                translateY = 0;
+                updateTransform();
+                });
+            }
+
+            if (fullscreenBtn) {
+                fullscreenBtn.addEventListener('click', () => {
+                if (container.requestFullscreen) {
+                    container.requestFullscreen();
+                } else if (container.webkitRequestFullscreen) {
+                    container.webkitRequestFullscreen();
+                } else if (container.msRequestFullscreen) {
+                    container.msRequestFullscreen();
+                }
+                });
+            }
+
+            // Mouse Events
+            mermaidElement.addEventListener('mousedown', (e) => {
+                if (isTouch) return; // 如果是触摸设备，忽略鼠标事件
+
+                isDragging = true;
+                startX = e.clientX - translateX;
+                startY = e.clientY - translateY;
+                mermaidElement.style.cursor = 'grabbing';
+                updateTransform();
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging && !isTouch) {
+                translateX = e.clientX - startX;
+                translateY = e.clientY - startY;
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            document.addEventListener('mouseleave', () => {
+                if (isDragging && !isTouch) {
+                isDragging = false;
+                mermaidElement.style.cursor = 'grab';
+                updateTransform();
+                }
+            });
+
+            // 获取两点之间的距离
+            function getTouchDistance(touch1, touch2) {
+                return Math.hypot(
+                touch2.clientX - touch1.clientX,
+                touch2.clientY - touch1.clientY
+                );
+            }
+
+            // Touch Events - 触摸事件处理
+            mermaidElement.addEventListener('touchstart', (e) => {
+                isTouch = true;
+                touchStartTime = Date.now();
+
+                if (e.touches.length === 1) {
+                // 单指拖动
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+
+                } else if (e.touches.length === 2) {
+                // 双指缩放
+                isPinching = true;
+                isDragging = false;
+
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                initialDistance = getTouchDistance(touch1, touch2);
+                initialScale = scale;
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 1 && isDragging && !isPinching) {
+                // 单指拖动
+                const touch = e.touches[0];
+                translateX = touch.clientX - startX;
+                translateY = touch.clientY - startY;
+                updateTransform();
+
+                } else if (e.touches.length === 2 && isPinching) {
+                // 双指缩放
+                const touch1 = e.touches[0];
+                const touch2 = e.touches[1];
+                const currentDistance = getTouchDistance(touch1, touch2);
+
+                if (initialDistance > 0) {
+                    const newScale = Math.min(Math.max(
+                    initialScale * (currentDistance / initialDistance),
+                    0.3
+                    ), 4);
+                    scale = newScale;
+                    updateTransform();
+                }
+                }
+
+                e.preventDefault();
+            }, { passive: false });
+
+            mermaidElement.addEventListener('touchend', (e) => {
+                // 重置状态
+                if (e.touches.length === 0) {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                // 延迟重置isTouch，避免鼠标事件立即触发
+                setTimeout(() => {
+                    isTouch = false;
+                }, 100);
+                } else if (e.touches.length === 1 && isPinching) {
+                // 从双指变为单指，切换为拖动模式
+                isPinching = false;
+                isDragging = true;
+
+                const touch = e.touches[0];
+                startX = touch.clientX - translateX;
+                startY = touch.clientY - translateY;
+                }
+
+                updateTransform();
+            });
+
+            mermaidElement.addEventListener('touchcancel', (e) => {
+                isDragging = false;
+                isPinching = false;
+                initialDistance = 0;
+
+                setTimeout(() => {
+                isTouch = false;
+                }, 100);
+
+                updateTransform();
+            });
+
+            // Enhanced wheel zoom with better center point handling
+            container.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const rect = container.getBoundingClientRect();
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                const newScale = Math.min(Math.max(scale * delta, 0.3), 4);
+
+                // Adjust translation to zoom towards center
+                if (newScale !== scale) {
+                const scaleDiff = newScale / scale;
+                translateX = translateX * scaleDiff;
+                translateY = translateY * scaleDiff;
+                scale = newScale;
+
+                if (scale <= 1) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+
+                updateTransform();
+                }
+            });
+
+            // Initialize display
+            updateTransform();
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active TOC link highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Initialize mermaid controls after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMermaidControls();
+        });
+    </script>
+  
+
+</body></html>

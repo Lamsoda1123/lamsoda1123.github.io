@@ -1,0 +1,1231 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>投资组合深度调研：四大标的及替代选择分析</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --primary: #1e293b;
+            --secondary: #64748b;
+            --accent: #3b82f6;
+            --surface: #f8fafc;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+        }
+        
+        .serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .toc-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            border-right: 1px solid var(--border);
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+            margin: 3rem 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border: 1px solid var(--border);
+        }
+        
+        .citation {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .citation:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-fixed {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        @media (max-width: 767px) {
+            .hero-gradient + .relative .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-gradient + .relative .grid > div:first-child {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            
+            .hero-gradient + .relative h1 {
+                font-size: 1.75rem;
+            }
+            
+            .hero-gradient + .relative p {
+                font-size: 1rem;
+            }
+            
+            section {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            .metric-card {
+                word-break: break-word;
+            }
+        }
+        
+        .toc-link {
+            color: var(--secondary);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            display: block;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+            transition: all 0.2s ease;
+        }
+        
+        .toc-link:hover,
+        .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background: rgba(59, 130, 246, 0.05);
+        }
+        
+        .toc-link.sub {
+            font-size: 0.875rem;
+            padding-left: 1.5rem;
+            color: var(--secondary);
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="bg-gray-50">
+    <!-- Table of Contents -->
+    <nav class="toc-fixed">
+      <h3 class="text-lg font-bold text-gray-900 mb-4 serif">目录导航</h3>
+      <div class="space-y-1">
+        <a href="#executive-summary" class="toc-link">执行摘要</a>
+        <a href="#core-holdings" class="toc-link">核心持仓分析</a>
+        <a href="#pdd-analysis" class="toc-link sub">拼多多 (PDD)</a>
+        <a href="#google-analysis" class="toc-link sub">Google (GOOGL)</a>
+        <a href="#moutai-analysis" class="toc-link sub">贵州茅台</a>
+        <a href="#yili-analysis" class="toc-link sub">伊利股份</a>
+        <a href="#alternative-stocks" class="toc-link">替代标的分析</a>
+        <a href="#wuliangye" class="toc-link sub">五粮液</a>
+        <a href="#baidu" class="toc-link sub">百度 (BIDU)</a>
+        <a href="#alibaba" class="toc-link sub">阿里巴巴 (BABA)</a>
+        <a href="#other-alternatives" class="toc-link sub">其他优质标的</a>
+        <a href="#investment-recommendations" class="toc-link">投资建议</a>
+        <a href="#conclusion" class="toc-link">总结展望</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Hero Section -->
+      <section class="hero-gradient text-white">
+        <div class="container mx-auto px-4 sm:px-6 py-16">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div>
+              <h1 class="text-4xl md:text-5xl font-bold mb-6 serif italic leading-tight">
+                投资组合深度调研
+                <span class="block text-2xl md:text-3xl font-normal mt-2 opacity-90">
+                  四大标的及替代选择分析
+                </span>
+              </h1>
+              <p class="text-lg md:text-xl opacity-90 mb-8">
+                深度解析拼多多、Google、贵州茅台、伊利股份的投资价值，探索五粮液、百度、阿里巴巴等优质替代标的
+              </p>
+              <div class="flex flex-wrap gap-4">
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                  <i class="fas fa-chart-line mr-2"></i>
+                  <span class="font-semibold">价值投资</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                  <i class="fas fa-globe mr-2"></i>
+                  <span class="font-semibold">全球配置</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2">
+                  <i class="fas fa-shield-alt mr-2"></i>
+                  <span class="font-semibold">风险控制</span>
+                </div>
+              </div>
+            </div>
+            <div class="relative">
+              <img src="https://kimi-web-img.moonshot.cn/img/pbs.twimg.com/476edc5843dc34c6c2be7ac5190662a5a59dfbe5.jpg" alt="投资分析概念图" class="rounded-lg shadow-2xl w-full" size="large" aspect="wide" query="投资分析" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-lg"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Executive Summary -->
+      <section id="executive-summary" class="bg-white py-16">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-8 serif text-center">执行摘要</h2>
+          <div class="max-w-4xl mx-auto">
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 rounded-r-lg">
+              <p class="text-lg leading-relaxed">
+                您提出的投资组合配置（5万美金拼多多、5万美金Google、35万人民币茅台、35万人民币伊利股份）构建了一个跨市场、跨行业的多元化组合，旨在平衡高增长潜力与稳健价值。该组合的核心逻辑在于捕捉中国消费市场的结构性机会和全球科技创新的长期趋势。
+              </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-12">
+              <div class="metric-card rounded-xl p-6">
+                <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-rocket mr-2"></i>高增长代表
+                </h3>
+                <p class="text-gray-700">
+                  <strong>拼多多 (PDD)</strong>：海外业务Temu的巨大潜力是核心投资价值，但需关注地缘政治风险。当前估值相对合理，适合风险承受能力较高的投资者。
+                </p>
+              </div>
+              <div class="metric-card rounded-xl p-6">
+                <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-robot mr-2"></i>AI核心资产
+                </h3>
+                <p class="text-gray-700">
+                  <strong>Google (GOOGL)</strong>：AI时代的核心资产，拥有强大的技术护城河和稳定现金流。估值虽高，但增长前景能够支撑，是长期持有的优质标的。
+                </p>
+              </div>
+              <div class="metric-card rounded-xl p-6">
+                <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-wine-bottle mr-2"></i>价值压舱石
+                </h3>
+                <p class="text-gray-700">
+                  <strong>贵州茅台</strong>：A股的&#34;压舱石&#34;，拥有无与伦比的品牌护城河和定价权。当前估值处于历史合理区间，是抵御风险的绝佳选择。
+                </p>
+              </div>
+              <div class="metric-card rounded-xl p-6">
+                <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-cow mr-2"></i>稳健收益源
+                </h3>
+                <p class="text-gray-700">
+                  <strong>伊利股份</strong>：乳制品龙头，基本面稳健，但面临行业竞争压力。高分红政策提供安全边际，适合追求稳定现金流的投资者。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Core Holdings Analysis -->
+      <section id="core-holdings" class="py-16">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-12 serif text-center">核心持仓深度分析</h2>
+
+          <!-- PDD Analysis -->
+          <div id="pdd-analysis" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/5f35f3a83d1d8959dae836e63556996d5e422d6f" alt="拼多多公司标志" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" query="拼多多 logo" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">拼多多 (PDD)</h3>
+                  <p class="text-gray-600">高增长电商巨头</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">基本面与价值投资指标</h4>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市值</span>
+                      <span class="text-blue-600 font-bold">$1670亿</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">净利润率</span>
+                      <span class="text-green-600 font-bold">24.44%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">ROE (TTM)</span>
+                      <span class="text-green-600 font-bold">30.53%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市盈率 (TTM)</span>
+                      <span class="text-blue-600 font-bold">12.07x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">现金储备</span>
+                      <span class="text-green-600 font-bold">¥4237.7亿</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-4">
+                    数据来源: <a href="https://finance.yahoo.com/quote/PDD/key-statistics/" class="citation">Yahoo Finance</a>,
+                    <a href="https://finance.yahoo.com/quote/PDD/" class="citation">Yahoo Finance PDD</a>
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">业务与未来趋势</h4>
+                  <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-blue-800 mb-2">国内业务</h5>
+                      <p class="text-sm text-gray-700">打破阿里京东垄断，下沉市场护城河深厚，社交电商模式创新</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-green-800 mb-2">海外业务 Temu</h5>
+                      <p class="text-sm text-gray-700">全球化最大看点，北美欧洲快速扩张，采用半托管模式应对贸易政策变化</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-yellow-800 mb-2">潜在风险</h5>
+                      <p class="text-sm text-gray-700">地缘政治风险、海外监管审查、行业竞争加剧、季度盈利波动</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Google Analysis -->
+          <div id="google-analysis" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.citypng.com/e0a09375b9555408b2d8965d3d6fee9cc3d58397.png" alt="Google公司标志" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" color="blue" style="transparent" query="Google标志" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">Google (GOOGL)</h3>
+                  <p class="text-gray-600">AI驱动的科技巨头</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">基本面与价值投资指标</h4>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市值</span>
+                      <span class="text-blue-600 font-bold">$3.86万亿</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">净利润率</span>
+                      <span class="text-green-600 font-bold">32.23%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">ROE</span>
+                      <span class="text-green-600 font-bold">35.45%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市盈率 (TTM)</span>
+                      <span class="text-blue-600 font-bold">31.55x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">自由现金流</span>
+                      <span class="text-green-600 font-bold">$735.52亿</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-4">
+                    数据来源: <a href="https://finance.yahoo.com/quote/GOOGL/" class="citation">Yahoo Finance GOOGL</a>,
+                    <a href="https://www.gurufocus.com/term/total-free-cash-flow/GOOG" class="citation">GuruFocus</a>
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">业务与未来趋势</h4>
+                  <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-blue-800 mb-2">Google服务</h5>
+                      <p class="text-sm text-gray-700">搜索、YouTube广告强劲增长，订阅用户超3亿，稳定现金牛业务</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-green-800 mb-2">Google Cloud</h5>
+                      <p class="text-sm text-gray-700">积压订单激增46%达$1550亿，企业AI需求强劲增长</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-purple-800 mb-2">AI生态 Gemini</h5>
+                      <p class="text-sm text-gray-700">月活用户超6.5亿，每分钟处理70亿tokens，AI全面融入产品矩阵</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-yellow-800 mb-2">潜在风险</h5>
+                      <p class="text-sm text-gray-700">反垄断监管压力、AI领域激烈竞争、技术颠覆风险</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Moutai Analysis -->
+          <div id="moutai-analysis" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/q1.itc.cn/5b523efda171f32ff990c7171a218f1f08964707.png" alt="茅台酒瓶" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" color="brown" style="photo" query="茅台酒瓶" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">贵州茅台 (600519.SS)</h3>
+                  <p class="text-gray-600">高端白酒龙头</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">基本面与价值投资指标</h4>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">2025 H1营收</span>
+                      <span class="text-blue-600 font-bold">¥910.9亿</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">同比增长</span>
+                      <span class="text-green-600 font-bold">9.2%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">ROE (2025E)</span>
+                      <span class="text-green-600 font-bold">36.3%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市盈率 (2025E)</span>
+                      <span class="text-blue-600 font-bold">19.4x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">毛利率</span>
+                      <span class="text-green-600 font-bold">90.4%</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-4">
+                    数据来源: <a href="https://pdf.dfcfw.com/pdf/H3_AP202508131726808000_1.pdf" class="citation">Guosen Securities Research</a>
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">业务与未来趋势</h4>
+                  <div class="space-y-4">
+                    <div class="bg-red-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-red-800 mb-2">品牌价值</h5>
+                      <p class="text-sm text-gray-700">国酒地位不可动摇，高端宴请、礼品、收藏市场刚性需求，强大定价权</p>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-blue-800 mb-2">产品结构优化</h5>
+                      <p class="text-sm text-gray-700">聚焦核心高端产品，直销渠道收入同比增长18.6%，高附加值产品投放增加</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-green-800 mb-2">消费场景拓展</h5>
+                      <p class="text-sm text-gray-700">从&#34;卖酒&#34;向&#34;卖生活方式&#34;转变，文化IP产品、宴席场景营销创新</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-yellow-800 mb-2">潜在风险</h5>
+                      <p class="text-sm text-gray-700">行业景气度波动、消费需求代际更迭、政策监管风险</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Yili Analysis -->
+          <div id="yili-analysis" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/imgservice.suning.cn/22534472d8b1b1f8c360cdf6811479046959e4ab.jpg_800w_800h_4e_80Q_is" alt="伊利乳制品展示" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" style="photo" query="伊利乳制品" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">伊利股份 (600887.SS)</h3>
+                  <p class="text-gray-600">乳制品行业领导者</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">基本面与价值投资指标</h4>
+                  <div class="space-y-4">
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">2025 H1营收</span>
+                      <span class="text-blue-600 font-bold">¥619.33亿</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">同比增长</span>
+                      <span class="text-green-600 font-bold">3.37%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">扣非净利润增长</span>
+                      <span class="text-green-600 font-bold">31.78%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">市盈率 (TTM)</span>
+                      <span class="text-blue-600 font-bold">22.71x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <span class="font-medium">扣非净利润率</span>
+                      <span class="text-green-600 font-bold">11.33%</span>
+                    </div>
+                  </div>
+                  <p class="text-sm text-gray-600 mt-4">
+                    数据来源: <a href="https://www.webull.com/news/13436724658136064" class="citation">Webull Financial Report</a>,
+                    <a href="https://finance.yahoo.com/quote/600887.SS/key-statistics/" class="citation">Yahoo Finance</a>
+                  </p>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">业务与未来趋势</h4>
+                  <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-blue-800 mb-2">液态奶业务</h5>
+                      <p class="text-sm text-gray-700">营收¥361.26亿，占比58.33%，低温白奶增长超20%，基本盘稳固</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-green-800 mb-2">奶粉及奶制品</h5>
+                      <p class="text-sm text-gray-700">第二增长引擎，营收¥165.78亿，同比增长14.26%，市场份额领先</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-purple-800 mb-2">冷饮业务</h5>
+                      <p class="text-sm text-gray-700">营收¥82.29亿，同比增长12.39%，季节性消费贡献稳定利润</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                      <h5 class="font-semibold text-yellow-800 mb-2">潜在风险</h5>
+                      <p class="text-sm text-gray-700">行业竞争激烈、原材料成本波动、自由现金流短期为负</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Alternative Stocks Analysis -->
+      <section id="alternative-stocks" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-12 serif text-center">替代标的深度分析</h2>
+
+          <!-- Wuliangye -->
+          <div id="wuliangye" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/shoplineimg.com/b13ac81d7c4d8310f3c6cc0778ad30fc83475135.jpg" alt="五粮液白酒产品展示" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" color="brown" style="photo" query="五粮液白酒" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">五粮液 (000858.SZ)</h3>
+                  <p class="text-gray-600">白酒行业优质替代</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-3 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">与茅台对比</h4>
+                  <div class="space-y-3">
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>品牌价值</span>
+                      <span class="font-semibold">$278亿 vs $584亿</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>净利润率</span>
+                      <span class="font-semibold">36.7% vs 50%+</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>市盈率</span>
+                      <span class="font-semibold">15.21x vs 19.9x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>市净率</span>
+                      <span class="font-semibold">3.31x vs 6.97x</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">投资价值</h4>
+                  <div class="space-y-3">
+                    <div class="bg-green-50 p-3 rounded text-sm">
+                      <strong class="text-green-800">估值优势</strong>
+                      <p>PE仅15倍，估值处于历史低位，安全边际高</p>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded text-sm">
+                      <strong class="text-blue-800">市场地位</strong>
+                      <p>千元价格带绝对统治力，宴席市场优势明显</p>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded text-sm">
+                      <strong class="text-purple-800">股东信心</strong>
+                      <p>大股东低位增持8亿元，显示长期价值认可</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">风险提示</h4>
+                  <div class="space-y-3">
+                    <div class="bg-yellow-50 p-3 rounded text-sm">
+                      <strong class="text-yellow-800">行业调整</strong>
+                      <p>需求承压，渠道库存高，业绩短期下滑</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded text-sm">
+                      <strong class="text-red-800">价格倒挂</strong>
+                      <p>实际成交价低于指导价，定价权相对较弱</p>
+                    </div>
+                    <div class="bg-orange-50 p-3 rounded text-sm">
+                      <strong class="text-orange-800">竞争加剧</strong>
+                      <p>茅台持续挤压，泸州老窖等竞争对手追赶</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm text-gray-600 mt-4">
+                数据来源: <a href="https://brandfinance.com/press-releases/chinese-brands-raise-the-bar-as-global-leaders-in-alcoholic-drinks-2025-rankings" class="citation">Brand Finance</a>,
+                <a href="https://pdf.dfcfw.com/pdf/H3_AP202511061776241979_1.pdf" class="citation">CSC Financial</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Baidu -->
+          <div id="baidu" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/www.eternityx.com/38cea1c4c78c968ddcd32c1e4679df31c7bf82c8.png" alt="百度公司标志" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" color="blue" style="transparent" query="百度公司标志" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">百度 (BIDU)</h3>
+                  <p class="text-gray-600">AI转型中的科技巨头</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-2 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">核心业务架构</h4>
+                  <div class="space-y-3">
+                    <div class="bg-blue-50 p-3 rounded text-sm">
+                      <strong class="text-blue-800">传统核心</strong>
+                      <p>搜索和在线营销，稳定现金来源</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded text-sm">
+                      <strong class="text-green-800">AI云业务</strong>
+                      <p>Q3增长33%至¥42亿，主要增长引擎</p>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded text-sm">
+                      <strong class="text-purple-800">自动驾驶</strong>
+                      <p>Apollo Go Q3服务310万次，商业化潜力大</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">财务与估值</h4>
+                  <div class="space-y-3">
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>市盈率 (TTM)</span>
+                      <span class="font-semibold text-green-600">11.40-41.66x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>市净率</span>
+                      <span class="font-semibold text-green-600">1.15x</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>ROE (TTM)</span>
+                      <span class="font-semibold text-orange-600">3.08%</span>
+                    </div>
+                    <div class="flex justify-between items-center p-2 bg-gray-50 rounded text-sm">
+                      <span>现金储备</span>
+                      <span class="font-semibold text-blue-600">¥1248.1亿</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-6 p-4 bg-yellow-50 rounded-lg">
+                <h5 class="font-semibold text-yellow-800 mb-2">AI商业化亮点</h5>
+                <div class="grid grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <strong>AI营销</strong>
+                    <p class="text-gray-700">增长262%至¥28亿</p>
+                  </div>
+                  <div>
+                    <strong>AI原生应用</strong>
+                    <p class="text-gray-700">收入¥26亿，订阅模式</p>
+                  </div>
+                  <div>
+                    <strong>云业务预期</strong>
+                    <p class="text-gray-700">2026年增长61%</p>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm text-gray-600 mt-4">
+                数据来源: <a href="https://finance.yahoo.com/quote/BIDU/key-statistics/" class="citation">Yahoo Finance BIDU</a>,
+                <a href="https://capacityglobal.com/news/baidu-ai-third-quarter-results/" class="citation">Baidu Q3 Results</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Alibaba -->
+          <div id="alibaba" class="mb-16">
+            <div class="bg-white rounded-2xl shadow-lg p-8 card-hover">
+              <div class="flex items-center mb-6">
+                <img src="https://kimi-web-img.moonshot.cn/img/yqfile.alicdn.com/f5395ce63362321b3292da6faf32825c108d760c.png" alt="阿里巴巴集团标志" class="w-16 h-16 rounded-lg mr-4" size="small" aspect="square" color="orange" style="transparent" query="阿里巴巴集团标志" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                <div>
+                  <h3 class="text-2xl font-bold serif">阿里巴巴 (BABA)</h3>
+                  <p class="text-gray-600">电商与云计算双驱动</p>
+                </div>
+              </div>
+
+              <div class="grid lg:grid-cols-3 gap-8">
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">财务估值</h4>
+                  <div class="space-y-3">
+                    <div class="bg-green-50 p-3 rounded text-sm">
+                      <strong class="text-green-800">估值吸引</strong>
+                      <p>PE仅17.8-21.4x，远低于历史均值31.97x</p>
+                    </div>
+                    <div class="bg-blue-50 p-3 rounded text-sm">
+                      <strong class="text-blue-800">DCF估值</strong>
+                      <p>内在价值$260.97，折价38.4%</p>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded text-sm">
+                      <strong class="text-purple-800">分析师目标</strong>
+                      <p>平均目标价$160.54-198，上涨空间20-30%</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">AI与云业务</h4>
+                  <div class="space-y-3">
+                    <div class="bg-blue-50 p-3 rounded text-sm">
+                      <strong class="text-blue-800">云收入增长</strong>
+                      <p>Q2增长34%至¥398亿，AI产品三位数增长</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded text-sm">
+                      <strong class="text-green-800">投资计划</strong>
+                      <p>未来三年投入¥3800亿，建AI基础设施</p>
+                    </div>
+                    <div class="bg-purple-50 p-3 rounded text-sm">
+                      <strong class="text-purple-800">市场地位</strong>
+                      <p>中国AI云市场36%份额，Qwen模型受欢迎</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 class="text-lg font-semibold mb-4 text-blue-700">对比优势</h4>
+                  <div class="space-y-3">
+                    <div class="bg-yellow-50 p-3 rounded text-sm">
+                      <strong class="text-yellow-800">vs 拼多多</strong>
+                      <p>业务更多元，估值更低，但增长弹性较小</p>
+                    </div>
+                    <div class="bg-orange-50 p-3 rounded text-sm">
+                      <strong class="text-orange-800">vs Google</strong>
+                      <p>中国市场根基深，估值洼地，承担中概股风险</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded text-sm">
+                      <strong class="text-red-800">风险提示</strong>
+                      <p>地缘政治风险、电商增长瓶颈、资本支出压力</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <p class="text-sm text-gray-600 mt-4">
+                数据来源: <a href="https://finance.yahoo.com/quote/BABA/key-statistics/" class="citation">Yahoo Finance BABA</a>,
+                <a href="https://www.alibabacloud.com/blog/alibabas-core-businesses-reignite-growth-as-ai-strategy-delivers-strong-results_602006" class="citation">Alibaba Cloud</a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Other Alternatives -->
+          <div id="other-alternatives">
+            <h3 class="text-2xl font-bold serif mb-8 text-center">其他潜在优质标的</h3>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <div class="flex items-center mb-4">
+                  <img src="https://kimi-web-img.moonshot.cn/img/www.eternityx.com/489a090cbeee5d02c3add9e239b3bd187650e79e.png" alt="京东标志" class="w-12 h-12 rounded-lg mr-3" size="small" aspect="square" color="red" style="transparent" query="京东logo" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                  <h4 class="text-lg font-semibold serif">京东 (JD)</h4>
+                </div>
+                <div class="space-y-3 text-sm">
+                  <div class="bg-blue-50 p-3 rounded">
+                    <strong class="text-blue-800">估值洼地</strong>
+                    <p class="text-gray-700">PB仅0.4，历史性低位，自营+物流护城河</p>
+                  </div>
+                  <div class="bg-green-50 p-3 rounded">
+                    <strong class="text-green-800">服务增长</strong>
+                    <p class="text-gray-700">服务收入增长31%，占比达24.4%</p>
+                  </div>
+                  <div class="bg-yellow-50 p-3 rounded">
+                    <strong class="text-yellow-800">风险</strong>
+                    <p class="text-gray-700">新业务投入大，自由现金流恶化</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <div class="flex items-center mb-4">
+                  <img src="https://kimi-web-img.moonshot.cn/img/img.howjia.com/a22d7bd6fd8e0c20ab63653003784388ac341ba5.png" alt="美的集团生产的空调产品" class="w-12 h-12 rounded-lg mr-3" size="small" aspect="square" style="photo" query="美的集团 空调" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                  <h4 class="text-lg font-semibold serif">美的集团</h4>
+                </div>
+                <div class="space-y-3 text-sm">
+                  <div class="bg-blue-50 p-3 rounded">
+                    <strong class="text-blue-800">财务稳健</strong>
+                    <p class="text-gray-700">ROE 19.91%，PE 14.26x，估值合理</p>
+                  </div>
+                  <div class="bg-green-50 p-3 rounded">
+                    <strong class="text-green-800">高分红</strong>
+                    <p class="text-gray-700">股息率4.5%，稳定现金回报</p>
+                  </div>
+                  <div class="bg-purple-50 p-3 rounded">
+                    <strong class="text-purple-800">全球化</strong>
+                    <p class="text-gray-700">多元化业务，切入机器人赛道</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                <div class="flex items-center mb-4">
+                  <img src="https://kimi-web-img.moonshot.cn/img/imgservice.suning.cn/7986c7a3e99e476bf939ee1467ee317fd2910aa7.jpg_800w_800h_4e" alt="李宁品牌运动鞋展示" class="w-12 h-12 rounded-lg mr-3" size="small" aspect="square" style="photo" query="李宁运动鞋" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+                  <h4 class="text-lg font-semibold serif">李宁公司</h4>
+                </div>
+                <div class="space-y-3 text-sm">
+                  <div class="bg-blue-50 p-3 rounded">
+                    <strong class="text-blue-800">品牌力</strong>
+                    <p class="text-gray-700">国潮战略成功，深受年轻消费者喜爱</p>
+                  </div>
+                  <div class="bg-green-50 p-3 rounded">
+                    <strong class="text-green-800">赛道优势</strong>
+                    <p class="text-gray-700">运动休闲高增长赛道，潜力大</p>
+                  </div>
+                  <div class="bg-orange-50 p-3 rounded">
+                    <strong class="text-orange-800">波动性</strong>
+                    <p class="text-gray-700">时尚潮流变化快，业绩波动较高</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Investment Recommendations -->
+      <section id="investment-recommendations" class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-12 serif text-center">投资组合配置建议</h2>
+
+          <!-- Core Assessment -->
+          <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 serif">四大核心标的综合评估</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead class="bg-blue-50">
+                  <tr>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">标的</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">核心优势</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">主要劣势/风险</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">风险收益特征</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">拼多多 (PDD)</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>海外业务Temu</strong>巨大增长潜力
+                      <br/>
+                      • 国内市场强大护城河
+                      <br/>
+                      • 高效运营模式和盈利能力
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>地缘政治和海外监管</strong>风险高
+                      <br/>
+                      • 行业竞争加剧，需持续投入
+                      <br/>
+                      • 季度盈利波动性较大
+                    </td>
+                    <td class="border border-gray-200 p-4">
+                      <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">高风险，高回报</span>
+                      <p class="text-xs mt-1">增长故事极具吸引力，适合风险偏好较高的投资者</p>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">Google (GOOGL)</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>AI领域绝对领导地位</strong>
+                      <br/>
+                      • 核心广告业务现金流稳定
+                      <br/>
+                      • 云计算业务(GCP)增长迅速
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>反垄断监管</strong>压力长期存在
+                      <br/>
+                      • AI领域竞争激烈
+                      <br/>
+                      • 估值相对较高
+                    </td>
+                    <td class="border border-gray-200 p-4">
+                      <span class="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm font-semibold">中高风险，高回报</span>
+                      <p class="text-xs mt-1">科技巨头典范，长期增长逻辑清晰</p>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">贵州茅台</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>无与伦比的品牌护城河</strong>
+                      <br/>
+                      • 财务表现极其稳健
+                      <br/>
+                      • 产品多重属性叠加
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 行业景气度受宏观经济影响
+                      <br/>
+                      • 消费需求代际更迭风险
+                      <br/>
+                      • 政策监管风险
+                    </td>
+                    <td class="border border-gray-200 p-4">
+                      <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">低风险，稳健回报</span>
+                      <p class="text-xs mt-1">A股市场&#34;压舱石&#34;，防御性极佳</p>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">伊利股份</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 乳制品行业<strong>绝对龙头</strong>
+                      <br/>
+                      • 业务结构均衡，多品类布局
+                      <br/>
+                      • <strong>持续稳定高分红</strong>
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 行业竞争激烈，利润率承压
+                      <br/>
+                      • 原材料成本波动影响大
+                      <br/>
+                      • 自由现金流短期为负
+                    </td>
+                    <td class="border border-gray-200 p-4">
+                      <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-semibold">中低风险，中等回报</span>
+                      <p class="text-xs mt-1">稳健价值投资，提供良好股息回报</p>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Alternative Analysis -->
+          <div class="mb-12">
+            <h3 class="text-2xl font-semibold mb-6 serif">替代标的吸引力分析</h3>
+            <div class="overflow-x-auto">
+              <table class="w-full border-collapse bg-white rounded-lg shadow-lg overflow-hidden">
+                <thead class="bg-green-50">
+                  <tr>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">替代标的</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">对比优势</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">投资价值</th>
+                    <th class="border border-gray-200 p-4 text-left font-semibold">潜在风险</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">五粮液</td>
+                    <td class="border border-gray-200 p-4 text-sm">相比<strong>茅台</strong>，<strong>估值更低</strong>，安全边际更高</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 高端白酒双寡头，基本盘稳固
+                      <br/>
+                      • 估值历史低位，存在修复空间
+                      <br/>
+                      • 稳定分红和现金流
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 行业深度调整，业绩承压
+                      <br/>
+                      • 核心产品价格倒挂
+                      <br/>
+                      • 面临激烈竞争
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">百度 (BIDU)</td>
+                    <td class="border border-gray-200 p-4 text-sm">相比<strong>Google</strong>，估值更低，专注中国市场</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 中国AI领导者，技术商业化初见成效
+                      <br/>
+                      • 估值极低，安全边际显著
+                      <br/>
+                      • AI云和自动驾驶潜力巨大
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 高度依赖中国市场，监管风险
+                      <br/>
+                      • 新业务投入巨大，拖累利润
+                      <br/>
+                      • 面临国内激烈竞争
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-200 p-4 font-semibold">阿里巴巴 (BABA)</td>
+                    <td class="border border-gray-200 p-4 text-sm">相比<strong>拼多多</strong>业务更多元，相比<strong>Google</strong>中国市场根基更深</td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • <strong>估值显著低估</strong>，DCF显示巨大折价
+                      <br/>
+                      • 云计算和AI业务增长强劲
+                      <br/>
+                      • 电商基本盘稳固，现金流充裕
+                    </td>
+                    <td class="border border-gray-200 p-4 text-sm">
+                      • 中概股地缘政治风险
+                      <br/>
+                      • 电商主业增长瓶颈
+                      <br/>
+                      • 大规模资本支出压力
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Portfolio Recommendations -->
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-2xl p-8">
+            <h3 class="text-2xl font-semibold mb-6 serif text-center">优化配置建议</h3>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+              <div class="bg-white rounded-xl p-6 shadow-md">
+                <h4 class="text-lg font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-anchor mr-2"></i>维持核心
+                </h4>
+                <ul class="space-y-3 text-sm">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span><strong>坚定持有 Google 和贵州茅台</strong>：作为投资组合的基石，强大的护城河和长期增长逻辑</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span><strong>择机增配拼多多</strong>：在市场情绪过度悲观时，小幅增配以捕捉长期增长价值</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="bg-white rounded-xl p-6 shadow-md">
+                <h4 class="text-lg font-semibold mb-4 text-blue-700">
+                  <i class="fas fa-plus-circle mr-2"></i>引入替代
+                </h4>
+                <ul class="space-y-3 text-sm">
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span><strong>配置五粮液作为茅台补充</strong>：10-15%茅台仓位置换，降低持仓成本，增加弹性</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span><strong>战略性配置阿里巴巴或京东</strong>：20-30%拼多多仓位配置，分散中概股风险</span>
+                  </li>
+                  <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mr-2 mt-1"></i>
+                    <span><strong>考虑美的集团或李宁作为伊利补充</strong>：增加组合多元化，根据风险偏好选择</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-md">
+              <h4 class="text-lg font-semibold mb-4 text-blue-700">
+                <i class="fas fa-chart-pie mr-2"></i>优化后配置示例
+              </h4>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                <div class="bg-blue-50 p-3 rounded text-center">
+                  <strong class="text-blue-800">Google</strong>
+                  <p class="text-gray-700 mt-1">5w美金 (维持)</p>
+                </div>
+                <div class="bg-red-50 p-3 rounded text-center">
+                  <strong class="text-red-800">白酒组合</strong>
+                  <p class="text-gray-700 mt-1">35w人民币 (30w茅台+5w五粮液)</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded text-center">
+                  <strong class="text-green-800">中概科技</strong>
+                  <p class="text-gray-700 mt-1">5w美金 (3w拼多多+2w阿里巴巴)</p>
+                </div>
+                <div class="bg-purple-50 p-3 rounded text-center">
+                  <strong class="text-purple-800">消费组合</strong>
+                  <p class="text-gray-700 mt-1">35w人民币 (25w伊利+10w美的/李宁)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Conclusion -->
+      <section id="conclusion" class="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-6">
+          <h2 class="text-3xl font-bold mb-8 serif text-center">总结展望</h2>
+
+          <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-lg p-8">
+              <div class="prose prose-lg max-w-none">
+                <p class="text-lg leading-relaxed mb-6">
+                  您的初始投资组合配置思路清晰，成功构建了跨市场、跨行业的多元化组合，平衡了高增长潜力与稳健价值。通过对四大核心标的的深度分析，我们确认了该组合的基本逻辑合理性。
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                  <div class="bg-blue-50 p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-4 text-blue-700">
+                      <i class="fas fa-thumbs-up mr-2"></i>组合优势
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                      <li>• 全球科技与中国消费的有效结合</li>
+                      <li>• 高增长与稳健价值的平衡配置</li>
+                      <li>• 跨市场分散，降低单一市场风险</li>
+                      <li>• 行业龙头，具备强大竞争护城河</li>
+                    </ul>
+                  </div>
+
+                  <div class="bg-orange-50 p-6 rounded-xl">
+                    <h3 class="text-xl font-semibold mb-4 text-orange-700">
+                      <i class="fas fa-exclamation-triangle mr-2"></i>优化方向
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                      <li>• 通过替代标的降低持仓成本</li>
+                      <li>• 增加估值洼地标的配置</li>
+                      <li>• 分散单一中概股风险</li>
+                      <li>• 捕捉AI与云计算长期趋势</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <blockquote class="border-l-4 border-blue-500 pl-6 py-4 bg-blue-50 rounded-r-lg mb-6">
+                  <p class="text-lg italic serif">
+                    &#34;投资的成功不在于抓住每一波行情，而在于坚守正确的投资理念，并在市场波动中保持理性。&#34;
+                  </p>
+                  <footer class="text-sm text-gray-600 mt-2">— 价值投资的核心理念</footer>
+                </blockquote>
+
+                <div class="bg-green-50 p-6 rounded-xl">
+                  <h3 class="text-xl font-semibold mb-4 text-green-700">
+                    <i class="fas fa-lightbulb mr-2"></i>长期投资策略
+                  </h3>
+                  <div class="grid md:grid-cols-3 gap-4 text-sm">
+                    <div>
+                      <strong>定期审视</strong>
+                      <p class="text-gray-700 mt-1">每半年或一年对组合进行动态调整</p>
+                    </div>
+                    <div>
+                      <strong>分散控制</strong>
+                      <p class="text-gray-700 mt-1">单一标的不宜过重，避免过度集中</p>
+                    </div>
+                    <div>
+                      <strong>关注风险</strong>
+                      <p class="text-gray-700 mt-1">密切关注地缘政治和监管政策变化</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-gray-900 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+          <p class="text-gray-400">
+            本分析报告基于公开信息和第三方研究数据，仅供参考，不构成投资建议。投资有风险，入市需谨慎。
+          </p>
+          <p class="text-sm text-gray-500 mt-2">
+            数据截至 2025年12月 | 分析框架：价值投资 + 成长投资
+          </p>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for TOC links
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Active TOC link highlighting
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-link');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add subtle animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+    </script>
+  
+
+</body></html>
