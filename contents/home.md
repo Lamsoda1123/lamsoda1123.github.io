@@ -36,6 +36,6 @@ Bachelor of Economics in Economic Statistics -- Sep. 2018 — Jun. 2020
 - Financial Technology (FinTech)
 
 #### Technical Skills
-**Programming Languages**: Python, PyTorch, DGL, Spark, Git, Linux, LaTeX
+**Programming Languages**: Python, DGL, Spark, Linux, LaTeX
 **Languages**: English (IELTS 6.5), Chinese (Native), Cantonese (Fluent)
 
