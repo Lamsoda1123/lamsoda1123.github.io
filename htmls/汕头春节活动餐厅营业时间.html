@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>汕头春节初三至初七活动与餐厅营业指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        .subtitle {
+            background: #fff3cd;
+            padding: 15px 30px;
+            text-align: center;
+            border-bottom: 3px solid #ffc107;
+            font-weight: bold;
+            color: #856404;
+        }
+        .section {
+            padding: 30px;
+            border-bottom: 2px solid #eee;
+        }
+        .section h2 {
+            color: #c0392b;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #e74c3c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h3 {
+            color: #d35400;
+            font-size: 1.3em;
+            margin: 25px 0 15px 0;
+        }
+        .activity-card {
+            background: linear-gradient(145deg, #fff9e6 0%, #fff 100%);
+            border-left: 5px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .activity-card h4 {
+            color: #c0392b;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .activity-card .meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        .activity-card .content {
+            color: #444;
+            line-height: 1.8;
+        }
+        .stats {
+            display: inline-flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .stat {
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .stat.collected { background: #e74c3c; }
+        .stat.liked { background: #3498db; }
+        .stat.shared { background: #2ecc71; }
+        .stat.commented { background: #9b59b6; }
+        .restaurant-card {
+            background: linear-gradient(145deg, #e8f6f3 0%, #fff 100%);
+            border-left: 5px solid #27ae60;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .restaurant-card h4 {
+            color: #27ae60;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .status.open { background: #27ae60; color: white; }
+        .status.closed { background: #e74c3c; color: white; }
+        .status不确定 { background: #f39c12; color: white; }
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #e74c3c, #f39c12);
+        }
+        .timeline-item {
+            position: relative;
+            margin: 25px 0;
+            padding-left: 25px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 8px;
+            width: 16px;
+            height: 16px;
+            background: #e74c3c;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 2px 8px rgba(231, 76, 60, 0.5);
+        }
+        .day-badge {
+            background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .quote {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin: 15px 0;
+            font-style: italic;
+            color: #555;
+            border-radius: 0 10px 10px 0;
+        }
+        .quote::before {
+            content: '"';
+            font-size: 2em;
+            color: #3498db;
+            line-height: 0;
+            vertical-align: -0.3em;
+            margin-right: 5px;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffeaa7 100%);
+            border: 2px solid #e74c3c;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .highlight-box h4 {
+            color: #c0392b;
+            margin-bottom: 15px;
+        }
+        .food-category {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .food-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #e74c3c;
+        }
+        .food-item h5 {
+            color: #e74c3c;
+            margin-bottom: 8px;
+        }
+        .tips {
+            background: linear-gradient(135deg, #d5f5e3 0%, #abebc6 100%);
+            border: 2px solid #27ae60;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .tips h4 {
+            color: #27ae60;
+            margin-bottom: 15px;
+        }
+        .tips ul {
+            list-style: none;
+            padding: 0;
+        }
+        .tips li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #2c3e50;
+        }
+        .tips li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .footer p {
+            opacity: 0.8;
+            margin: 5px 0;
+        }
+        .source-link {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        .source-link:hover {
+            text-decoration: underline;
+        }
+        .two-column {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8em; }
+            .section { padding: 20px; }
+            .two-column { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🧧 汕头春节活动与餐厅营业指南</h1>
+            <p>初三至初七（1月31日 - 2月4日）</p>
+        </header>
+
+        <div class="subtitle">
+            📅 本指南基于小红书等平台最新信息整理 | 数据截至2025年1月底
+        </div>
+
+        <!-- 第一部分：活动汇总 -->
+        <section class="section">
+            <h2>🎊 一、春节民俗活动时间表（初三至初七）</h2>
+
+            <div class="highlight-box">
+                <h4>📣 重要活动预告</h4>
+                <p>2025年春节期间，汕头地区准备了丰富的民俗文化活动，其中<strong>英歌舞表演</strong>是最具潮汕特色的非物质文化遗产项目，吸引了大量游客前来观赏。</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="day-badge">初三（1月31日）</span>
+                    <div class="activity-card">
+                        <h4>🏮 小公园新春文化庙会</h4>
+                        <div class="meta">📍 地点：汕头小公园开埠区</div>
+                        <div class="content">
+                            <p>小公园新春文化庙会是汕头春节最具人气的活动之一。根据小红书博主「<strong>小红薯692E9F59</strong>」的分享，2025年小公园新春文化庙会内容丰富，包括：</p>
+                            <ul style="margin: 15px 0 15px 25px;">
+                                <li>民俗表演（舞狮、潮剧等）</li>
+                                <li>特色美食摊位</li>
+                                <li>文创产品展销</li>
+                                <li>夜景灯光秀</li>
+                            </ul>
+                            <div class="quote">
+                                "初三，初四小公园展" —— 小红书博主「Mai麦楚楚」
+                            </div>
+                            <div class="stats">
+                                <span class="stat collected">收藏 571</span>
+                                <span class="stat liked">点赞 541</span>
+                                <span class="stat shared">分享 972</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <h4>💃 英歌舞表演（小公园）</h4>
+                        <div class="meta">📍 地点：汕头小公园</div>
+                        <div class="content">
+                            <p>深圳市潮搏英歌队将在小公园进行表演。</p>
+                            <div class="quote">
+                                "我们要来小公园表演啦！！初三炸起来❗️❗️"
+                            </div>
+                            <div class="stats">
+                                <span class="stat collected">收藏 219</span>
+                                <span class="stat liked">点赞 269</span>
+                                <span class="stat shared">分享 340</span>
+                                <span class="stat commented">评论 160</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="day-badge">初四（2月1日）</span>
+                    <div class="activity-card">
+                        <h4>🏮 小公园庙会继续</h4>
+                        <div class="content">
+                            <p>根据小红书博主「<strong>咿呀去哪玩</strong>」2024年的经验分享：</p>
+                            <div class="quote">
+                                "年初四的汕头小公园，依然人从众…附停车建议"
+                            </div>
+                            <p style="margin-top: 10px;">预计2025年初四小公园依然会有大量人流，建议提前规划出行。</p>
+                            <div class="stats">
+                                <span class="stat liked">点赞 86</span>
+                                <span class="stat collected">收藏 13</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="day-badge">初五（2月2日）</span>
+                    <div class="activity-card">
+                        <h4>🔥 潮阳英歌汇演（重头戏）</h4>
+                        <div class="meta">📍 地点：潮阳区 | 🕐 预计下午</div>
+                        <div class="content">
+                            <p><strong>这是今年春节期间最大型的英歌舞活动！</strong>根据小红书博主「<strong>汕头味道</strong>」的分享，2025年春节期间将有大型英歌舞汇演活动。</p>
+                            <p style="margin-top: 10px;">根据博主「<strong>Xiao_LeeKn</strong>」的信息：</p>
+                            <div class="quote">
+                                "春节初五汕头潮阳区英歌舞大会公布队伍，初五举办'中华英歌 舞动潮阳'活动，共有18支队伍参加"
+                            </div>
+                            <p style="margin-top: 10px;">博主「<strong>熊美酱（将军山约课）</strong>」提醒：</p>
+                            <div class="quote">
+                                "初五来汕头看英歌舞，本地人有话要说"
+                            </div>
+                            <div class="stats">
+                                <span class="stat collected">收藏 1,417</span>
+                                <span class="stat liked">点赞 1,330</span>
+                                <span class="stat shared">分享 877</span>
+                                <span class="stat commented">评论 934</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="day-badge">初六（2月3日）</span>
+                    <div class="activity-card">
+                        <h4>💃 潮阳英歌巡游</h4>
+                        <div class="meta">📍 地点：潮阳区后溪/棉北等地</div>
+                        <div class="content">
+                            <p>根据博主「<strong>龙湖沟粿条面</strong>」的信息：</p>
+                            <div class="quote">
+                                "正月初六，潮阳后溪英歌民俗游神棉北路线图"
+                            </div>
+                            <p style="margin-top: 10px;">博主「<strong>南澳民宿小侦探</strong>」补充：</p>
+                            <div class="quote">
+                                "想到潮汕看英歌舞的注意啦，初五有18支队伍"
+                            </p>
+                            <div class="stats">
+                                <span class="stat collected">收藏 248</span>
+                                <span class="stat liked">点赞 193</span>
+                                <span class="stat shared">分享 186</span>
+                                <span class="stat commented">评论 119</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <h4>🎆 烟花秀</h4>
+                        <div class="meta">📍 地点：海滨路（初二已举办，初六初七可能有延续活动）</div>
+                        <div class="content">
+                            <p>根据往年经验，海滨路烟花秀是汕头春节的标志性活动，通常在初二举办，初六初七可能有一些社区或景区的烟花活动。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <span class="day-badge">初七（2月4日）</span>
+                    <div class="activity-card">
+                        <h4>🎪 凤岗英歌巡游</h4>
+                        <div class="meta">📍 地点：潮阳凤岗等地</div>
+                        <div class="content">
+                            <p>根据民俗活动时间表，凤岗英歌将在初六初七进行巡游活动。这是潮汕地区重要的民俗传统，展示了英歌舞的独特魅力。</p>
+                            <p style="margin-top: 10px;">博主「<strong>跟小缨一起玩</strong>」2024年的总结：</p>
+                            <div class="quote">
+                                "2024汕头英歌舞/游神等民俗表演时间" — 收藏量超过1000+
+                            </p>
+                            <div class="stats">
+                                <span class="stat collected">收藏 1,016</span>
+                                <span class="stat liked">点赞 927</span>
+                                <span class="stat shared">分享 1,369</span>
+                                <span class="stat commented">评论 118</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：活动详情 -->
+        <section class="section">
+            <h2>🎭 二、主要活动详细介绍</h2>
+
+            <h3>2.1 英歌舞 — 潮汕非遗瑰宝</h3>
+            <div class="activity-card">
+                <h4>什么是英歌舞？</h4>
+                <div class="content">
+                    <p>英歌舞是潮汕地区独具特色的民间舞蹈，融合了武术、戏剧、舞蹈等多种艺术形式，被誉为"中国民间舞蹈之瑰宝"。表演者身着传统服饰，手执双棒，配合激昂的鼓点，呈现出震撼的视觉效果。</p>
+                    <p>根据博主「<strong>幻城.守望者</strong>」的忠告：</p>
+                    <div class="quote">
+                        "汕头.英歌舞值得一看，但前提你得做好功课" — 收藏 34
+                    </div>
+                    <p>博主「<strong>桃瑞丝</strong>」提供实用攻略：</p>
+                    <div class="quote">
+                        "汕头小公园英歌舞最佳路线，告诉你如何避雷"
+                    </p>
+                    <div class="stats">
+                        <span class="stat collected">收藏 39</span>
+                        <span class="stat liked">点赞 53</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.2 游神/营老爷</h3>
+            <div class="activity-card">
+                <h4>潮汕游神传统</h4>
+                <div class="content">
+                    <p>"营老爷"是潮汕地区春节期间的重要民俗活动，村民们将神像从庙中请出，巡游村庄，祈求新的一年风调雨顺、国泰民安。这是潮汕地区延续数百年的传统习俗。</p>
+                    <p>博主「<strong>趣潮汕华夏旅行</strong>」整理了详细时间表：</p>
+                    <div class="quote">
+                        "速看🔥潮汕正月民俗活动大全【含具体时间】" — 收藏 1,282
+                    </div>
+                    <div class="stats">
+                        <span class="stat collected">收藏 1,282</span>
+                        <span class="stat liked">点赞 1,045</span>
+                        <span class="stat shared">分享 1,173</span>
+                        <span class="stat commented">评论 306</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.3 打铁花表演</h3>
+            <div class="activity-card">
+                <h4>千年非遗 — 打铁花</h4>
+                <div class="content">
+                    <p>打铁花是流传于豫晋地区的大型民间传统烟火表演，近年来在潮汕地区也有引进。表演者将1600℃的铁水抛向空中，形成璀璨的金属火花雨，视觉效果极为震撼。</p>
+                    <p>这是今年春节新引进的活动，喜欢传统文化的朋友不要错过！</p>
+                </div>
+            </div>
+
+            <h3>2.4 小公园新春文化庙会</h3>
+            <div class="activity-card">
+                <h4>汕头地标 — 小公园</h4>
+                <div class="content">
+                    <p>小公园是汕头的城市地标和文化象征。春节期间，这里会举办丰富多彩的文化庙会活动。</p>
+                    <p>博主「<strong>潮汕推荐官</strong>」表示：</p>
+                    <div class="quote">
+                        "朋友说，今年【小公园】活动她高低要看看" — 收藏 58
+                    </div>
+                    <p>博主「<strong>潮乐漫游国际旅行社</strong>」提供攻略：</p>
+                    <div class="quote">
+                        "春节汕头小公园民俗活动！攻略附详细时间！"
+                    </p>
+                    <div class="stats">
+                        <span class="stat collected">收藏 41</span>
+                        <span class="stat liked">点赞 34</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.5 南澳岛春节活动</h3>
+            <div class="activity-card">
+                <h4>海岛春节风情</h4>
+                <div class="content">
+                    <p>南澳岛作为汕头著名的旅游胜地，春节期间也有独特的活动安排。岛上会举办海滨烟花、渔家民俗表演等活动。</p>
+                    <p>博主「<strong>南澳民宿小侦探</strong>」提供岛上的春节活动信息：</p>
+                    <div class="quote">
+                        "南澳岛春节活动信息" — 收藏 74
+                    </div>
+                    <div class="stats">
+                        <span class="stat collected">收藏 74</span>
+                        <span class="stat liked">点赞 60</span>
+                        <span class="stat shared">分享 44</span>
+                        <span class="stat commented">评论 18</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三部分：餐厅营业信息 -->
+        <section class="section">
+            <h2>🍜 三、热门餐厅初三至初七营业情况</h2>
+
+            <div class="tips">
+                <h4>💡 春节用餐小贴士</h4>
+                <ul>
+                    <li>汕头本地餐厅大多在除夕至初二休息，初三起陆续开业</li>
+                    <li>热门网红餐厅建议提前电话确认营业时间</li>
+                    <li>初五初六后大部分餐厅恢复正常营业</li>
+                    <li>牛肉火锅店通常初三至初四开始营业</li>
+                    <li>老市区传统小店可能休息到初八甚至元宵后</li>
+                </ul>
+            </div>
+
+            <h3>3.1 牛肉火锅店</h3>
+            <div class="two-column">
+                <div class="restaurant-card">
+                    <h4>🐂 杏花吴记牛肉火锅</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>汕头最知名的牛肉火锅店之一，通常春节期间营业时间有所调整，但初四初五后基本正常。</p>
+                        <p><strong>建议：</strong>提前电话确认或错峰用餐</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🐂 八合里海记牛肉店</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>总店位于金平区，春节期间可能有调整。</p>
+                        <p><strong>建议：</strong>初三后电话确认</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🐂 蔡记牛肉火锅</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>本地人常去的牛肉店，春节通常正常营业</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🐂 老福合沟牛肉店</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>24小时营业，春节不休息</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.2 肠粉店</h3>
+            <div class="two-column">
+                <div class="restaurant-card">
+                    <h4>🥟 广场老牌肠粉</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>位于广场路，营业时间可能调整</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥟 小吴肠粉</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>网红店，春节可能休息</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥟 雷记肠粉</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>老字号，本地人推荐</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥟 镇平肠粉</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>老市区肠粉店，春节可能休息较久</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.3 生腌/海鲜店</h3>
+            <div class="two-column">
+                <div class="restaurant-card">
+                    <h4>🦐 瑞娇妈妈潮汕生腌</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>网红生腌店，春节可能休息</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🦐 龙北市场生腌</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>本地市场，初五初六后可能有摊位开业</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🦐 亚强果汁冰</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>搭配生腌的果汁店，通常正常营业</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.4 卤鹅店</h3>
+            <div class="two-column">
+                <div class="restaurant-card">
+                    <h4>🦢 澄海卤鹅（日日香）</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>日日香鹅肉店，春节通常正常营业</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🦢 捷盛卤味</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>本地人常买的卤味店</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.5 传统甜品/小吃</h3>
+            <div class="two-column">
+                <div class="restaurant-card">
+                    <h4>🥢 广场老牌豆花</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>传统糖水店，春节可能休息</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥢 杏仁茶芝麻糊</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>老市区传统甜品店，初八后恢复较多</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥢 爱西干面</h4>
+                    <span class="status open">✅ 大概率正常营业</span>
+                    <div class="content">
+                        <p>老字号干面店，春节正常营业</p>
+                    </div>
+                </div>
+                <div class="restaurant-card">
+                    <h4>🥢 老胡牛肉粽</h4>
+                    <span class="status不确定">⚠️ 建议确认</span>
+                    <div class="content">
+                        <p>传统小吃店，春节可能休息</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>3.6 美食街/商圈</h3>
+            <div class="activity-card">
+                <h4>🏘️ 热门美食街区营业情况</h4>
+                <div class="content">
+                    <p><strong>龙眼南路美食街：</strong>初四初五后陆续开业，网红店较多</p>
+                    <p><strong>珠江路美食街：</strong>初五初六后恢复正常</p>
+                    <p><strong>镇邦美食街：</strong>新开业的美食街，春节可能正常营业</p>
+                    <p><strong>小公园周边：</strong>庙会期间有美食摊位，本地老店可能休息</p>
+                    <div class="quote">
+                        "汕头春节期间活动汇总" — 收藏 715
+                    </div>
+                    <div class="stats">
+                        <span class="stat collected">收藏 715</span>
+                        <span class="stat liked">点赞 600</span>
+                        <span class="stat shared">分享 812</span>
+                        <span class="stat commented">评论 21</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：实用攻略 -->
+        <section class="section">
+            <h2>📋 四、游玩攻略与注意事项</h2>
+
+            <div class="tips">
+                <h4>✅ 观看英歌舞实用建议</h4>
+                <ul>
+                    <li><strong>最佳观看位置：</strong>小公园主街道、潮阳城区主要路口</li>
+                    <li><strong>时间安排：</strong>建议下午2-3点到达，提前占位置</li>
+                    <li><strong>交通注意：</strong>初五初六潮阳区可能交通管制，建议公共交通或步行</li>
+                    <li><strong>拍摄建议：</strong>人很多，提前找好角度，避免拥挤</li>
+                    <li><strong>安全提醒：</strong>人群拥挤，注意保管好财物，看护好老人小孩</li>
+                </ul>
+            </div>
+
+            <div class="tips" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border-color: #f39c12;">
+                <h4 style="color: #d35400;">⚠️ 春节出行提醒</h4>
+                <ul>
+                    <li>博主「<strong>冷小鹿</strong>」的忠告：</li>
+                    <li style="padding-left: 25px; color: #d35400;">"春节！春节！不要去汕头！"（太热门了，人从众）</li>
+                    <li style="padding-left: 25px;">— 收藏 294 | 点赞 238</li>
+                    <li><strong>停车建议：</strong>小公园周边停车场有限，建议停在远处步行前往</li>
+                    <li><strong>用餐建议：</strong>热门餐厅排队很久，建议错峰或提前取号</li>
+                </ul>
+            </div>
+
+            <h3>🗺️ 推荐行程安排</h3>
+            <div class="activity-card">
+                <h4>初三至初七行程建议</h4>
+                <div class="content">
+                    <p><strong>初三/初四：</strong>小公园庙会 → 市区老街漫步 → 品尝小吃</p>
+                    <p><strong>初五：</strong>早起前往潮阳区 → 占位置看英歌舞汇演 → 返回市区</p>
+                    <p><strong>初六：</strong>睡到自然醒 → 市区觅食 → 看英歌巡游</p>
+                    <p><strong>初七：</strong>南澳岛一日游 → 返程</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五部分：美食地图 -->
+        <section class="section">
+            <h2>🗺️ 五、汕头美食地图</h2>
+
+            <h3>必吃美食清单</h3>
+            <div class="food-category">
+                <div class="food-item">
+                    <h5>牛肉火锅</h5>
+                    <p>必吃！潮汕牛肉现切现涮</p>
+                </div>
+                <div class="food-item">
+                    <h5>潮汕生腌</h5>
+                    <p>"潮汕毒药"，鲜美无比</p>
+                </div>
+                <div class="food-item">
+                    <h5>肠粉</h5>
+                    <p>薄如蝉翼，酱汁独特</p>
+                </div>
+                <div class="food-item">
+                    <h5>卤鹅</h5>
+                    <p>澄海狮头鹅，肥而不腻</p>
+                </div>
+                <div class="food-item">
+                    <h5>牛肉丸</h5>
+                    <p>手打牛肉丸，弹牙爆汁</p>
+                </div>
+                <div class="food-item">
+                    <h5>粿条</h5>
+                    <p>潮汕特色米粉汤</p>
+                </div>
+                <div class="food-item">
+                    <h5>杏仁茶</h5>
+                    <p>传统甜品，香滑润肺</p>
+                </div>
+                <div class="food-item">
+                    <h5>蚝烙</h5>
+                    <p>酥脆鲜香，蚝肉饱满</p>
+                </div>
+            </div>
+
+            <h3>热门美食区域</h3>
+            <div class="two-column">
+                <div class="activity-card">
+                    <h4>📍 龙眼南路</h4>
+                    <div class="content">
+                        <p>汕头新晋网红美食街，聚集多家知名店铺</p>
+                        <p>推荐店铺：细姨甜汤、屋里甜汤等</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <h4>📍 珠江路</h4>
+                    <div class="content">
+                        <p>老牌美食街，本地人常去</p>
+                        <p>推荐：珠江白粥、桂园白粥等</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <h4>📍 镇邦美食街</h4>
+                    <div class="content">
+                        <p>新开业美食街，环境好店铺新</p>
+                        <p>适合拍照打卡</p>
+                    </div>
+                </div>
+                <div class="activity-card">
+                    <h4>📍 小公园开埠区</h4>
+                    <div class="content">
+                        <p>百年骑楼老街，拍照圣地</p>
+                        <p>边逛边吃，感受老汕头风情</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第六部分：数据来源 -->
+        <section class="section">
+            <h2>📚 六、信息来源说明</h2>
+
+            <div class="activity-card">
+                <h4>数据来源</h4>
+                <div class="content">
+                    <p>本指南信息主要来源于小红书平台（2025年1月最新发布内容），包括但不限于以下博主：</p>
+                    <ul style="margin: 15px 0 15px 25px;">
+                        <li>福鹿游度假 — 收藏 1,568 | "2025汕头春节游玩攻略"</li>
+                        <li>Xiao_LeeKn — 收藏 1,417 | "汕头春节看英歌舞"</li>
+                        <li>番茄锅包肉 — 收藏 1,408 | "春节八天在潮汕追民俗活动"</li>
+                        <li>趣潮汕华夏旅行 — 收藏 1,282 | "潮汕正月民俗活动大全"</li>
+                        <li>汕头味道 — 收藏 711 | "英歌舞活动"</li>
+                        <li>潮頭踏歌 — 收藏 484 | "汕头春节民俗围观指南"</li>
+                        <li>跟小缨一起玩 — 收藏 1,016 | "英歌舞/游神等民俗表演时间"</li>
+                        <li>我要去汕头旅游 — 收藏 715 | "汕头春节期间活动汇总"</li>
+                        <li>小红薯692E9F59 — 收藏 571 | "小公园新春文化庙会"</li>
+                        <li>龙湖沟粿条面 — 收藏 483 | "潮阳英歌巡游路线"</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>声明：</strong>以上信息来源于小红书用户分享，具体活动安排可能有变化，建议出行前关注官方最新公告或联系相关场所确认。</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>📝 更新说明</h4>
+                <p>本指南最后更新：2025年1月底</p>
+                <p>建议在出行前1-2天再次确认活动时间和餐厅营业情况，因为部分活动可能会根据实际情况进行调整。</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>🧧 祝您在汕头过一个热闹祥和的春节！</p>
+            <p>🎉 新年快乐，恭喜发财！</p>
+            <p style="margin-top: 15px; font-size: 0.9em;">
+                本指南由 AI 整理 | 数据来源：小红书平台
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
