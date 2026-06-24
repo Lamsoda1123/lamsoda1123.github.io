@@ -21,3 +21,9 @@ Bachelor of Science in Statistics -- Sep. 2020 — Jun. 2022
 Bachelor of Economics in Economic Statistics -- Sep. 2018 — Jun. 2020
 
 - GPA: 3.5/4.0, with strong performance in data analysis and econometrics
+
+#### Technical Skills
+
+**Programming Languages**: Python, DGL, Spark, Linux, LaTeX
+
+**Languages**: English (IELTS 6.5), Chinese (Native), Cantonese (Fluent)
