@@ -6,12 +6,13 @@ Sida Lin is a Ph.D. student at HKUST HKGAI, focusing on deep research in Large L
 
 #### Contact
 
-📧 Email: Lamsoda@163.com
+📧 Email: slincn@connect.ust.hk
 
 🔬 [OpenReview](https://openreview.net/profile?id=~Sida_Lin1)
 
 #### Research Interests
 - Deep Research in Large Language Models (LLMs)
+- Audio LLMs and ASR Correction
+- Agentic Search and Efficient Inference
 - Graph Neural Networks and Anomaly Detection
-- Data Mining and Machine Learning
-- Financial Technology (FinTech)
+- Quantitative Trading
